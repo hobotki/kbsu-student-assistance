@@ -1,0 +1,2 @@
+rootProject.name = "KBSU Student Assistance"
+include ':app'

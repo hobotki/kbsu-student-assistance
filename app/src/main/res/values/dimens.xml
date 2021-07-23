@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="button_corners_radius">5dp</dimen>
+    <dimen name="button_stroke_width">1dp</dimen>
+    <dimen name="default_padding">16dp</dimen>
+    <dimen name="elements_margin">10dp</dimen>
+</resources>
