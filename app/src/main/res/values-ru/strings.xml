@@ -1,0 +1,11 @@
+<resources>
+    <string name="app_name">Помощник студента КБГУ</string>
+    <string name="student_emoji">👨‍🎓</string>
+    <string name="second_name_hint">Фамилия</string>
+    <string name="record_book_hint">Номер зачетной книжки</string>
+    <string name="authorisation">Вход</string>
+    <string name="second_name_is_empty">Фамилия не заполнена</string>
+    <string name="second_name_too_short">Длина фамилии не соответствует минимальной</string>
+    <string name="record_book_is_empty">Номер зачетной книжки не заполнен</string>
+    <string name="record_book_too_short">Длина номера зачетной книжки не соответствует минимальной</string>
+</resources>

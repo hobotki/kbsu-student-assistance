@@ -1,6 +1,11 @@
 <resources>
     <string name="app_name">KBSU Student Assistance</string>
-    <string name="second_name_hint">Фамилия</string>
-    <string name="record_book_hint">Номер зачетной книжки</string>
-    <string name="authorisation">Вход</string>
+    <string name="student_emoji">👨‍🎓</string>
+    <string name="second_name_hint">Second name</string>
+    <string name="record_book_hint">Record book number</string>
+    <string name="authorisation">Log in</string>
+    <string name="second_name_is_empty">Second name is empty</string>
+    <string name="second_name_too_short">Second name length is too short</string>
+    <string name="record_book_is_empty">Record book number is empty</string>
+    <string name="record_book_too_short">Record book number length is too short</string>
 </resources>
