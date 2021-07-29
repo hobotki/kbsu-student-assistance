@@ -56,16 +56,16 @@ class LoginFragment : Fragment() {
     }
 
     private fun showSecondNameFieldError(result: VerificationResult) {
-        if (result == VerificationResult.SECOND_NAME_TOO_SHORT)
+        if (result == VerificationResult.FIELD_IS_TOO_SHORT)
             binding.secondNameTextInputLayout.showError(getString(R.string.second_name_too_short))
-        if (result == VerificationResult.EMPTY_SECOND_NAME)
+        if (result == VerificationResult.FIELD_IS_EMPTY)
             binding.secondNameTextInputLayout.showError(getString(R.string.second_name_is_empty))
     }
 
     private fun showRecordBookNumberFieldError(result: VerificationResult) {
-        if (result == VerificationResult.RECORD_BOOK_NUMBER_TOO_SHORT)
+        if (result == VerificationResult.FIELD_IS_TOO_SHORT)
             binding.recordBookNumberTextInputLayout.showError(getString(R.string.record_book_too_short))
-        if (result == VerificationResult.EMPTY_RECORD_BOOK_NUMBER)
+        if (result == VerificationResult.FIELD_IS_EMPTY)
             binding.recordBookNumberTextInputLayout.showError(getString(R.string.record_book_is_empty))
     }
 
@@ -113,6 +113,5 @@ class LoginFragment : Fragment() {
         private const val RECORD_BOOK_NUMBER_ERROR_ENABLED = "record_book_number_error_enabled"
         private const val SECOND_NAME_ERROR_MESSAGE = "second_name_error_message"
         private const val RECORD_BOOK_NUMBER_ERROR_MESSAGE = "record_book_number_error_message"
-
     }
 }
