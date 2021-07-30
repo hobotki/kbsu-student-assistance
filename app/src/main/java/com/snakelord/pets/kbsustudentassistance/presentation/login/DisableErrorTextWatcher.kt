@@ -1,7 +1,7 @@
 package com.snakelord.pets.kbsustudentassistance.presentation.login
 
 import com.google.android.material.textfield.TextInputLayout
-import com.snakelord.pets.kbsustudentassistance.presentation.common.simple_interfaces.SimpleTextWatcher
+import com.snakelord.pets.kbsustudentassistance.common.simple_interfaces.SimpleTextWatcher
 
 class DisableErrorTextWatcher(private val textInputLayout: TextInputLayout) : SimpleTextWatcher() {
 
