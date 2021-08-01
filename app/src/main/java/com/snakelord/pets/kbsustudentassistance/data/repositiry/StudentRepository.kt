@@ -14,10 +14,10 @@ class StudentRepository {
 
     private val database = FirebaseDatabase.getInstance()
 
-    fun getStudent(secondName: String, recordBookNumber: String): Observable<State> {
+    fun getStudent(secondName: String, recordBookNumber: String): Observable<State<Student>> {
         val studentsReference = database.getReference(STUDENTS_ROOT_REFERENCE)
         val currentStudentReference = studentsReference.child(recordBookNumber)
-        return Observable.create { observableEmitter: ObservableEmitter<State> ->
+        return Observable.create { observableEmitter: ObservableEmitter<State<Student>> ->
             observableEmitter.onNext(State.Loading)
             currentStudentReference.addListenerForSingleValueEvent(object : ValueEventListener {
                 override fun onDataChange(snapshot: DataSnapshot) {
@@ -32,7 +32,7 @@ class StudentRepository {
     }
 
 
-    private fun getStudentFromSnapshot(snapshot: DataSnapshot, secondName: String): State {
+    private fun getStudentFromSnapshot(snapshot: DataSnapshot, secondName: String): State<Student> {
         val student = snapshot.getValue(Student::class.java)
         return if (student == null) {
             State.Error(R.string.record_book_miss_match)

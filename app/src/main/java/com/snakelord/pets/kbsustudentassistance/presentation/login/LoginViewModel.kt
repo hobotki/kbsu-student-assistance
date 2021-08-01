@@ -4,6 +4,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.snakelord.pets.kbsustudentassistance.data.model.State
+import com.snakelord.pets.kbsustudentassistance.data.model.Student
 import com.snakelord.pets.kbsustudentassistance.domain.VerificationResult
 import com.snakelord.pets.kbsustudentassistance.domain.interactor.LoginInteractor
 import io.reactivex.rxjava3.schedulers.Schedulers
@@ -12,8 +13,8 @@ class LoginViewModel : ViewModel() {
 
     private val loginInteractor = LoginInteractor()
 
-    private val studentLoginResult = MutableLiveData<State>()
-    val loginResult: LiveData<State>
+    private val studentLoginResult = MutableLiveData<State<Student>>()
+    val loginResult: LiveData<State<Student>>
         get() = studentLoginResult
 
     private val secondNameVerificationResult = MutableLiveData<VerificationResult>()

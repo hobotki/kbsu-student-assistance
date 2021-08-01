@@ -28,7 +28,7 @@ class LoginInteractor {
         }
     }
 
-    fun loginUser(secondName: String, recordBookNumber: String): Observable<State> {
+    fun loginUser(secondName: String, recordBookNumber: String): Observable<State<Student>> {
         return repository.getStudent(secondName, recordBookNumber)
     }
 

@@ -10,6 +10,7 @@ import androidx.lifecycle.ViewModelProvider
 import com.google.android.material.snackbar.Snackbar
 import com.snakelord.pets.kbsustudentassistance.R
 import com.snakelord.pets.kbsustudentassistance.data.model.State
+import com.snakelord.pets.kbsustudentassistance.data.model.Student
 import com.snakelord.pets.kbsustudentassistance.databinding.FragmentLoginBinding
 import com.snakelord.pets.kbsustudentassistance.domain.VerificationResult
 import com.snakelord.pets.kbsustudentassistance.presentation.common.BaseFragment
@@ -99,14 +100,14 @@ class LoginFragment : BaseFragment() {
         binding.loginButton.enable()
     }
 
-    private fun showSuccess(state: State) {
+    private fun showSuccess(state: State<Student>) {
         when (state) {
             State.Loading -> disableAll()
             is State.Error -> {
                 enableAll()
                 performError(state.errorMessageId)
             }
-            is State.Successful<*> -> hideAll()
+            is State.Successful<Student> -> hideAll()
         }
     }
 
