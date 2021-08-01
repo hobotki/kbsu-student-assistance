@@ -8,4 +8,8 @@
     <string name="second_name_too_short">Second name length is too short</string>
     <string name="record_book_is_empty">Record book number is empty</string>
     <string name="record_book_too_short">Record book number length is too short</string>
+    <string name="second_name_miss_match">Unable to find student with this second name</string>
+    <string name="record_book_miss_match">Unable to find student with this record book number</string>
+    <string name="something_went_wrong">Something went wrong. Try again later</string>
+    <string name="connection_lost">Connection is lost</string>
 </resources>

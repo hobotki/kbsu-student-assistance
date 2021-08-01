@@ -1,34 +1,40 @@
 package com.snakelord.pets.kbsustudentassistance.presentation.login
 
+import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.fragment.app.Fragment
+import android.view.inputmethod.InputMethodManager
+import androidx.lifecycle.ViewModelProvider
+import com.google.android.material.snackbar.Snackbar
 import com.snakelord.pets.kbsustudentassistance.R
+import com.snakelord.pets.kbsustudentassistance.data.model.State
 import com.snakelord.pets.kbsustudentassistance.databinding.FragmentLoginBinding
 import com.snakelord.pets.kbsustudentassistance.domain.VerificationResult
-import com.snakelord.pets.kbsustudentassistance.domain.interactor.LoginInteractor
-import com.snakelord.pets.kbsustudentassistance.presentation.common.extensions.gone
-import com.snakelord.pets.kbsustudentassistance.presentation.common.extensions.showError
-import com.snakelord.pets.kbsustudentassistance.presentation.common.extensions.visible
+import com.snakelord.pets.kbsustudentassistance.presentation.common.BaseFragment
+import com.snakelord.pets.kbsustudentassistance.presentation.common.extensions.*
 
-class LoginFragment : Fragment() {
+class LoginFragment : BaseFragment() {
 
     private var loginFragmentBinding: FragmentLoginBinding? = null
     private val binding
         get() = loginFragmentBinding!!
 
-    private val loginInteractor = LoginInteractor()
+    private lateinit var loginViewModel: LoginViewModel
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         loginFragmentBinding = FragmentLoginBinding.inflate(inflater, container, false)
+        loginViewModel = ViewModelProvider(this).get(LoginViewModel::class.java)
         return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         initUI()
+        loginViewModel.secondNameVerification.observe(viewLifecycleOwner, ::showSecondNameFieldError)
+        loginViewModel.recordBookVerification.observe(viewLifecycleOwner, ::showRecordBookNumberFieldError)
+        loginViewModel.loginResult.observe(viewLifecycleOwner, ::showSuccess)
     }
 
     private fun initUI() {
@@ -38,21 +44,26 @@ class LoginFragment : Fragment() {
         binding.recordBookNumber
             .addTextChangedListener(DisableErrorTextWatcher(binding.recordBookNumberTextInputLayout))
 
-        binding.loginButton.setOnClickListener { verifyFields() }
+        binding.loginButton.setOnClickListener { login() }
     }
 
-    private fun verifyFields() {
-        val secondName = binding.secondName.text.toString()
-        val recordBookNumber = binding.recordBookNumber.text.toString()
-        val secondNameVerificationResult = loginInteractor.verifySecondName(secondName)
-        val recordBookNumberVerificationResult = loginInteractor.verifyRecordBookNumber(recordBookNumber)
-        if (secondNameVerificationResult == VerificationResult.SUCCESSFUL &&
-            recordBookNumberVerificationResult == VerificationResult.SUCCESSFUL)
-            hideAll()
-        else {
-            showSecondNameFieldError(secondNameVerificationResult)
-            showRecordBookNumberFieldError(recordBookNumberVerificationResult)
+    private fun login() {
+        hideKeyboard()
+        if (isConnected) {
+            loginViewModel.loginStudent(
+                binding.secondName.textToString(),
+                binding.recordBookNumber.textToString()
+            )
+        } else {
+            Snackbar.make(requireView(), R.string.connection_lost, Snackbar.LENGTH_LONG)
+                .moveToTop()
+                .show()
         }
+    }
+
+    private fun hideKeyboard() {
+        val inputMethodManager = requireContext().getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+        inputMethodManager.hideSoftInputFromWindow(requireView().windowToken, InputMethodManager.RESULT_UNCHANGED_SHOWN)
     }
 
     private fun showSecondNameFieldError(result: VerificationResult) {
@@ -76,42 +87,38 @@ class LoginFragment : Fragment() {
         binding.loginButton.gone()
     }
 
-    private fun showAll() {
-        binding.appName.visible()
-        binding.secondNameTextInputLayout.visible()
-        binding.recordBookNumberTextInputLayout.visible()
-        binding.loginButton.visible()
+    private fun disableAll() {
+        binding.secondNameTextInputLayout.disable()
+        binding.recordBookNumberTextInputLayout.disable()
+        binding.loginButton.disable()
     }
 
-    override fun onSaveInstanceState(outState: Bundle) {
-        val isErrorEnabledSecondName = binding.secondNameTextInputLayout.isErrorEnabled
-        val isErrorEnabledRecordBookNumber = binding.recordBookNumberTextInputLayout.isErrorEnabled
-        if (isErrorEnabledSecondName) {
-            outState.putBoolean(SECOND_NAME_ERROR_ENABLED, isErrorEnabledSecondName)
-            outState.putString(SECOND_NAME_ERROR_MESSAGE, binding.secondNameTextInputLayout.error.toString())
-        }
-        if (isErrorEnabledRecordBookNumber) {
-            outState.putBoolean(RECORD_BOOK_NUMBER_ERROR_ENABLED, isErrorEnabledSecondName)
-            outState.putString(RECORD_BOOK_NUMBER_ERROR_MESSAGE,
-                binding.recordBookNumberTextInputLayout.error.toString())
-        }
-        super.onSaveInstanceState(outState)
+    private fun enableAll() {
+        binding.secondNameTextInputLayout.enable()
+        binding.recordBookNumberTextInputLayout.enable()
+        binding.loginButton.enable()
     }
 
-    override fun onViewStateRestored(savedInstanceState: Bundle?) {
-        super.onViewStateRestored(savedInstanceState)
-        savedInstanceState?.let { bundle ->
-            if (bundle.containsKey(SECOND_NAME_ERROR_ENABLED))
-                binding.secondNameTextInputLayout.showError(bundle.getString(SECOND_NAME_ERROR_MESSAGE))
-            if (bundle.containsKey(RECORD_BOOK_NUMBER_ERROR_ENABLED))
-                binding.recordBookNumberTextInputLayout.showError(bundle.getString(RECORD_BOOK_NUMBER_ERROR_MESSAGE))
+    private fun showSuccess(state: State) {
+        when (state) {
+            State.Loading -> disableAll()
+            is State.Error -> {
+                enableAll()
+                performError(state.errorMessageId)
+            }
+            is State.Successful<*> -> hideAll()
         }
     }
 
-    companion object {
-        private const val SECOND_NAME_ERROR_ENABLED = "second_name_error_enabled"
-        private const val RECORD_BOOK_NUMBER_ERROR_ENABLED = "record_book_number_error_enabled"
-        private const val SECOND_NAME_ERROR_MESSAGE = "second_name_error_message"
-        private const val RECORD_BOOK_NUMBER_ERROR_MESSAGE = "record_book_number_error_message"
+    private fun performError(errorResId: Int) {
+        when (errorResId) {
+            R.string.second_name_miss_match -> binding.secondNameTextInputLayout.showError(getString(errorResId))
+            R.string.record_book_miss_match -> binding.recordBookNumberTextInputLayout.showError(getString(errorResId))
+            R.string.something_went_wrong -> {
+                binding.secondNameTextInputLayout.showError()
+                binding.recordBookNumberTextInputLayout.showError()
+            }
+        }
     }
+
 }

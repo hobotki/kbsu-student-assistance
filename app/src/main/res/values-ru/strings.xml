@@ -8,4 +8,8 @@
     <string name="second_name_too_short">Длина фамилии не соответствует минимальной</string>
     <string name="record_book_is_empty">Номер зачетной книжки не заполнен</string>
     <string name="record_book_too_short">Длина номера зачетной книжки не соответствует минимальной</string>
+    <string name="second_name_miss_match">Не удалось найти студента с этой фамилией</string>
+    <string name="record_book_miss_match">Не удалось найти студента с этим номером зачетной книжки</string>
+    <string name="something_went_wrong">Что-то пошло не так. Попробуйте позже</string>
+    <string name="connection_lost">Соединение потеряно</string>
 </resources>

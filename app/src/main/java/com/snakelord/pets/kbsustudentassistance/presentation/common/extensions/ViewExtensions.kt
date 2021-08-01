@@ -1,7 +1,11 @@
 package com.snakelord.pets.kbsustudentassistance.presentation.common.extensions
 
 import android.animation.ValueAnimator
+import android.view.Gravity
 import android.view.View
+import android.widget.FrameLayout
+import com.google.android.material.snackbar.Snackbar
+import com.google.android.material.textfield.TextInputEditText
 import com.google.android.material.textfield.TextInputLayout
 
 fun View.visible() {
@@ -22,9 +26,26 @@ fun View.shake() {
     }.start()
 }
 
+fun View.disable() {
+    isEnabled = false
+}
 
-fun TextInputLayout.showError(message: String?) {
+fun View.enable() {
+    isEnabled = true
+}
+
+fun TextInputLayout.showError(message: String? = null) {
     isErrorEnabled = true
-    error = message
+    if (message != null)
+        error = message
     shake()
 }
+
+fun Snackbar.moveToTop(): Snackbar {
+    val snackbarLayoutParams = view.layoutParams as FrameLayout.LayoutParams
+    snackbarLayoutParams.gravity = Gravity.TOP
+    view.layoutParams = snackbarLayoutParams
+    return this
+}
+
+fun TextInputEditText.textToString(): String = text.toString()
