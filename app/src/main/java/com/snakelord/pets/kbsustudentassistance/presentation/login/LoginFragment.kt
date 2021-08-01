@@ -115,8 +115,7 @@ class LoginFragment : BaseFragment() {
             R.string.second_name_miss_match -> binding.secondNameTextInputLayout.showError(getString(errorResId))
             R.string.record_book_miss_match -> binding.recordBookNumberTextInputLayout.showError(getString(errorResId))
             R.string.something_went_wrong -> {
-                binding.secondNameTextInputLayout.showError()
-                binding.recordBookNumberTextInputLayout.showError()
+                Snackbar.make(requireView(), errorResId, Snackbar.LENGTH_SHORT).show()
             }
         }
     }
