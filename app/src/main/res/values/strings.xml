@@ -1,6 +1,5 @@
 <resources>
     <string name="app_name">KBSU Student Assistance</string>
-    <string name="student_emoji">👨‍🎓</string>
     <string name="second_name_hint">Second name</string>
     <string name="record_book_hint">Record book number</string>
     <string name="authorisation">Log in</string>
@@ -12,4 +11,12 @@
     <string name="record_book_miss_match">Unable to find student with this record book number</string>
     <string name="something_went_wrong">Something went wrong. Try again later</string>
     <string name="connection_lost">Connection is lost</string>
+    <string name="connection_timeout">Request timed out</string>
+    <string name="failed_to_connect_to_server">Failed to connect to server. Please, try again later</string>
+    <string name="request_illegal_state">Unable to make request</string>
+    <string name="internal_server_error">Internal server error</string>
+    <string name="server_unavailable">Server is unavailable</string>
+    <string name="student_not_found">Student with this data was not found</string>
+    <string name="request_timeout_error">Response timed out</string>
+    <string name="unknown_error_code">Unknown error code</string>
 </resources>

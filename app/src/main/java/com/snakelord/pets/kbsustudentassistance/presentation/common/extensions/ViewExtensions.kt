@@ -36,9 +36,23 @@ fun View.enable() {
 
 fun TextInputLayout.showError(message: String? = null) {
     isErrorEnabled = true
-    if (message != null)
+    if (message == null) {
+        showErrorWithEmptyMessage()
+    }
+    else {
+        getErrorTextView().visible()
         error = message
+    }
     shake()
+}
+
+fun TextInputLayout.showErrorWithEmptyMessage() {
+    getErrorTextView().gone()
+    error = " "
+}
+
+fun TextInputLayout.getErrorTextView(): View {
+    return getChildAt(1)
 }
 
 fun Snackbar.moveToTop(): Snackbar {

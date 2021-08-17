@@ -9,9 +9,11 @@ import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
 import androidx.appcompat.app.AppCompatActivity
+import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.NavHostFragment
 import com.snakelord.pets.kbsustudentassistance.R
 import com.snakelord.pets.kbsustudentassistance.presentation.common.BaseFragment
+import com.snakelord.pets.kbsustudentassistance.presentation.common.BaseViewModel
 
 
 class MainActivity : AppCompatActivity() {
@@ -21,6 +23,7 @@ class MainActivity : AppCompatActivity() {
     private val mainHandler = Handler(Looper.getMainLooper())
 
     override fun onCreate(savedInstanceState: Bundle?) {
+        setTheme(R.style.Theme_KBSUStudentAssistance)
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
     }
@@ -43,9 +46,9 @@ class MainActivity : AppCompatActivity() {
             .build()
     }
 
-    private fun getCurrentFragment(): BaseFragment {
+    private fun getCurrentFragment(): BaseFragment<*> {
         val navHostFragment = supportFragmentManager.findFragmentById(R.id.nav_host_fragment) as NavHostFragment?
-        return navHostFragment?.childFragmentManager?.fragments?.get(0) as BaseFragment
+        return navHostFragment?.childFragmentManager?.fragments?.get(0) as BaseFragment<*>
     }
 
     inner class ConnectionCallback : ConnectivityManager.NetworkCallback() {
