@@ -1,65 +1,50 @@
 package com.snakelord.pets.kbsustudentassistance.presentation.main
 
-import android.content.Context
-import android.net.ConnectivityManager
-import android.net.Network
-import android.net.NetworkCapabilities
-import android.net.NetworkRequest
 import android.os.Bundle
-import android.os.Handler
-import android.os.Looper
 import androidx.appcompat.app.AppCompatActivity
-import androidx.fragment.app.Fragment
-import androidx.navigation.fragment.NavHostFragment
+import androidx.core.view.isVisible
+import androidx.navigation.findNavController
+import androidx.navigation.ui.NavigationUI
+import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.snakelord.pets.kbsustudentassistance.R
-import com.snakelord.pets.kbsustudentassistance.presentation.common.BaseFragment
-import com.snakelord.pets.kbsustudentassistance.presentation.common.BaseViewModel
+import com.snakelord.pets.kbsustudentassistance.presentation.common.extensions.gone
+import com.snakelord.pets.kbsustudentassistance.presentation.common.extensions.visible
 
 
-class MainActivity : AppCompatActivity() {
+class MainActivity : AppCompatActivity(), NavigationCallback {
 
-    private val connectionCallback = ConnectionCallback()
-    private lateinit var connectivityManager: ConnectivityManager
-    private val mainHandler = Handler(Looper.getMainLooper())
+    private lateinit var bottomNavigationView: BottomNavigationView
 
     override fun onCreate(savedInstanceState: Bundle?) {
         setTheme(R.style.Theme_KBSUStudentAssistance)
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+        bottomNavigationView = findViewById(R.id.bottomNavigation)
+        bottomNavigationView.itemIconTintList = null
+        NavigationUI.setupWithNavController(bottomNavigationView, findNavController(R.id.container))
     }
 
-    override fun onResume() {
-        super.onResume()
-        connectivityManager = getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
-        connectivityManager.registerNetworkCallback(getNetworkRequest(), connectionCallback)
+    override fun onSaveInstanceState(outState: Bundle) {
+        super.onSaveInstanceState(outState)
+        outState.putBoolean(NAVIGATION_VISIBILITY_KEY, bottomNavigationView.isVisible)
     }
 
-    override fun onStop() {
-        super.onStop()
-        connectivityManager.unregisterNetworkCallback(connectionCallback)
-    }
-
-    private fun getNetworkRequest(): NetworkRequest {
-        return NetworkRequest.Builder()
-            .addTransportType(NetworkCapabilities.TRANSPORT_CELLULAR)
-            .addTransportType(NetworkCapabilities.TRANSPORT_WIFI)
-            .build()
-    }
-
-    private fun getCurrentFragment(): BaseFragment<*> {
-        val navHostFragment = supportFragmentManager.findFragmentById(R.id.nav_host_fragment) as NavHostFragment?
-        return navHostFragment?.childFragmentManager?.fragments?.get(0) as BaseFragment<*>
-    }
-
-    inner class ConnectionCallback : ConnectivityManager.NetworkCallback() {
-        override fun onAvailable(network: Network) {
-            super.onAvailable(network)
-            mainHandler.post { getCurrentFragment().onConnectionAvailable() }
+    override fun onRestoreInstanceState(savedInstanceState: Bundle) {
+        super.onRestoreInstanceState(savedInstanceState)
+        if (savedInstanceState.getBoolean(NAVIGATION_VISIBILITY_KEY)) {
+            showNavigationView()
         }
+    }
 
-        override fun onLost(network: Network) {
-            super.onLost(network)
-            mainHandler.post { getCurrentFragment().onConnectionLost() }
-        }
+    override fun hideBottomNavigationView() {
+        bottomNavigationView.gone()
+    }
+
+    override fun showNavigationView() {
+        bottomNavigationView.visible()
+    }
+
+    companion object {
+        private const val NAVIGATION_VISIBILITY_KEY = "visible"
     }
 }

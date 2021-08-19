@@ -6,7 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.inputmethod.InputMethodManager
-import com.google.android.material.snackbar.Snackbar
+import androidx.navigation.fragment.findNavController
 import com.snakelord.pets.kbsustudentassistance.R
 import com.snakelord.pets.kbsustudentassistance.databinding.FragmentLoginBinding
 import com.snakelord.pets.kbsustudentassistance.domain.VerificationResult
@@ -46,15 +46,11 @@ class LoginFragment : BaseFragment<LoginViewModel>() {
 
     private fun login() {
         hideKeyboard()
-        if (isConnected()) {
-            disableAll()
-            viewModel.loginStudent(
-                binding.secondName.textToString(),
-                binding.recordBookNumber.textToString()
-            )
-        } else {
-            showError(R.string.connection_lost)
-        }
+        disableAll()
+        viewModel.loginStudent(
+            binding.secondName.textToString(),
+            binding.recordBookNumber.textToString()
+        )
     }
 
     private fun hideKeyboard() {
@@ -82,9 +78,17 @@ class LoginFragment : BaseFragment<LoginViewModel>() {
 
     private fun updateUIState(isStudentLogined: Boolean) {
         if (isStudentLogined) {
-            hideAll()
+            moveToMainFragment()
         } else {
             enableAll()
+        }
+    }
+
+    private fun moveToMainFragment() {
+        hideAll()
+        findNavController().apply {
+            navigate(R.id.action_loginFragment_to_scheduleFragment)
+            navigationCallback.showNavigationView()
         }
     }
 

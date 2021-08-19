@@ -19,4 +19,6 @@
     <string name="student_not_found">Student with this data was not found</string>
     <string name="request_timeout_error">Response timed out</string>
     <string name="unknown_error_code">Unknown error code</string>
+    <string name="schedule">Schedule</string>
+    <string name="map">Map</string>
 </resources>
