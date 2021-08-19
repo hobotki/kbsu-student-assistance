@@ -9,6 +9,7 @@ import com.snakelord.pets.kbsustudentassistance.domain.mapper.student.StudentDto
 import com.snakelord.pets.kbsustudentassistance.domain.model.Error
 import dagger.Binds
 import dagger.Module
+import javax.inject.Named
 
 @Module
 interface LoginMapperModule {
@@ -16,6 +17,7 @@ interface LoginMapperModule {
     fun bindsStudentMapper(studentMapper: StudentMapper): Mapper<String, StudentDto>
 
     @Binds
+    @Named("test")
     fun bindsStudentErrorMapper(studentErrorMapper: StudentErrorMapper): Mapper<Throwable, Error>
 
     @Binds

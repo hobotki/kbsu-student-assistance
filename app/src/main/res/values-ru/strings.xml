@@ -19,4 +19,6 @@
     <string name="student_not_found">Студент с этими данными не был найден</string>
     <string name="request_timeout_error">Превышено время ожидания ответа</string>
     <string name="unknown_error_code">Неизвестный код ошибки</string>
+    <string name="schedule">Расписание</string>
+    <string name="map">Карта</string>
 </resources>
