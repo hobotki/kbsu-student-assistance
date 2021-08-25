@@ -4,6 +4,9 @@ import android.animation.ValueAnimator
 import android.view.Gravity
 import android.view.View
 import android.widget.FrameLayout
+import com.google.android.material.bottomsheet.BottomSheetBehavior
+import com.google.android.material.bottomsheet.BottomSheetBehavior.STATE_COLLAPSED
+import com.google.android.material.bottomsheet.BottomSheetBehavior.STATE_EXPANDED
 import com.google.android.material.snackbar.Snackbar
 import com.google.android.material.textfield.TextInputEditText
 import com.google.android.material.textfield.TextInputLayout
@@ -63,3 +66,14 @@ fun Snackbar.moveToTop(): Snackbar {
 }
 
 fun TextInputEditText.textToString(): String = text.toString()
+
+val <T : View> BottomSheetBehavior<T>.isExpanded
+    get() = (state == STATE_EXPANDED)
+
+fun <T : View> BottomSheetBehavior<T>.expand() {
+    state = STATE_EXPANDED
+}
+
+fun <T : View> BottomSheetBehavior<T>.collapse() {
+    state = STATE_COLLAPSED
+}

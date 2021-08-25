@@ -25,7 +25,8 @@
         android:label="ScheduleFragment" />
 
     <fragment
-        android:id="@+id/mapFragment"
-        android:name="com.snakelord.pets.kbsustudentassistance.presentation.map.MapFragment"
-        android:label="MapFragment" />
+        android:id="@+id/navigationFragment"
+        android:name="com.snakelord.pets.kbsustudentassistance.presentation.navigation.NavigationFragment"
+        android:label="NavigationFragment" />
+
 </navigation>

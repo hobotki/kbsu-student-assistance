@@ -6,4 +6,6 @@
     <color name="backgroundColor">@color/white</color>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
+    <color name="dragViewColor">#B3bdbdbd</color>
+    <color name="bottomSheetBackgroundColor">#f6f6f6</color>
 </resources>

@@ -5,7 +5,7 @@ import com.snakelord.pets.kbsustudentassistance.data.datasource.database.entity.
 import com.snakelord.pets.kbsustudentassistance.domain.VerificationResult
 import com.snakelord.pets.kbsustudentassistance.domain.VerificationResult.*
 import com.snakelord.pets.kbsustudentassistance.domain.mapper.Mapper
-import com.snakelord.pets.kbsustudentassistance.domain.repository.StudentRepository
+import com.snakelord.pets.kbsustudentassistance.domain.repository.login.StudentRepository
 import io.reactivex.rxjava3.core.Completable
 import io.reactivex.rxjava3.core.Maybe
 import io.reactivex.rxjava3.core.Single

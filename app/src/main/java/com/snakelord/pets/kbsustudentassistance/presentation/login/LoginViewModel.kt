@@ -6,8 +6,9 @@ import com.snakelord.pets.kbsustudentassistance.data.datasource.api.model.Studen
 import com.snakelord.pets.kbsustudentassistance.domain.VerificationResult
 import com.snakelord.pets.kbsustudentassistance.domain.interactor.login.LoginInteractor
 import com.snakelord.pets.kbsustudentassistance.domain.mapper.error.StudentErrorMapper
-import com.snakelord.pets.kbsustudentassistance.presentation.common.BaseViewModel
 import com.snakelord.pets.kbsustudentassistance.presentation.common.schedulers.SchedulersProvider
+import com.snakelord.pets.kbsustudentassistance.presentation.common.state.UIStates
+import com.snakelord.pets.kbsustudentassistance.presentation.common.viewmodel.BaseViewModel
 
 class LoginViewModel(
     private val loginInteractor: LoginInteractor,
@@ -27,10 +28,6 @@ class LoginViewModel(
     val recordBookVerification: LiveData<VerificationResult>
         get() = recordBookVerificationResult
 
-    private val loginResultMutableLiveData = MutableLiveData<Boolean>()
-    val loginResult: LiveData<Boolean>
-        get() = loginResultMutableLiveData
-
     fun loginStudent(secondName: String, recordBookNumber: String) {
         secondNameVerificationResult.value = loginInteractor.verifySecondName(secondName)
         recordBookVerificationResult.value = loginInteractor.verifyRecordBookNumber(recordBookNumber)
@@ -38,12 +35,11 @@ class LoginViewModel(
             recordBookVerificationResult.value == VerificationResult.SUCCESSFUL
         ) {
             login(secondName, recordBookNumber)
-        } else {
-            loginResultMutableLiveData.value = false
         }
     }
 
     private fun login(secondName: String, recordBookNumber: String) {
+        updateUIState(UIStates.Loading)
         val loginDisposable = loginInteractor.loginUser(secondName, recordBookNumber)
             .observeOn(schedulersProvider.main())
             .subscribeOn(schedulersProvider.io())
@@ -58,8 +54,9 @@ class LoginViewModel(
         val saveStudentDisposable = loginInteractor.saveStudentInfo(studentDto)
             .observeOn(schedulersProvider.main())
             .subscribeOn(schedulersProvider.io())
-            .subscribe(
-                { loginResultMutableLiveData.value = true },
+            .subscribe({
+                updateUIState(UIStates.Successful)
+            },
                 { throwable -> performError(throwable) }
             )
         compositeDisposable.add(saveStudentDisposable)
@@ -70,9 +67,8 @@ class LoginViewModel(
             .observeOn(schedulersProvider.main())
             .subscribeOn(schedulersProvider.io())
             .subscribe(
-                { loginResultMutableLiveData.value = true },
-                { throwable -> performError(throwable) },
-                { loginResultMutableLiveData.value = false },
+                { updateUIState(UIStates.Successful) },
+                { throwable -> performError(throwable) }
             )
         compositeDisposable.add(checkDisposable)
     }

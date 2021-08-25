@@ -10,9 +10,10 @@ import androidx.navigation.fragment.findNavController
 import com.snakelord.pets.kbsustudentassistance.R
 import com.snakelord.pets.kbsustudentassistance.databinding.FragmentLoginBinding
 import com.snakelord.pets.kbsustudentassistance.domain.VerificationResult
-import com.snakelord.pets.kbsustudentassistance.domain.model.Error
-import com.snakelord.pets.kbsustudentassistance.presentation.common.BaseFragment
+import com.snakelord.pets.kbsustudentassistance.domain.model.OperationError
+import com.snakelord.pets.kbsustudentassistance.presentation.common.fragment.BaseFragment
 import com.snakelord.pets.kbsustudentassistance.presentation.common.extensions.*
+import com.snakelord.pets.kbsustudentassistance.presentation.common.state.UIStates
 
 class LoginFragment : BaseFragment<LoginViewModel>() {
 
@@ -41,12 +42,10 @@ class LoginFragment : BaseFragment<LoginViewModel>() {
 
         viewModel.secondNameVerification.observe(viewLifecycleOwner, ::showSecondNameFieldError)
         viewModel.recordBookVerification.observe(viewLifecycleOwner, ::showRecordBookNumberFieldError)
-        viewModel.loginResult.observe(viewLifecycleOwner, ::updateUIState)
     }
 
     private fun login() {
         hideKeyboard()
-        disableAll()
         viewModel.loginStudent(
             binding.secondName.textToString(),
             binding.recordBookNumber.textToString()
@@ -73,14 +72,6 @@ class LoginFragment : BaseFragment<LoginViewModel>() {
         }
         if (result == VerificationResult.FIELD_IS_EMPTY) {
             binding.recordBookNumberTextInputLayout.showError(getString(R.string.record_book_is_empty))
-        }
-    }
-
-    private fun updateUIState(isStudentLogined: Boolean) {
-        if (isStudentLogined) {
-            moveToMainFragment()
-        } else {
-            enableAll()
         }
     }
 
@@ -115,12 +106,23 @@ class LoginFragment : BaseFragment<LoginViewModel>() {
         return LoginViewModel::class.java
     }
 
-    override fun performError(error: Error) {
-        enableAll()
-        showError(error.errorMessageResId)
-        if (error.errorMessageResId == R.string.student_not_found) {
-            binding.secondNameTextInputLayout.showError()
-            binding.recordBookNumberTextInputLayout.showError()
+    override fun updateUIState(state: UIStates) {
+        when(state) {
+            is UIStates.Loading -> {
+                disableAll()
+            }
+            is UIStates.Successful -> {
+                enableAll()
+                moveToMainFragment()
+            }
+            is UIStates.Error -> {
+                enableAll()
+                showError(state.error.errorMessageResId)
+                if (state.error.errorMessageResId == R.string.student_not_found) {
+                    binding.secondNameTextInputLayout.showError()
+                    binding.recordBookNumberTextInputLayout.showError()
+                }
+            }
         }
     }
 }
