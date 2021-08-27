@@ -10,9 +10,21 @@ import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import java.util.concurrent.TimeUnit
 
+/**
+ * Dagger-модуль для предоставления зависимостей,
+ * экземпляры которых можно создать напрямую
+ *
+ * @author Murad Luguev on 27-08-2021
+ */
 @Module
 class ApplicationModule {
 
+    /**
+     * Функция для создания экземпляра [Database]
+     *
+     * @param context экземпляр класса [Context] для создания/получения файла базы данных
+     * @return экземпляр [Database]
+     */
     @Provides
     fun provideDatabase(context: Context): Database {
         return Room
@@ -20,6 +32,14 @@ class ApplicationModule {
             .build()
     }
 
+    /**
+     * Функция для создания экземпляра [OkHttpClient]
+     *
+     * @param httpLoggingInterceptor экземпляр [HttpLoggingInterceptor]
+     * для вывода результатов запросов в лог
+     *
+     * @return экземпляр [OkHttpClient]
+     */
     @Provides
     fun provideOkHttpClient(httpLoggingInterceptor: HttpLoggingInterceptor): OkHttpClient {
         return OkHttpClient.Builder()
@@ -28,6 +48,11 @@ class ApplicationModule {
             .build()
     }
 
+    /**
+     * Функция для создания экземпляра [HttpLoggingInterceptor]
+     *
+     * @return экземпляр [HttpLoggingInterceptor]
+     */
     @Provides
     fun provideHttpLoggingInterceptor(): HttpLoggingInterceptor {
         val httpLoggingInterceptor = HttpLoggingInterceptor()

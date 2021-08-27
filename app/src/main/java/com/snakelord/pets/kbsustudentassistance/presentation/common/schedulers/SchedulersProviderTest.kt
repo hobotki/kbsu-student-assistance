@@ -1,17 +1,14 @@
 package com.snakelord.pets.kbsustudentassistance.presentation.common.schedulers
 
-import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
 import io.reactivex.rxjava3.core.Scheduler
 import io.reactivex.rxjava3.schedulers.Schedulers
-import javax.inject.Inject
 
-class SchedulersProviderImpl @Inject constructor() : SchedulersProvider {
-
+class SchedulersProviderTest : SchedulersProvider {
     override fun io(): Scheduler {
-        return Schedulers.io()
+        return Schedulers.trampoline()
     }
 
     override fun main(): Scheduler {
-        return AndroidSchedulers.mainThread()
+        return Schedulers.trampoline()
     }
 }

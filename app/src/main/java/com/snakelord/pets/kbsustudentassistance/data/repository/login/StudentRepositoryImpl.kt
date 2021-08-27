@@ -1,15 +1,23 @@
-package com.snakelord.pets.kbsustudentassistance.data.repository
+package com.snakelord.pets.kbsustudentassistance.data.repository.login
 
 import com.snakelord.pets.kbsustudentassistance.data.datasource.api.StudentLoginApi
 import com.snakelord.pets.kbsustudentassistance.data.datasource.api.model.StudentDto
 import com.snakelord.pets.kbsustudentassistance.data.datasource.database.dao.StudentDao
 import com.snakelord.pets.kbsustudentassistance.data.datasource.database.entity.StudentEntity
-import com.snakelord.pets.kbsustudentassistance.domain.repository.StudentRepository
+import com.snakelord.pets.kbsustudentassistance.domain.repository.login.StudentRepository
 import io.reactivex.rxjava3.core.Completable
 import io.reactivex.rxjava3.core.Maybe
 import io.reactivex.rxjava3.core.Single
 import javax.inject.Inject
 
+/**
+ * Реализация интерфейса [StudentRepository]
+ *
+ * @property studentLoginApi интерфейс для работы с API
+ * @property studentDao DAO для работы с таблицей студента в базе данных
+ *
+ * @author Murad Luguev on 27-08-2021
+ */
 class StudentRepositoryImpl @Inject constructor(
     private val studentLoginApi: StudentLoginApi,
     private val studentDao: StudentDao

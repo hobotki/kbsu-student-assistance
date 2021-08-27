@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="@dimen/default_margin"
+    android:background="@drawable/common_item_shape"
+    android:elevation="@dimen/default_elevation"
+    android:orientation="vertical"
+    android:padding="@dimen/default_padding">
+
+    <TextView
+        android:id="@+id/instituteName"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        tools:text="Институт физики и математики"
+        style="@style/TitleTextStyle"/>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/lectures"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="@dimen/lectures_recycler_view_top_margin"
+        tools:itemCount="2"
+        tools:listitem="@layout/item_lecture_minimal" />
+
+    <Button
+        android:id="@+id/openOnMap"
+        android:text="@string/open_on_map"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        style="@style/Widget.MaterialComponents.Button.TextButton"/>
+
+    <Button
+        android:id="@+id/makeAPath"
+        android:text="@string/make_a_path"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        style="@style/Widget.MaterialComponents.Button.TextButton"/>
+
+</LinearLayout>

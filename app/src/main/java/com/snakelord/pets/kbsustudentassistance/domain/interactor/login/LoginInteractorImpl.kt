@@ -5,12 +5,20 @@ import com.snakelord.pets.kbsustudentassistance.data.datasource.database.entity.
 import com.snakelord.pets.kbsustudentassistance.domain.VerificationResult
 import com.snakelord.pets.kbsustudentassistance.domain.VerificationResult.*
 import com.snakelord.pets.kbsustudentassistance.domain.mapper.Mapper
-import com.snakelord.pets.kbsustudentassistance.domain.repository.StudentRepository
+import com.snakelord.pets.kbsustudentassistance.domain.repository.login.StudentRepository
 import io.reactivex.rxjava3.core.Completable
 import io.reactivex.rxjava3.core.Maybe
 import io.reactivex.rxjava3.core.Single
 import javax.inject.Inject
 
+/**
+ * Реализация интерфейса [LoginInteractor]
+ *
+ * @property studentRepository репозиторий для получения информации о студенте
+ * @property studentMapper маппер для преобразования [StudentDto] в [StudentEntity]
+ *
+ * @author Murad Luguev on 27-08-2021
+ */
 class LoginInteractorImpl @Inject constructor(
     private val studentRepository: StudentRepository,
     private val studentMapper: Mapper<StudentDto, StudentEntity>

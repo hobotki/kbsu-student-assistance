@@ -7,8 +7,8 @@
         android:icon="@drawable/ic_schedule" />
 
     <item
-        android:id="@+id/mapFragment"
-        android:title="@string/map"
+        android:id="@+id/navigationFragment"
+        android:title="@string/navigation"
         android:icon="@drawable/ic_map"/>
 
 </menu>
