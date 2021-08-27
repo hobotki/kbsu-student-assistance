@@ -20,5 +20,19 @@
     <string name="request_timeout_error">Превышено время ожидания ответа</string>
     <string name="unknown_error_code">Неизвестный код ошибки</string>
     <string name="schedule">Расписание</string>
-    <string name="map">Карта</string>
+    <string name="navigation">Навигация</string>
+    <string name="lectures_message">Здесь проходят следующие лекции</string>
+    <string name="open_on_map">Открыть на карте</string>
+    <string name="make_a_path">Проложить маршрут</string>
+
+    <!--Locations name-->
+    <string name="main_entrance">Главный вход</string>
+    <string name="iopam">Институт физики и математики</string>
+    <string name="information_centre">Информационный центр</string>
+    <string name="fom">Медицинский факультет</string>
+    <string name="sports_complex">Спортивный комплекс</string>
+    <string name="iodams">Институт стоматологии и челюстно-лицевой хирургии</string>
+    <string name="ioacd">Институт Архитектуры, Строительства и Дизайна</string>
+    <string name="eatf">Инженерно-технологический факультет</string>
+
 </resources>

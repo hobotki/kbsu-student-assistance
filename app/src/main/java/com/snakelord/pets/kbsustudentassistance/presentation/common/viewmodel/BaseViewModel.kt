@@ -9,7 +9,7 @@ import com.snakelord.pets.kbsustudentassistance.presentation.common.state.UIStat
 import io.reactivex.rxjava3.disposables.CompositeDisposable
 
 abstract class BaseViewModel(
-    private val errorMapper: Mapper<Throwable, OperationError>
+    private val errorMapper: Mapper<Throwable, OperationError>?
 ) : ViewModel() {
 
     private val uiStatesMutableLiveData = MutableLiveData<UIStates>()
@@ -27,7 +27,9 @@ abstract class BaseViewModel(
     }
 
     protected fun performError(throwable: Throwable) {
-        val error = errorMapper.map(throwable)
-        uiStatesMutableLiveData.value = UIStates.Error(error)
+        errorMapper?.run {
+            val error = map(throwable)
+            uiStatesMutableLiveData.value = UIStates.Error(error)
+        }
     }
 }

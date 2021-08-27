@@ -26,6 +26,8 @@ interface ApplicationComponent {
 
     fun database(): Database
 
+    fun context(): Context
+
     @Component.Builder
     interface Builder {
 

@@ -1,7 +1,7 @@
 package com.snakelord.pets.kbsustudentassistance.di.common.module
 
 import androidx.lifecycle.ViewModelProvider
-import com.snakelord.pets.kbsustudentassistance.di.common.ViewModelFactory
+import com.snakelord.pets.kbsustudentassistance.presentation.common.viewmodel.factory.ViewModelFactory
 import dagger.Binds
 import dagger.Module
 

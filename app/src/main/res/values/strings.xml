@@ -20,5 +20,19 @@
     <string name="request_timeout_error">Response timed out</string>
     <string name="unknown_error_code">Unknown error code</string>
     <string name="schedule">Schedule</string>
-    <string name="map">Map</string>
+    <string name="navigation">Navigation</string>
+    <string name="lectures_message">The following lectures are held here</string>
+    <string name="open_on_map">Open on map</string>
+    <string name="make_a_path">Make a path</string>
+
+    <!--Locations name-->
+    <string name="main_entrance">Main entrance</string>
+    <string name="iopam">Institute of Physics and Mathematics</string>
+    <string name="information_centre">Information centre</string>
+    <string name="fom">Faculty of Medicine</string>
+    <string name="sports_complex">Sports complex</string>
+    <string name="iodams">Institute of Dentistry and Maxillofacial Surgery</string>
+    <string name="ioacd">Institute of Architecture, Construction and Design</string>
+    <string name="eatf">Engineering and technical faculty</string>
+
 </resources>

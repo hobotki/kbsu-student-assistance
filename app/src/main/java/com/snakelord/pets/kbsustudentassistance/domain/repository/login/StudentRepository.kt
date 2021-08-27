@@ -1,4 +1,4 @@
-package com.snakelord.pets.kbsustudentassistance.domain.repository
+package com.snakelord.pets.kbsustudentassistance.domain.repository.login
 
 import com.snakelord.pets.kbsustudentassistance.data.datasource.api.model.StudentDto
 import com.snakelord.pets.kbsustudentassistance.data.datasource.database.entity.StudentEntity
