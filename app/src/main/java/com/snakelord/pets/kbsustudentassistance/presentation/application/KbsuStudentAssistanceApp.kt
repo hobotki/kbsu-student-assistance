@@ -1,7 +1,6 @@
 package com.snakelord.pets.kbsustudentassistance.presentation.application
 
 import android.app.Application
-import android.content.Context
 import com.snakelord.pets.kbsustudentassistance.BuildConfig
 import com.snakelord.pets.kbsustudentassistance.di.common.component.ApplicationComponent
 import com.snakelord.pets.kbsustudentassistance.di.common.component.DaggerApplicationComponent
