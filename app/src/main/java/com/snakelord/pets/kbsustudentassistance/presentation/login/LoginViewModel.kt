@@ -2,18 +2,29 @@ package com.snakelord.pets.kbsustudentassistance.presentation.login
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import com.snakelord.pets.kbsustudentassistance.data.datasource.api.model.StudentDto
+import com.snakelord.pets.kbsustudentassistance.data.datasource.api.student.model.StudentDto
 import com.snakelord.pets.kbsustudentassistance.domain.VerificationResult
 import com.snakelord.pets.kbsustudentassistance.domain.interactor.login.LoginInteractor
-import com.snakelord.pets.kbsustudentassistance.domain.mapper.error.StudentErrorMapper
+import com.snakelord.pets.kbsustudentassistance.domain.mapper.Mapper
+import com.snakelord.pets.kbsustudentassistance.domain.model.OperationError
 import com.snakelord.pets.kbsustudentassistance.presentation.common.schedulers.SchedulersProvider
 import com.snakelord.pets.kbsustudentassistance.presentation.common.state.UIStates
 import com.snakelord.pets.kbsustudentassistance.presentation.common.viewmodel.BaseViewModel
 
+/**
+ * ViewModel для авторизации
+ *
+ * @property loginInteractor интерактор для работы с данными пользователя
+ * @property schedulersProvider проводник планировщиков для асинхронной работы
+ *
+ * @param studentErrorMapper маппер ошибок
+ *
+ * @author Murad Luguev on 27-08-2021
+ */
 class LoginViewModel(
     private val loginInteractor: LoginInteractor,
     private val schedulersProvider: SchedulersProvider,
-    studentErrorMapper: StudentErrorMapper
+    studentErrorMapper: Mapper<Throwable, OperationError>
 ) : BaseViewModel(studentErrorMapper) {
 
     init {
@@ -28,9 +39,19 @@ class LoginViewModel(
     val recordBookVerification: LiveData<VerificationResult>
         get() = recordBookVerificationResult
 
+    /**
+     * Функция для авторизации студента
+     *
+     * @param secondName фамилия студента
+     * @param recordBookNumber номер зачетной книжки студента
+     */
     fun loginStudent(secondName: String, recordBookNumber: String) {
-        secondNameVerificationResult.value = loginInteractor.verifySecondName(secondName)
-        recordBookVerificationResult.value = loginInteractor.verifyRecordBookNumber(recordBookNumber)
+        secondNameVerificationResult.value =
+            loginInteractor.verifySecondName(secondName)
+
+        recordBookVerificationResult.value =
+            loginInteractor.verifyRecordBookNumber(recordBookNumber)
+
         if (secondNameVerificationResult.value == VerificationResult.SUCCESSFUL &&
             recordBookVerificationResult.value == VerificationResult.SUCCESSFUL
         ) {
@@ -45,7 +66,9 @@ class LoginViewModel(
             .subscribeOn(schedulersProvider.io())
             .subscribe(
                 { studentDto -> saveStudent(studentDto) },
-                { throwable -> performError(throwable) }
+                { throwable -> performError(throwable)
+                    throwable.printStackTrace()
+                }
             )
         compositeDisposable.add(loginDisposable)
     }
@@ -54,9 +77,8 @@ class LoginViewModel(
         val saveStudentDisposable = loginInteractor.saveStudentInfo(studentDto)
             .observeOn(schedulersProvider.main())
             .subscribeOn(schedulersProvider.io())
-            .subscribe({
-                updateUIState(UIStates.Successful)
-            },
+            .subscribe(
+                { updateUIState(UIStates.Successful) },
                 { throwable -> performError(throwable) }
             )
         compositeDisposable.add(saveStudentDisposable)

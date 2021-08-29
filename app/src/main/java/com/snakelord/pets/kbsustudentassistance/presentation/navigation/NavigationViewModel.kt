@@ -1,10 +1,12 @@
 package com.snakelord.pets.kbsustudentassistance.presentation.navigation
 
+import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.snakelord.pets.kbsustudentassistance.data.model.location.LocationModel
 import com.snakelord.pets.kbsustudentassistance.domain.interactor.navigation.LocationInteractor
-import com.snakelord.pets.kbsustudentassistance.presentation.common.viewmodel.BaseViewModel
+import com.snakelord.pets.kbsustudentassistance.presentation.application.KbsuStudentAssistanceApp
+import com.yandex.mapkit.MapKitFactory
 
 /**
  * ViewModel для фрагмента навигации
@@ -15,7 +17,7 @@ import com.snakelord.pets.kbsustudentassistance.presentation.common.viewmodel.Ba
  */
 class NavigationViewModel(
     private val locationInteractor: LocationInteractor
-) : BaseViewModel(null) {
+) : AndroidViewModel(KbsuStudentAssistanceApp.application) {
 
     private val currentLocationMutableLiveData = MutableLiveData<LocationModel>()
     val currentLocation: LiveData<LocationModel>
@@ -26,6 +28,7 @@ class NavigationViewModel(
         get() = locationsMutableLiveData
 
     init {
+        MapKitFactory.initialize(getApplication())
         prepareMap()
     }
 

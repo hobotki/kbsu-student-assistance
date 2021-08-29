@@ -7,21 +7,32 @@ import android.view.View
 import android.view.ViewGroup
 import android.view.inputmethod.InputMethodManager
 import androidx.navigation.fragment.findNavController
+import androidx.navigation.navGraphViewModels
 import com.snakelord.pets.kbsustudentassistance.R
 import com.snakelord.pets.kbsustudentassistance.databinding.FragmentLoginBinding
 import com.snakelord.pets.kbsustudentassistance.domain.VerificationResult
-import com.snakelord.pets.kbsustudentassistance.domain.model.OperationError
 import com.snakelord.pets.kbsustudentassistance.presentation.common.fragment.BaseFragment
 import com.snakelord.pets.kbsustudentassistance.presentation.common.extensions.*
 import com.snakelord.pets.kbsustudentassistance.presentation.common.state.UIStates
 
-class LoginFragment : BaseFragment<LoginViewModel>() {
+/**
+ * Фрагмен авторизации
+ *
+ * @author Murad Luguev on 27-08-2021
+ */
+class LoginFragment : BaseFragment() {
 
     private var loginFragmentBinding: FragmentLoginBinding? = null
     private val binding
         get() = loginFragmentBinding!!
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
+    private val loginViewModel: LoginViewModel by navGraphViewModels(navGraphId) { factory }
+
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View {
         loginFragmentBinding = FragmentLoginBinding.inflate(inflater, container, false)
         return binding.root
     }
@@ -40,21 +51,29 @@ class LoginFragment : BaseFragment<LoginViewModel>() {
 
         binding.loginButton.setOnClickListener { login() }
 
-        viewModel.secondNameVerification.observe(viewLifecycleOwner, ::showSecondNameFieldError)
-        viewModel.recordBookVerification.observe(viewLifecycleOwner, ::showRecordBookNumberFieldError)
+        loginViewModel.secondNameVerification
+            .observe(viewLifecycleOwner, ::showSecondNameFieldError)
+
+        loginViewModel.recordBookVerification
+            .observe(viewLifecycleOwner, ::showRecordBookNumberFieldError)
+
+        loginViewModel.uiStates.observe(viewLifecycleOwner, ::updateUIState)
     }
 
     private fun login() {
         hideKeyboard()
-        viewModel.loginStudent(
+        loginViewModel.loginStudent(
             binding.secondName.textToString(),
             binding.recordBookNumber.textToString()
         )
     }
 
     private fun hideKeyboard() {
-        val inputMethodManager = requireContext().getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
-        inputMethodManager.hideSoftInputFromWindow(requireView().windowToken, InputMethodManager.RESULT_UNCHANGED_SHOWN)
+        val inputMethodManager = requireContext()
+            .getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+
+        inputMethodManager.hideSoftInputFromWindow(
+            requireView().windowToken, InputMethodManager.RESULT_UNCHANGED_SHOWN)
     }
 
     private fun showSecondNameFieldError(result: VerificationResult) {
@@ -100,10 +119,6 @@ class LoginFragment : BaseFragment<LoginViewModel>() {
         binding.secondNameTextInputLayout.enable()
         binding.recordBookNumberTextInputLayout.enable()
         binding.loginButton.enable()
-    }
-
-    override fun getViewModelClass(): Class<LoginViewModel> {
-        return LoginViewModel::class.java
     }
 
     override fun updateUIState(state: UIStates) {

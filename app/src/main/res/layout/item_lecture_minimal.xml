@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:orientation="vertical"
     android:background="@drawable/common_item_shape"
-    android:layout_marginVertical="@dimen/item_lecture_minimal_vertical_margin"
+    android:layout_marginVertical="@dimen/item_lecture_vertical_margin"
     android:layout_marginHorizontal="@dimen/item_lecture_minimal_horizontal_margin"
     android:padding="@dimen/default_margin"
     android:elevation="@dimen/item_lecture_minimal_elevation"
@@ -16,7 +16,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         tools:text="Теория планирования эксперемента"
-        style="@style/TitleTextStyle"/>
+        style="@style/PrimaryTextStyle"/>
 
     <TextView
         android:id="@+id/teacherName"

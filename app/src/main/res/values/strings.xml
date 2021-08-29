@@ -34,5 +34,8 @@
     <string name="iodams">Institute of Dentistry and Maxillofacial Surgery</string>
     <string name="ioacd">Institute of Architecture, Construction and Design</string>
     <string name="eatf">Engineering and technical faculty</string>
+    <!--Locations name-->
+
+    <string name="classroom_placeholder">Classroom №%s</string>
 
 </resources>

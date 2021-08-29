@@ -4,7 +4,7 @@ buildscript {
     ext.kotlin_version = "1.5.21"
     ext.nav_version = "2.3.5"
     ext.lifecycle_version = "2.4.0-alpha03"
-    ext.room_version = "2.3.0"
+    ext.room_version = "2.4.0-alpha04"
     ext.okhttp_version = "4.9.1"
     ext.moshi_version = "1.12.0"
 
@@ -14,7 +14,7 @@ buildscript {
     }
 
     dependencies {
-        classpath 'com.android.tools.build:gradle:7.0.1'
+        classpath 'com.android.tools.build:gradle:7.0.2'
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
 
         classpath "androidx.navigation:navigation-safe-args-gradle-plugin:$nav_version"

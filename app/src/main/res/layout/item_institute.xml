@@ -16,7 +16,7 @@
         android:layout_height="wrap_content"
         android:gravity="center"
         tools:text="Институт физики и математики"
-        style="@style/TitleTextStyle"/>
+        style="@style/PrimaryTextStyle"/>
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/lectures"

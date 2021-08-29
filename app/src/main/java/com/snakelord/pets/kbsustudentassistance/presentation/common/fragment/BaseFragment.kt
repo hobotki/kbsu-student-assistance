@@ -1,30 +1,42 @@
 package com.snakelord.pets.kbsustudentassistance.presentation.common.fragment
 
-import android.os.Bundle
-import android.view.View
+import androidx.annotation.IdRes
 import androidx.annotation.StringRes
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.ViewModelProvider
 import com.google.android.material.snackbar.Snackbar
+import com.snakelord.pets.kbsustudentassistance.R
 import com.snakelord.pets.kbsustudentassistance.presentation.application.KbsuStudentAssistanceApp
 import com.snakelord.pets.kbsustudentassistance.presentation.common.extensions.moveToTop
 import com.snakelord.pets.kbsustudentassistance.presentation.common.state.UIStates
-import com.snakelord.pets.kbsustudentassistance.presentation.common.viewmodel.BaseViewModel
 
-abstract class BaseFragment<VM : BaseViewModel> : Fragment() {
+/**
+ * Базовый фрагмент для всех фрагментов в приложении
+ * Содержит базовое поведение для отображения ошибок,
+ * изменение сотояния экрана в зависимости от [UIStates],
+ *
+ * @author Murad Luguev on 27-08-2021
+ */
+abstract class BaseFragment : Fragment() {
 
-    private val factory = KbsuStudentAssistanceApp.applicationComponent.viewModelFactory()
-    protected lateinit var viewModel: VM
+    protected val factory = KbsuStudentAssistanceApp.applicationComponent.viewModelFactory()
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        viewModel = ViewModelProvider(this, factory)[getViewModelClass()]
-        viewModel.uiStates.observe(viewLifecycleOwner, ::updateUIState)
-    }
+    @IdRes
+    protected val navGraphId = R.id.nav_graph
 
-    abstract fun getViewModelClass(): Class<VM>
-
+    /**
+     * Функция для обновления экрана в зависимости от состояния [UIStates]
+     *
+     * @param state экземпляр sealed-класса [UIStates]
+     */
     open fun updateUIState(state: UIStates) {}
 
+    /**
+     * Функция для отображения ошибки
+     *
+     * Отображает [Snackbar] вверху экрана с сообщением об ошибке
+     *
+     * @param errorMessageResId строковый ресурс для отоюражения ошибки
+     */
     protected fun showError(@StringRes errorMessageResId: Int) {
         Snackbar.make(requireView(), errorMessageResId, Snackbar.LENGTH_LONG)
             .moveToTop()
