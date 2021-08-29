@@ -7,6 +7,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.LinearLayout
+import androidx.navigation.navGraphViewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.snakelord.pets.kbsustudentassistance.data.model.location.LocationModel
@@ -25,11 +26,14 @@ import com.yandex.mapkit.map.CameraPosition
  *
  * @author Murad Luguev on 26-08-2021
  */
-class NavigationFragment : BaseFragment<NavigationViewModel>() {
+class NavigationFragment : BaseFragment() {
 
     private lateinit var binding: FragmentNavigationBinding
-    private lateinit var institutesBottomSheet: BottomSheetBehavior<LinearLayout>
 
+    private val navigationViewModel: NavigationViewModel
+            by navGraphViewModels(navGraphId) { factory }
+
+    private lateinit var institutesBottomSheet: BottomSheetBehavior<LinearLayout>
     private var bottomSheetExpanded = false
 
     override fun onStart() {
@@ -55,8 +59,8 @@ class NavigationFragment : BaseFragment<NavigationViewModel>() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        viewModel.currentLocation.observe(viewLifecycleOwner, ::showSelectedPoint)
-        viewModel.locations.observe(viewLifecycleOwner, ::showLocationList)
+        navigationViewModel.currentLocation.observe(viewLifecycleOwner, ::showSelectedPoint)
+        navigationViewModel.locations.observe(viewLifecycleOwner, ::showLocationList)
 
         restoreBottomSheetState(savedInstanceState)
 
@@ -94,7 +98,7 @@ class NavigationFragment : BaseFragment<NavigationViewModel>() {
     private fun showSelectedPoint(locationModel: LocationModel) {
         institutesBottomSheet.collapse()
         binding.mapView.map.move(
-            CameraPosition(locationModel.point, 17.5f, 319.0f, 0.0f),
+            CameraPosition(locationModel.locationPoint, 17.5f, 319.0f, 0.0f),
             Animation(Animation.Type.SMOOTH, 0.5f),
             null
         )
@@ -104,7 +108,7 @@ class NavigationFragment : BaseFragment<NavigationViewModel>() {
 
         val locationsAdapter = LocationsAdapter(
             locations,
-            viewModel::showSelectedEntrance,
+            navigationViewModel::showSelectedEntrance,
             ::makeAPath
         )
         binding.bottomSheetContent.institutes.adapter = locationsAdapter
@@ -114,7 +118,7 @@ class NavigationFragment : BaseFragment<NavigationViewModel>() {
 
     private fun makeAPath(locationModel: LocationModel) {
         institutesBottomSheet.collapse()
-        val point = locationModel.point
+        val point = locationModel.locationPoint
         val pathUri = Uri.parse(
             YANDEX_MAP_URI_PATH +
                     "${point.latitude}," +
@@ -128,7 +132,7 @@ class NavigationFragment : BaseFragment<NavigationViewModel>() {
             binding.mapView
                 .map
                 .mapObjects
-                .addPlacemark(location.point)
+                .addPlacemark(location.locationPoint)
         }
     }
 
@@ -144,10 +148,6 @@ class NavigationFragment : BaseFragment<NavigationViewModel>() {
         super.onSaveInstanceState(outState)
 
         outState.putBoolean(BOTTOM_SHEET_STATE_KEY, institutesBottomSheet.isExpanded)
-    }
-
-    override fun getViewModelClass(): Class<NavigationViewModel> {
-        return NavigationViewModel::class.java
     }
 
     companion object {

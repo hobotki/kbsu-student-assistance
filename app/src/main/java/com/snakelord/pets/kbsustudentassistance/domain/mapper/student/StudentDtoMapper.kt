@@ -5,6 +5,11 @@ import com.snakelord.pets.kbsustudentassistance.data.datasource.database.entity.
 import com.snakelord.pets.kbsustudentassistance.domain.mapper.Mapper
 import javax.inject.Inject
 
+/**
+ * Маппер для преобразования [StudentDto] в [StudentEntity]
+ *
+ * @author Murad Luguev on 27-08-2021
+ */
 class StudentDtoMapper @Inject constructor(): Mapper<StudentDto, StudentEntity> {
     override fun map(input: StudentDto): StudentEntity {
         return StudentEntity(

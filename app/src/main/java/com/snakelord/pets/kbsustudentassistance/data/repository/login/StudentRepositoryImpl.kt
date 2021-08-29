@@ -10,6 +10,15 @@ import io.reactivex.rxjava3.core.Maybe
 import io.reactivex.rxjava3.core.Single
 import javax.inject.Inject
 
+/**
+ * Реализация интерфейса [StudentRepository]
+ *
+ * @property studentLoginApi интерфейс для работы с API
+ * @property studentDao DAO для работы с таблицей студента в базе данных
+ *
+ * @author Murad Luguev on 27-08-2021
+ */
+
 class StudentRepositoryImpl @Inject constructor(
     private val studentLoginApi: StudentLoginApi,
     private val studentDao: StudentDao

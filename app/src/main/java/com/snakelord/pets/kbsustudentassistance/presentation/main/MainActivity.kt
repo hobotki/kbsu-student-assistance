@@ -10,7 +10,11 @@ import com.snakelord.pets.kbsustudentassistance.R
 import com.snakelord.pets.kbsustudentassistance.presentation.common.extensions.gone
 import com.snakelord.pets.kbsustudentassistance.presentation.common.extensions.visible
 
-
+/**
+ * Главное и единственное Activity в приложении. Выступает хостом для всех фрагментов
+ *
+ * @author Murad Luguev on 27-08-2021
+ */
 class MainActivity : AppCompatActivity(), NavigationCallback {
 
     private lateinit var bottomNavigationView: BottomNavigationView

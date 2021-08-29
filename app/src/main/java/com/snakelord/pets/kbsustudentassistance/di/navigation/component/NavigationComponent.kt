@@ -2,6 +2,7 @@ package com.snakelord.pets.kbsustudentassistance.di.navigation.component
 
 import com.snakelord.pets.kbsustudentassistance.di.common.component.ApplicationComponent
 import com.snakelord.pets.kbsustudentassistance.di.navigation.module.NavigationModule
+import com.snakelord.pets.kbsustudentassistance.di.navigation.scope.NavigationScope
 import com.snakelord.pets.kbsustudentassistance.domain.interactor.navigation.LocationInteractor
 import dagger.Component
 
@@ -13,6 +14,7 @@ import dagger.Component
 @Component(
     dependencies = [ApplicationComponent::class],
     modules = [NavigationModule::class])
+@NavigationScope
 interface NavigationComponent {
     /**
      * Возвращает интерактор для отображения точек входа на карте

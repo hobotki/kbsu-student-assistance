@@ -7,19 +7,25 @@ import com.snakelord.pets.kbsustudentassistance.domain.model.OperationError
 import java.io.IOException
 import java.io.InterruptedIOException
 import java.lang.IllegalStateException
+import java.net.UnknownHostException
 import javax.inject.Inject
 
+/**
+ * Маппер ошибок, возникаемых во время получения данных студента
+ *
+ * @author Murad Luguev on 27-08-2021
+ */
 class StudentErrorMapper @Inject constructor(): Mapper<Throwable, OperationError> {
     override fun map(input: Throwable): OperationError {
         return when (input) {
-            is IOException -> {
+            is UnknownHostException -> {
                 OperationError(R.string.failed_to_connect_to_server)
-            }
-            is IllegalStateException -> {
-                OperationError(R.string.request_illegal_state)
             }
             is InterruptedIOException -> {
                 OperationError(R.string.connection_timeout)
+            }
+            is IllegalStateException -> {
+                OperationError(R.string.request_illegal_state)
             }
             is BadResponseException ->  {
                 matchErrorCode(input)
