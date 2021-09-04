@@ -7,9 +7,19 @@ import com.snakelord.pets.kbsustudentassistance.domain.interactor.schedule.Sched
 import com.snakelord.pets.kbsustudentassistance.domain.model.schedule.Day
 import com.snakelord.pets.kbsustudentassistance.domain.model.schedule.Lecture
 import com.snakelord.pets.kbsustudentassistance.presentation.common.schedulers.SchedulersProvider
+import com.snakelord.pets.kbsustudentassistance.presentation.common.state.UIStates
 import com.snakelord.pets.kbsustudentassistance.presentation.common.viewmodel.BaseViewModel
+import com.snakelord.pets.kbsustudentassistance.presentation.schedule.extensions.today
 import java.util.*
 
+/**
+ * ViewModel для работы с расписанием
+ *
+ * @property scheduleInteractor интерактор для получения расписания
+ * @property schedulersProvider провайдер планировщиков
+ *
+ * @author Murad Luguev on 01-09-2021
+ */
 class ScheduleViewModel(
     private val scheduleInteractor: ScheduleInteractor,
     private val schedulersProvider: SchedulersProvider
@@ -25,21 +35,24 @@ class ScheduleViewModel(
         getScheduleFromDb()
     }
 
+    var selectedIndex: Int = Calendar.getInstance().today()
+        private set
+
     private fun getScheduleFromDb() {
+        updateUIState(UIStates.Loading)
         val getScheduleFromDbDisposable =
             scheduleInteractor.getScheduleFromDatabase()
                 .observeOn(schedulersProvider.main())
                 .subscribeOn(schedulersProvider.io())
                 .subscribe(
                     { scheduleFromDb ->
-                        if (scheduleFromDb.isEmpty())
+                        if (scheduleFromDb.isEmpty()) {
                             loadScheduleFromApi()
-                        else {
-                            scheduleMutableLiveData.value = scheduleFromDb
-                            showTodaySchedule()
+                        } else {
+                            setSchedule(scheduleFromDb)
                         }
                     },
-                    { throw it }
+                    { performError(it) }
                 )
         compositeDisposable.add(getScheduleFromDbDisposable)
     }
@@ -51,7 +64,7 @@ class ScheduleViewModel(
                 .subscribeOn(schedulersProvider.io())
                 .subscribe(
                     { scheduleFromApi -> saveSchedule(scheduleFromApi) },
-                    { throw  it }
+                    { performError(it) }
                 )
         compositeDisposable.add(getSchedulerFromApiDisposable)
     }
@@ -63,38 +76,28 @@ class ScheduleViewModel(
                 .subscribeOn(schedulersProvider.io())
                 .subscribe(
                     { getScheduleFromDb() },
-                    { throw  it }
+                    { performError(it) }
                 )
         compositeDisposable.add(saveScheduleDisposable)
     }
 
-    private fun showTodaySchedule() {
-        val calendar = Calendar.getInstance()
-        when (calendar[Calendar.DAY_OF_WEEK]) {
-            Calendar.MONDAY -> {
-                currentDayScheduleMutableLiveData.value =
-                    scheduleMutableLiveData.value!![0].lectures
-            }
-            Calendar.TUESDAY -> {
-                currentDayScheduleMutableLiveData.value =
-                    scheduleMutableLiveData.value!![1].lectures
-            }
-            Calendar.WEDNESDAY -> {
-                currentDayScheduleMutableLiveData.value =
-                    scheduleMutableLiveData.value!![2].lectures
-            }
-            Calendar.THURSDAY -> {
-                currentDayScheduleMutableLiveData.value =
-                    scheduleMutableLiveData.value!![3].lectures
-            }
-            Calendar.FRIDAY -> {
-                currentDayScheduleMutableLiveData.value =
-                    scheduleMutableLiveData.value!![4].lectures
-            }
-            else -> {
-                currentDayScheduleMutableLiveData.value =
-                    scheduleMutableLiveData.value!![0].lectures
-            }
-        }
+    private fun setSchedule(scheduleFromDb: List<Day>) {
+        scheduleMutableLiveData.value = scheduleFromDb
+        showScheduleByDay()
+        updateUIState(UIStates.Successful)
+    }
+
+    /**
+     * Функция для отображения расписания исходя из выбранного дня,
+     * по-умолчанию [Calendar.today]
+     *
+     * @param index индекс выбранного дня
+     */
+    fun showScheduleByDay(
+        index: Int = selectedIndex
+    ) {
+        selectedIndex = index
+        currentDayScheduleMutableLiveData.value =
+            scheduleMutableLiveData.value!![index].lectures
     }
 }

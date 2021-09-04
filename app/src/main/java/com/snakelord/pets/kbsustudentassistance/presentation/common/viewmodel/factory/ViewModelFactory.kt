@@ -40,7 +40,7 @@ class ViewModelFactory @Inject constructor() : ViewModelProvider.Factory {
             .build()
         return ScheduleViewModel(
             scheduleComponent.scheduleInteractor(),
-            scheduleComponent.schedulersProvider()
+            applicationComponent.schedulersProvider()
         )
     }
 
@@ -62,7 +62,9 @@ class ViewModelFactory @Inject constructor() : ViewModelProvider.Factory {
             .applicationComponent(applicationComponent)
             .build()
         return NavigationViewModel(
-            navigationComponent.locationInteractor()
+            navigationComponent.locationInteractor(),
+            applicationComponent.schedulersProvider(),
+            applicationComponent.application()
         )
     }
 }

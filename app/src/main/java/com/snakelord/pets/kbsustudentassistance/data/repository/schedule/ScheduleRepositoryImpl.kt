@@ -11,6 +11,15 @@ import io.reactivex.rxjava3.core.Maybe
 import io.reactivex.rxjava3.core.Single
 import javax.inject.Inject
 
+/**
+ * Реализация интерфейса [ScheduleRepository]
+ *
+ * @property scheduleApi API с которого приходит инофрмация
+ * @property studentDao DAO для получения кода специальности студента
+ * @property scheduleDao DAO для работы с таблицей расписания
+ *
+ * @author Murad Luguev on 01-09-2021
+ */
 class ScheduleRepositoryImpl @Inject constructor(
     private val scheduleApi: ScheduleApi,
     private val studentDao: StudentDao,
@@ -20,7 +29,7 @@ class ScheduleRepositoryImpl @Inject constructor(
     override fun getScheduleFromApi(): Single<List<DayDto>> {
         return Single.fromCallable {
             val specialityCode = studentDao.getSpecialityCode()
-            scheduleApi.getSchedule(specialityCode)
+            return@fromCallable scheduleApi.getSchedule(specialityCode)
         }
     }
 

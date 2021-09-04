@@ -69,6 +69,9 @@ class ScheduleJsonAdapter @Inject constructor() : JsonAdapter<List<DayDto>>() {
         reader.skipName()
         val classRoom = reader.nextString()
 
+        reader.skipName()
+        val instituteId = reader.nextInt()
+
         reader.endObject()
 
         return LectureDto(
@@ -76,11 +79,12 @@ class ScheduleJsonAdapter @Inject constructor() : JsonAdapter<List<DayDto>>() {
             teacher,
             startTime,
             endTime,
-            classRoom
+            classRoom,
+            instituteId
         )
     }
 
     override fun toJson(writer: JsonWriter, value: List<DayDto>?) {
-        //Метод остался пустым т.к. нет необходимости в конвертации расписания в JSON
+        //Метод не переопределён, т.к. нет необходимости переводить в json List<DayDto>
     }
 }

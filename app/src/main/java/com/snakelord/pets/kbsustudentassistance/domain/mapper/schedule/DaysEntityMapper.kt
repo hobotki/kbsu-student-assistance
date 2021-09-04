@@ -5,6 +5,11 @@ import com.snakelord.pets.kbsustudentassistance.domain.mapper.Mapper
 import com.snakelord.pets.kbsustudentassistance.domain.model.schedule.Day
 import javax.inject.Inject
 
+/**
+ * Маппер расписания для преобразования [List]<[DayEntity]> в [List]<[Day]>
+ *
+ * @author Murad Luguev on 01-09-2021
+ */
 class DaysEntityMapper @Inject constructor() :
     Mapper<List<@JvmSuppressWildcards DayEntity>, @JvmSuppressWildcards List<Day>> {
 

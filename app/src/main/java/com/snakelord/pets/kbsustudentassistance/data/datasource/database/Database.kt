@@ -18,17 +18,7 @@ import com.snakelord.pets.kbsustudentassistance.data.datasource.database.migrati
     entities = [StudentEntity::class, DayEntity::class],
     version = DatabaseConst.DATABASE_VERSION,
     exportSchema = true,
-    autoMigrations = [
-        AutoMigration (
-            from = 1,
-            to = 2,
-            spec = Migrations.RemoveYearMigration::class
-        ),
-        AutoMigration (
-            from = 2,
-            to = 3
-        )
-    ]
+    autoMigrations = [AutoMigration(from = 2, to = 3)]
 )
 abstract class Database : RoomDatabase() {
     /**

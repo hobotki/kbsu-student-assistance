@@ -1,6 +1,7 @@
 package com.snakelord.pets.kbsustudentassistance.domain.interactor.navigation
 
 import com.snakelord.pets.kbsustudentassistance.data.model.location.LocationModel
+import io.reactivex.rxjava3.core.Single
 
 /**
  * Интерактор для получения точек на карте
@@ -13,7 +14,7 @@ interface LocationInteractor {
      *
      * @return спиок [LocationModel]
      */
-    fun getEnterPoints(): List<LocationModel>
+    fun getEnterPoints(): Single<List<LocationModel>>
 
     /**
      * Возвращает точку для отображения главного входа в ВУЗ

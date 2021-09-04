@@ -2,15 +2,18 @@ package com.snakelord.pets.kbsustudentassistance.navigation.data
 
 import com.google.common.truth.Truth
 import com.snakelord.pets.kbsustudentassistance.R
+import com.snakelord.pets.kbsustudentassistance.data.datasource.database.dao.schedule.ScheduleDao
 import com.snakelord.pets.kbsustudentassistance.data.model.location.LocationModel
 import com.snakelord.pets.kbsustudentassistance.data.model.location.LocationPoint
 import com.snakelord.pets.kbsustudentassistance.data.repository.navigation.LocationRepositoryImpl
 import com.snakelord.pets.kbsustudentassistance.domain.repository.navigation.LocationRepository
+import io.mockk.mockk
 import org.junit.Test
 
 class LocationRepositoryTest {
 
-    private val locationRepository: LocationRepository = LocationRepositoryImpl()
+    private val scheduleDao: ScheduleDao = mockk()
+    private val locationRepository: LocationRepository = LocationRepositoryImpl(scheduleDao)
 
     @Test
     fun getEnterPointsTest() {

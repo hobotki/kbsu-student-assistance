@@ -66,9 +66,7 @@ class LoginViewModel(
             .subscribeOn(schedulersProvider.io())
             .subscribe(
                 { studentDto -> saveStudent(studentDto) },
-                { throwable -> performError(throwable)
-                    throwable.printStackTrace()
-                }
+                { throwable -> performError(throwable) }
             )
         compositeDisposable.add(loginDisposable)
     }

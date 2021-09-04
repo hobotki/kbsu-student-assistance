@@ -28,7 +28,7 @@ interface ScheduleDao {
     /**
      * Функция для получения расписания из базы данных
      *
-     * @return расписание типа [Maybe]<[List]<[DayEntity]>>
+     * @return расписание типа [Single]<[List]<[DayEntity]>>
      */
     @Query("SELECT * FROM ${ScheduleTable.TABLE_NAME}")
     fun getSchedule(): Single<List<DayEntity>>

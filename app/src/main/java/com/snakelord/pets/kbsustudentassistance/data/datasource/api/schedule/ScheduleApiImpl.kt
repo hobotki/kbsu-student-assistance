@@ -1,6 +1,5 @@
 package com.snakelord.pets.kbsustudentassistance.data.datasource.api.schedule
 
-import android.util.Log
 import com.snakelord.pets.kbsustudentassistance.data.datasource.api.schedule.model.DayDto
 import com.snakelord.pets.kbsustudentassistance.domain.mapper.Mapper
 import okhttp3.OkHttpClient
@@ -30,7 +29,10 @@ class ScheduleApiImpl @Inject constructor(
     private fun generateRequest(specialityCode: String): Request {
         return Request.Builder()
             .url(BASE_URL +
-                """"$specialityCode"""")
+                    """
+                        "$specialityCode"
+                    """
+                    .trimIndent())
             .get()
             .build()
     }

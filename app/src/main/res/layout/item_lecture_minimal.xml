@@ -7,7 +7,7 @@
     android:layout_marginVertical="@dimen/item_lecture_vertical_margin"
     android:layout_marginHorizontal="@dimen/item_lecture_minimal_horizontal_margin"
     android:padding="@dimen/default_margin"
-    android:elevation="@dimen/item_lecture_minimal_elevation"
+    android:elevation="5dp"
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
 

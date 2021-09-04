@@ -1,4 +1,4 @@
-package com.snakelord.pets.kbsustudentassistance.presentation.navigation.adapter
+package com.snakelord.pets.kbsustudentassistance.presentation.navigation.adapter.locations
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
@@ -7,7 +7,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.snakelord.pets.kbsustudentassistance.R
 import com.snakelord.pets.kbsustudentassistance.data.model.location.LocationModel
 import com.snakelord.pets.kbsustudentassistance.databinding.ItemInstituteBinding
-import com.snakelord.pets.kbsustudentassistance.presentation.navigation.adapter.viewholder.LocationViewHolder
+import com.snakelord.pets.kbsustudentassistance.presentation.navigation.adapter.locations.viewholder.LocationViewHolder
 
 /**
  * Адаптер для отображения локаций в RecyclerView

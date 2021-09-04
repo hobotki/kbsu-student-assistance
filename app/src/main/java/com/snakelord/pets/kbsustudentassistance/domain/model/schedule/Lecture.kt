@@ -10,6 +10,7 @@ import com.squareup.moshi.JsonClass
  * @property startTime время начала лекции
  * @property endTime время окончания лекции
  * @property classroom аудитория, в которой будет проходить лекция
+ * @property instituteId идентификатор института, в котором будет проходить лекция
  *
  * @author Murad Luguev on 01-09-2021
  */
@@ -23,5 +24,7 @@ data class Lecture(
 
     val endTime: String,
 
-    val classroom: String
+    val classroom: String,
+
+    val instituteId: Int
 )
