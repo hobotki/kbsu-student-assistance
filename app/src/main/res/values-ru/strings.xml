@@ -38,4 +38,10 @@
 
     <string name="classroom_placeholder">Аудитория №%s</string>
 
+    <string name="monday">ПН</string>
+    <string name="tuesday">ВТ</string>
+    <string name="wednesday">СР</string>
+    <string name="thursday">ЧТ</string>
+    <string name="friday">ПТ</string>
+
 </resources>

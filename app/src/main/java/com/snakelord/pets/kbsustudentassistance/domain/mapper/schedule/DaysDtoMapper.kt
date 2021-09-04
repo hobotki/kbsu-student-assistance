@@ -8,7 +8,7 @@ import com.snakelord.pets.kbsustudentassistance.domain.model.schedule.Lecture
 import javax.inject.Inject
 
 /**
- * Маппер для преобразования списка [DayDto] в список [DayEntity]
+ * Маппер для преобразования [List]<[DayDto]> в [List]<[DayEntity]>
  *
  * @property lecturesMapper маппер лекций
  *

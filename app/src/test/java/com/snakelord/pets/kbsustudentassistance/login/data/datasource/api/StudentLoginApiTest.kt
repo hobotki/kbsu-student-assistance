@@ -87,8 +87,7 @@ class StudentLoginApiTest {
                 "record_book_number": 1800218,
                 "full_name": "Иванов Иван Иванович",
                 "second_name": "Иванов",
-                "specialty_code": "09.03.01",
-                "year": 3
+                "specialty_code": "09.03.01-3"
             }
         ]"""
 
@@ -104,8 +103,7 @@ class StudentLoginApiTest {
         private val EXPECTED_STUDENT_DTO = StudentDto(
             fullName = "Иванов Иван Иванович",
             id = 3,
-            specialtyCode = "09.03.01",
-            year = 3
+            specialtyCode = "09.03.01-3"
         )
     }
 }

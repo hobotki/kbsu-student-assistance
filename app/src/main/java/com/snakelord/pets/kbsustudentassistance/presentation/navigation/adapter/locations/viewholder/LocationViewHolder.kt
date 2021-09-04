@@ -1,8 +1,11 @@
-package com.snakelord.pets.kbsustudentassistance.presentation.navigation.adapter.viewholder
+package com.snakelord.pets.kbsustudentassistance.presentation.navigation.adapter.locations.viewholder
 
+import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.snakelord.pets.kbsustudentassistance.presentation.common.extensions.viewContext
 import com.snakelord.pets.kbsustudentassistance.data.model.location.LocationModel
 import com.snakelord.pets.kbsustudentassistance.databinding.ItemInstituteBinding
+import com.snakelord.pets.kbsustudentassistance.presentation.navigation.adapter.lectures_minimal.LecturesMinimalAdapter
 
 /**
  * ViewHolder для отображения информации о локации
@@ -24,7 +27,14 @@ class LocationViewHolder(
      * @param locationModel экземпляр [LocationModel]
      */
     fun bind(locationModel: LocationModel) {
-        locationBinding.instituteName.text = itemView.context.getString(locationModel.enterRes)
+        locationBinding.instituteName.text = viewContext.getString(locationModel.enterRes)
+
+        val linearLayoutManager = LinearLayoutManager(viewContext)
+        linearLayoutManager.orientation = LinearLayoutManager.VERTICAL
+        val lecturesMinimalAdapter = LecturesMinimalAdapter(locationModel.lectures)
+
+        locationBinding.lectures.layoutManager = linearLayoutManager
+        locationBinding.lectures.adapter = lecturesMinimalAdapter
 
         locationBinding.openOnMap.setOnClickListener {
             clickListener.invoke(locationBinding.openOnMap.id, adapterPosition)

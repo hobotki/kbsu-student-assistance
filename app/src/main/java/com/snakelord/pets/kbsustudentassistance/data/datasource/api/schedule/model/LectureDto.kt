@@ -8,6 +8,7 @@ package com.snakelord.pets.kbsustudentassistance.data.datasource.api.schedule.mo
  * @property startTime время начала лекции
  * @property endTime время окончания лекции
  * @property classroom аудитория, в которой будет проходить лекция
+ * @property instituteId идентификатор института, в котором будет проходить занятие
  *
  * @author Murad Luguev on 01-09-2021
  */
@@ -20,5 +21,7 @@ data class LectureDto(
 
     val endTime: String,
 
-    val classroom: String
+    val classroom: String,
+
+    val instituteId: Int
 )

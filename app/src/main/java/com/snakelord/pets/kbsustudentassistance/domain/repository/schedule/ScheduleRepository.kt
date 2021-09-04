@@ -19,7 +19,19 @@ interface ScheduleRepository {
      */
     fun getScheduleFromApi(): Single<List<DayDto>>
 
+    /**
+     * Функция для получения расписания из базы данных
+     *
+     * @return расписание типа [Single]<[List]<[DayEntity]>>
+     */
     fun getScheduleFromDatabase(): Single<List<DayEntity>>
 
+    /**
+     * Функция для сохранения расписания в базу данных
+     *
+     * @param schedule расписание типа [List]<[DayEntity]>
+     *
+     * @return результат операции типа [Completable]
+     */
     fun saveSchedule(schedule: List<DayEntity>): Completable
 }

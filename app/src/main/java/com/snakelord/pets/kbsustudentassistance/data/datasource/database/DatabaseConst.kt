@@ -14,7 +14,6 @@ object DatabaseConst {
         const val COLUMN_ID = "id"
         const val COLUMN_FULL_NAME = "full_name"
         const val COLUMN_SPECIALITY_CODE = "speciality_code"
-        const val COLUMN_YEAR = "year"
     }
 
     object ScheduleTable {

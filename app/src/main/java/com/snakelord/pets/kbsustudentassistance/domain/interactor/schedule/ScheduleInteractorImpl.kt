@@ -13,6 +13,15 @@ import org.w3c.dom.Entity
 import java.util.*
 import javax.inject.Inject
 
+/**
+ * Реализация интерфейса [ScheduleInteractor]
+ *
+ * @property scheduleRepository репозиторий для получения расписания
+ * @property daysDtoMapper маппер для преобразования [List]<[DayDto]> в [List]<[DayEntity]>
+ * @property daysEntityMapper маппер для преобразования [List]<[DayEntity]> в [List]<[Day]>
+ *
+ * @author Murad Luguev on 01-09-2021
+ */
 class ScheduleInteractorImpl @Inject constructor(
     private val scheduleRepository: ScheduleRepository,
     private val daysDtoMapper: Mapper<List<DayDto>, List<DayEntity>>,

@@ -6,7 +6,7 @@ import com.snakelord.pets.kbsustudentassistance.domain.model.schedule.Lecture
 import javax.inject.Inject
 
 /**
- * Маппер для преобразования списка [LectureDto] в список [Lecture]
+ * Маппер для преобразования [List]<[LectureDto]> в [List]<[Lecture]>
  *
  * @author Murad Luguev on 01-09-2021
  */
@@ -20,7 +20,8 @@ class LecturesDtoMapper @Inject constructor() :
                 teacher = lectureDto.teacher,
                 startTime = lectureDto.startTime,
                 endTime = lectureDto.endTime,
-                classroom = lectureDto.classroom
+                classroom = lectureDto.classroom,
+                instituteId = lectureDto.instituteId
             )
         }
     }

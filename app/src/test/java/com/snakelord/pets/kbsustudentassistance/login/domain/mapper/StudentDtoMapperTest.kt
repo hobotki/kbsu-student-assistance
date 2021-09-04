@@ -27,15 +27,13 @@ class StudentDtoMapperTest {
         private val EXPECTED_STUDENT_ENTITY = StudentEntity(
             fullName = "Иванов Иван Иванович",
             id = 3,
-            specialtyCode = "09.03.01",
-            year = 3
+            specialtyCode = "09.03.01-3"
         )
 
         private val EXPECTED_STUDENT_DTO = StudentDto(
-            fullName = "Иванов Иван Иванович",
+            fullName = "Иванов Иван Иванович-3",
             id = 3,
-            specialtyCode = "09.03.01",
-            year = 3
+            specialtyCode = "09.03.01-3"
         )
     }
 }
