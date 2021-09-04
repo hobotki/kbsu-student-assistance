@@ -10,7 +10,7 @@ import com.snakelord.pets.kbsustudentassistance.data.datasource.database.entity.
  *
  * @author Murad Luguev on 27-08-2021
  */
-@Database(entities = [StudentEntity::class], version = 1, exportSchema = false)
+@Database(entities = [StudentEntity::class], version = 1, exportSchema = true)
 abstract class Database : RoomDatabase() {
     /**
      * Функция для получения DAO для работы со страницей студента
