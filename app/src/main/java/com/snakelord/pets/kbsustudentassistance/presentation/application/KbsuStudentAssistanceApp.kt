@@ -18,19 +18,17 @@ class KbsuStudentAssistanceApp : Application() {
 
     override fun onCreate() {
         super.onCreate()
-        applicationComponent = DaggerApplicationComponent.builder()
-            .context(context = applicationContext)
-            .build()
 
-        application = this
+        applicationComponent = DaggerApplicationComponent.builder()
+            .context(applicationContext)
+            .application(this)
+            .build()
 
         MapKitFactory.setApiKey(BuildConfig.YANDEX_MAP_API_KEY)
     }
 
     companion object {
         lateinit var applicationComponent: ApplicationComponent
-            private set
-        lateinit var application: KbsuStudentAssistanceApp
             private set
     }
 }

@@ -1,7 +1,7 @@
 package com.snakelord.pets.kbsustudentassistance.login.data.mapper
 
 import com.google.common.truth.Truth
-import com.snakelord.pets.kbsustudentassistance.data.datasource.api.model.StudentDto
+import com.snakelord.pets.kbsustudentassistance.data.datasource.api.student.model.StudentDto
 import com.snakelord.pets.kbsustudentassistance.data.mapper.student.StudentLoginMapper
 import com.snakelord.pets.kbsustudentassistance.domain.mapper.Mapper
 import com.squareup.moshi.JsonEncodingException
@@ -49,8 +49,7 @@ class StudentLoginMapperTest {
                 "record_book_number": 1800218,
                 "full_name": "Иванов Иван Иванович",
                 "second_name": "Иванов",
-                "specialty_code": "09.03.01",
-                "year": 3
+                "specialty_code": "09.03.01-3"
             }
         ]"""
 
@@ -60,8 +59,7 @@ class StudentLoginMapperTest {
                 "record_book_number": 1800218,
                 "full_name": "Иванов Иван Иванович",
                 "second_name": "Иванов",
-                "specialty_code": "09.03.01",
-                "year": 3
+                "specialty_code": "09.03.01-3"
             ]
         """
 
@@ -71,8 +69,7 @@ class StudentLoginMapperTest {
         private val EXPECTED_STUDENT_DTO = StudentDto(
             fullName = "Иванов Иван Иванович",
             id = 3,
-            specialtyCode = "09.03.01",
-            year = 3
+            specialtyCode = "09.03.01"
         )
     }
 }

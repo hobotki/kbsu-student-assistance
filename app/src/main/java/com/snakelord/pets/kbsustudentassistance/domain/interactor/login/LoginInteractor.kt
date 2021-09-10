@@ -1,7 +1,7 @@
 package com.snakelord.pets.kbsustudentassistance.domain.interactor.login
 
-import com.snakelord.pets.kbsustudentassistance.data.datasource.api.model.StudentDto
-import com.snakelord.pets.kbsustudentassistance.data.datasource.database.entity.StudentEntity
+import com.snakelord.pets.kbsustudentassistance.data.datasource.api.student.model.StudentDto
+import com.snakelord.pets.kbsustudentassistance.data.datasource.database.entity.student.StudentEntity
 import com.snakelord.pets.kbsustudentassistance.domain.VerificationResult
 import io.reactivex.rxjava3.core.Completable
 import io.reactivex.rxjava3.core.Maybe

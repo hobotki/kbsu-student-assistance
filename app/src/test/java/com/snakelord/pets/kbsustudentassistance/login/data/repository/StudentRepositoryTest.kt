@@ -1,9 +1,9 @@
 package com.snakelord.pets.kbsustudentassistance.login.data.repository
 
-import com.snakelord.pets.kbsustudentassistance.data.datasource.api.StudentLoginApi
-import com.snakelord.pets.kbsustudentassistance.data.datasource.api.model.StudentDto
-import com.snakelord.pets.kbsustudentassistance.data.datasource.database.dao.StudentDao
-import com.snakelord.pets.kbsustudentassistance.data.datasource.database.entity.StudentEntity
+import com.snakelord.pets.kbsustudentassistance.data.datasource.api.student.StudentLoginApi
+import com.snakelord.pets.kbsustudentassistance.data.datasource.api.student.model.StudentDto
+import com.snakelord.pets.kbsustudentassistance.data.datasource.database.dao.student.StudentDao
+import com.snakelord.pets.kbsustudentassistance.data.datasource.database.entity.student.StudentEntity
 import com.snakelord.pets.kbsustudentassistance.data.repository.login.StudentRepositoryImpl
 import com.snakelord.pets.kbsustudentassistance.domain.repository.login.StudentRepository
 import io.mockk.every
@@ -86,15 +86,13 @@ class StudentRepositoryTest {
         private val EXPECTED_STUDENT_ENTITY = StudentEntity(
             fullName = "Иванов Иван Иванович",
             id = 3,
-            specialtyCode = "09.03.01",
-            year = 3
+            specialtyCode = "09.03.01-3"
         )
 
         private val EXPECTED_STUDENT_DTO = StudentDto(
             fullName = "Иванов Иван Иванович",
             id = 3,
-            specialtyCode = "09.03.01",
-            year = 3
+            specialtyCode = "09.03.01-3"
         )
 
         private const val STUDENT_SECOND_NAME = "Иванов"

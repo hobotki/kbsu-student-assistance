@@ -7,6 +7,6 @@
         android:color="@color/backgroundColor"/>
 
     <corners
-        android:radius="@dimen/common_item_shape_corner_radius"/>
+        android:radius="7dp"/>
 
 </shape>

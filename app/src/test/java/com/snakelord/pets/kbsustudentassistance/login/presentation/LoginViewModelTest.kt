@@ -3,8 +3,8 @@ package com.snakelord.pets.kbsustudentassistance.login.presentation
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import androidx.lifecycle.Observer
 import com.snakelord.pets.kbsustudentassistance.R
-import com.snakelord.pets.kbsustudentassistance.data.datasource.api.model.StudentDto
-import com.snakelord.pets.kbsustudentassistance.data.datasource.database.entity.StudentEntity
+import com.snakelord.pets.kbsustudentassistance.data.datasource.api.student.model.StudentDto
+import com.snakelord.pets.kbsustudentassistance.data.datasource.database.entity.student.StudentEntity
 import com.snakelord.pets.kbsustudentassistance.data.exception.BadResponseException
 import com.snakelord.pets.kbsustudentassistance.domain.VerificationResult
 import com.snakelord.pets.kbsustudentassistance.domain.interactor.login.LoginInteractor
@@ -227,8 +227,7 @@ class LoginViewModelTest {
         private val STUDENT_DTO = StudentDto(
             fullName = "Иванов Иван Иванович",
             id = 3,
-            specialtyCode = "09.03.01",
-            year = 3
+            specialtyCode = "09.03.01-3"
         )
 
         private val STATE_LOADING = UIStates.Loading

@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:animateLayoutChanges="true"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <TextView
+        android:id="@+id/guide_message"
+        android:gravity="center"
+        android:visibility="gone"
+        android:padding="@dimen/default_padding"
+        android:textColor="?attr/colorAccent"
+        android:text="@string/bring_your_phone_to_the_scanner"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+
+    <androidx.cardview.widget.CardView
+        android:layout_gravity="center"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:cardBackgroundColor="?attr/colorAccent"
+        app:cardCornerRadius="@dimen/item_lecture_card_corner_radius">
+
+        <LinearLayout
+            android:padding="@dimen/default_padding"
+            android:orientation="vertical"
+            android:animateLayoutChanges="true"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <TextView
+                android:id="@+id/studentFullName"
+                android:visibility="gone"
+                android:layout_marginTop="@dimen/default_margin"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                style="@style/TextOnDarkBackground" />
+
+            <TextView
+                android:id="@+id/year"
+                android:visibility="gone"
+                android:layout_marginTop="@dimen/default_margin"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                style="@style/TextOnDarkBackground" />
+
+            <FrameLayout
+                android:layout_margin="@dimen/default_margin"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <ImageView
+                    android:id="@+id/studentQrCode"
+                    android:visibility="invisible"
+                    android:layout_gravity="center"
+                    android:layout_width="@dimen/qr_code_image_view_size"
+                    android:layout_height="@dimen/qr_code_image_view_size"
+                    android:contentDescription="@string/qr_code_image_view_desc" />
+
+                <ProgressBar
+                    android:id="@+id/progressBar"
+                    android:indeterminateTint="@color/white"
+                    android:layout_gravity="center"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"/>
+
+            </FrameLayout>
+
+        </LinearLayout>
+
+    </androidx.cardview.widget.CardView>
+
+</FrameLayout>

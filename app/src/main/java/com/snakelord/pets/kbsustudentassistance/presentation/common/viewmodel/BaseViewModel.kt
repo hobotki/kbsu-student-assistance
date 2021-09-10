@@ -17,7 +17,7 @@ import io.reactivex.rxjava3.disposables.CompositeDisposable
  * @author Murad Luguev on 27-08-2021
  */
 abstract class BaseViewModel(
-    private val errorMapper: Mapper<Throwable, OperationError>
+    private val errorMapper: Mapper<Throwable, OperationError>? = null
 ) : ViewModel() {
 
     private val uiStatesMutableLiveData = MutableLiveData<UIStates>()
@@ -45,7 +45,9 @@ abstract class BaseViewModel(
      * @param throwable исключение
      */
     protected fun performError(throwable: Throwable) {
-        val error = errorMapper.map(throwable)
-        updateUIState(UIStates.Error(error))
+        errorMapper?.let { mapper ->
+            val error = mapper.map(throwable)
+            updateUIState(UIStates.Error(error))
+        }
     }
 }

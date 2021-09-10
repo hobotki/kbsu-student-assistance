@@ -34,5 +34,19 @@
     <string name="iodams">Институт стоматологии и челюстно-лицевой хирургии</string>
     <string name="ioacd">Институт Архитектуры, Строительства и Дизайна</string>
     <string name="eatf">Инженерно-технологический факультет</string>
+    <!--Locations name-->
+
+    <string name="classroom_placeholder">Аудитория №%s</string>
+
+    <string name="monday">ПН</string>
+    <string name="tuesday">ВТ</string>
+    <string name="wednesday">СР</string>
+    <string name="thursday">ЧТ</string>
+    <string name="friday">ПТ</string>
+    <string name="pass">Пропуск</string>
+    <string name="qr_code_image_view_desc">Это изображение содержит QR-код, который используется в качестве пропуска в университет</string>
+
+    <string name="year_placeholder">Курс: %s</string>
+    <string name="bring_your_phone_to_the_scanner">Поднесите телефон к сканеру</string>
 
 </resources>

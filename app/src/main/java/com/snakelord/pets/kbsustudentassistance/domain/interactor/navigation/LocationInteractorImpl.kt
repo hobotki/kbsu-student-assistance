@@ -2,6 +2,7 @@ package com.snakelord.pets.kbsustudentassistance.domain.interactor.navigation
 
 import com.snakelord.pets.kbsustudentassistance.data.model.location.LocationModel
 import com.snakelord.pets.kbsustudentassistance.domain.repository.navigation.LocationRepository
+import io.reactivex.rxjava3.core.Single
 import javax.inject.Inject
 
 /**
@@ -15,7 +16,7 @@ class LocationInteractorImpl @Inject constructor(
     private val locationRepository: LocationRepository
 ) : LocationInteractor {
 
-    override fun getEnterPoints(): List<LocationModel> {
+    override fun getEnterPoints(): Single<List<LocationModel>> {
         return locationRepository.getEnterPoints()
     }
 

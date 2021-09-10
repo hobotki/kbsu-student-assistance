@@ -10,14 +10,18 @@
         <entry key="..\:/Pets/KBSUStudentAssistance/app/src/main/res/drawable/institute_bottom_sheet_shape.xml" value="0.3828125" />
         <entry key="..\:/Pets/KBSUStudentAssistance/app/src/main/res/drawable/item_institute_shape.xml" value="0.3828125" />
         <entry key="..\:/Pets/KBSUStudentAssistance/app/src/main/res/drawable/splash_screen_icon.xml" value="0.22083333333333333" />
+        <entry key="..\:/Pets/KBSUStudentAssistance/app/src/main/res/drawable/time_shape.xml" value="0.378125" />
         <entry key="..\:/Pets/KBSUStudentAssistance/app/src/main/res/layout/activity_main.xml" value="0.33" />
         <entry key="..\:/Pets/KBSUStudentAssistance/app/src/main/res/layout/bottom_sheet_institutes.xml" value="0.36666666666666664" />
         <entry key="..\:/Pets/KBSUStudentAssistance/app/src/main/res/layout/fragment_login.xml" value="0.5" />
         <entry key="..\:/Pets/KBSUStudentAssistance/app/src/main/res/layout/fragment_navigation.xml" value="0.36666666666666664" />
-        <entry key="..\:/Pets/KBSUStudentAssistance/app/src/main/res/layout/fragment_under_development.xml" value="0.20244565217391305" />
+        <entry key="..\:/Pets/KBSUStudentAssistance/app/src/main/res/layout/fragment_schedule.xml" value="0.3619791666666667" />
+        <entry key="..\:/Pets/KBSUStudentAssistance/app/src/main/res/layout/fragment_under_development.xml" value="0.33" />
         <entry key="..\:/Pets/KBSUStudentAssistance/app/src/main/res/layout/item_corps.xml" value="0.36666666666666664" />
         <entry key="..\:/Pets/KBSUStudentAssistance/app/src/main/res/layout/item_institute.xml" value="0.36666666666666664" />
+        <entry key="..\:/Pets/KBSUStudentAssistance/app/src/main/res/layout/item_lecture.xml" value="0.5" />
         <entry key="..\:/Pets/KBSUStudentAssistance/app/src/main/res/layout/item_lecture_minimal.xml" value="0.36666666666666664" />
+        <entry key="..\:/Pets/KBSUStudentAssistance/app/src/main/res/layout/item_schedule.xml" value="0.3619791666666667" />
         <entry key="..\:/Pets/KBSUStudentAssistance/app/src/main/res/menu/bottom_navigation_menu.xml" value="0.3619791666666667" />
       </map>
     </option>

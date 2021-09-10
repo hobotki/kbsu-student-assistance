@@ -1,6 +1,6 @@
 package com.snakelord.pets.kbsustudentassistance.data.mapper.student
 
-import com.snakelord.pets.kbsustudentassistance.data.datasource.api.model.StudentDto
+import com.snakelord.pets.kbsustudentassistance.data.datasource.api.student.model.StudentDto
 import com.snakelord.pets.kbsustudentassistance.domain.mapper.Mapper
 import com.squareup.moshi.JsonAdapter
 import com.squareup.moshi.Moshi
