@@ -1,9 +1,9 @@
 package com.snakelord.pets.kbsustudentassistance.data.repository.login
 
-import com.snakelord.pets.kbsustudentassistance.data.datasource.api.StudentLoginApi
-import com.snakelord.pets.kbsustudentassistance.data.datasource.api.model.StudentDto
-import com.snakelord.pets.kbsustudentassistance.data.datasource.database.dao.StudentDao
-import com.snakelord.pets.kbsustudentassistance.data.datasource.database.entity.StudentEntity
+import com.snakelord.pets.kbsustudentassistance.data.datasource.api.student.StudentLoginApi
+import com.snakelord.pets.kbsustudentassistance.data.datasource.api.student.model.StudentDto
+import com.snakelord.pets.kbsustudentassistance.data.datasource.database.dao.student.StudentDao
+import com.snakelord.pets.kbsustudentassistance.data.datasource.database.entity.student.StudentEntity
 import com.snakelord.pets.kbsustudentassistance.domain.repository.login.StudentRepository
 import io.reactivex.rxjava3.core.Completable
 import io.reactivex.rxjava3.core.Maybe

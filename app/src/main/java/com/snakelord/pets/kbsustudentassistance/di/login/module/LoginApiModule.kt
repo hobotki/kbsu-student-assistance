@@ -1,7 +1,7 @@
 package com.snakelord.pets.kbsustudentassistance.di.login.module
 
-import com.snakelord.pets.kbsustudentassistance.data.datasource.api.StudentLoginApi
-import com.snakelord.pets.kbsustudentassistance.data.datasource.api.StudentLoginApiImpl
+import com.snakelord.pets.kbsustudentassistance.data.datasource.api.student.StudentLoginApi
+import com.snakelord.pets.kbsustudentassistance.data.datasource.api.student.StudentLoginApiImpl
 import dagger.Binds
 import dagger.Module
 

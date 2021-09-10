@@ -1,7 +1,10 @@
 package com.snakelord.pets.kbsustudentassistance.di.login.component
 
 import com.snakelord.pets.kbsustudentassistance.di.common.component.ApplicationComponent
-import com.snakelord.pets.kbsustudentassistance.di.login.module.*
+import com.snakelord.pets.kbsustudentassistance.di.login.module.LoginApiModule
+import com.snakelord.pets.kbsustudentassistance.di.login.module.LoginInteractorModule
+import com.snakelord.pets.kbsustudentassistance.di.login.module.LoginMapperModule
+import com.snakelord.pets.kbsustudentassistance.di.login.module.LoginRepositoryModule
 import com.snakelord.pets.kbsustudentassistance.di.login.scope.LoginScope
 import com.snakelord.pets.kbsustudentassistance.domain.interactor.login.LoginInteractor
 import com.snakelord.pets.kbsustudentassistance.domain.mapper.Mapper
@@ -17,8 +20,7 @@ import dagger.Component
     dependencies = [ApplicationComponent::class],
     modules = [
         LoginApiModule::class, LoginInteractorModule::class,
-        LoginMapperModule::class, LoginRepositoryModule::class,
-        LoginDaoModule::class]
+        LoginMapperModule::class, LoginRepositoryModule::class]
 )
 @LoginScope
 interface LoginComponent {

@@ -34,5 +34,14 @@
     <string name="iodams">Institute of Dentistry and Maxillofacial Surgery</string>
     <string name="ioacd">Institute of Architecture, Construction and Design</string>
     <string name="eatf">Engineering and technical faculty</string>
+    <!--Locations name-->
+
+    <string name="classroom_placeholder">Classroom №%s</string>
+
+    <string name="monday">MON</string>
+    <string name="tuesday">TUE</string>
+    <string name="wednesday">WED</string>
+    <string name="thursday">THU</string>
+    <string name="friday">FRI</string>
 
 </resources>

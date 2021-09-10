@@ -16,7 +16,7 @@ import com.snakelord.pets.kbsustudentassistance.presentation.common.extensions.c
 import com.snakelord.pets.kbsustudentassistance.presentation.common.extensions.expand
 import com.snakelord.pets.kbsustudentassistance.presentation.common.extensions.isExpanded
 import com.snakelord.pets.kbsustudentassistance.presentation.common.fragment.BaseFragment
-import com.snakelord.pets.kbsustudentassistance.presentation.navigation.adapter.LocationsAdapter
+import com.snakelord.pets.kbsustudentassistance.presentation.navigation.adapter.locations.LocationsAdapter
 import com.yandex.mapkit.Animation
 import com.yandex.mapkit.MapKitFactory
 import com.yandex.mapkit.map.CameraPosition
@@ -69,6 +69,14 @@ class NavigationFragment : BaseFragment() {
         binding.bottomSheetContent.dragView.setOnClickListener {
             updateBottomSheetState()
         }
+
+        checkArguments()
+    }
+
+    private fun checkArguments() {
+        val args = requireArguments()
+        val instituteId = args.getInt(ARGUMENT_INSTITUTE_ID)
+        navigationViewModel.showLocationById(instituteId)
     }
 
     private fun updateBottomSheetState() {
@@ -153,5 +161,6 @@ class NavigationFragment : BaseFragment() {
     companion object {
         private const val BOTTOM_SHEET_STATE_KEY = "bottom_sheet_state_key"
         private const val YANDEX_MAP_URI_PATH = "yandexmaps://maps.yandex.ru/?rtext=~"
+        private const val ARGUMENT_INSTITUTE_ID = "instituteId"
     }
 }

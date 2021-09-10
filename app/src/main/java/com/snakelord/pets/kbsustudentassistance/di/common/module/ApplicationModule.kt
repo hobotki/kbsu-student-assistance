@@ -2,8 +2,12 @@ package com.snakelord.pets.kbsustudentassistance.di.common.module
 
 import android.content.Context
 import androidx.room.Room
+import androidx.room.migration.Migration
 import com.snakelord.pets.kbsustudentassistance.data.datasource.database.Database
 import com.snakelord.pets.kbsustudentassistance.data.datasource.database.DatabaseConst
+import com.snakelord.pets.kbsustudentassistance.data.datasource.database.dao.schedule.ScheduleDao
+import com.snakelord.pets.kbsustudentassistance.data.datasource.database.dao.student.StudentDao
+import com.snakelord.pets.kbsustudentassistance.data.datasource.database.migrations.Migrations
 import dagger.Module
 import dagger.Provides
 import okhttp3.OkHttpClient
@@ -29,6 +33,7 @@ class ApplicationModule {
     fun provideDatabase(context: Context): Database {
         return Room
             .databaseBuilder(context, Database::class.java, DatabaseConst.DATABASE_NAME)
+            .addMigrations(Migrations.MIGRATION_1_2)
             .build()
     }
 
@@ -58,6 +63,32 @@ class ApplicationModule {
         val httpLoggingInterceptor = HttpLoggingInterceptor()
         httpLoggingInterceptor.level = HttpLoggingInterceptor.Level.BODY
         return httpLoggingInterceptor
+    }
+
+    /**
+     * Предоставляет экземпляр [StudentDao]
+     * для работы с таблицей студента в базе данных
+     *
+     * @param database экземпляр базы данных [Database]
+     *
+     * @return экземпляр [StudentDao]
+     */
+    @Provides
+    fun providesStudentDao(database: Database): StudentDao {
+        return database.studentDao()
+    }
+
+    /**
+     * Предоставляет экземпляр [StudentDao]
+     * для работы с таблицей расписания в базе данных
+     *
+     * @param database экземпляр базы данных [Database]
+     *
+     * @return экземпляр [ScheduleDao]
+     */
+    @Provides
+    fun provideScheduleDao(database: Database): ScheduleDao {
+        return database.scheduleDao()
     }
 
     companion object {

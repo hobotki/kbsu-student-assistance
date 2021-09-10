@@ -6,13 +6,13 @@ plugins {
 }
 
 android {
-    compileSdkVersion 31
+    compileSdkVersion 30
     buildToolsVersion "30.0.3"
 
     defaultConfig {
         applicationId "com.snakelord.pets.kbsustudentassistance"
         minSdkVersion 21
-        targetSdkVersion 31
+        targetSdkVersion 30
         versionCode 1
         versionName "1.0"
 
@@ -109,4 +109,6 @@ dependencies {
     testImplementation "com.google.truth:truth:1.1.3"
     testImplementation "io.mockk:mockk:1.10.6"
     testImplementation "androidx.arch.core:core-testing:2.1.0"
+    testImplementation "org.powermock:powermock-module-junit4:2.0.2"
+    testImplementation "org.powermock:powermock-api-mockito2:2.0.2"
 }

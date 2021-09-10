@@ -1,7 +1,7 @@
 package com.snakelord.pets.kbsustudentassistance.di.login.module
 
-import com.snakelord.pets.kbsustudentassistance.data.datasource.api.model.StudentDto
-import com.snakelord.pets.kbsustudentassistance.data.datasource.database.entity.StudentEntity
+import com.snakelord.pets.kbsustudentassistance.data.datasource.api.student.model.StudentDto
+import com.snakelord.pets.kbsustudentassistance.data.datasource.database.entity.student.StudentEntity
 import com.snakelord.pets.kbsustudentassistance.data.mapper.student.StudentLoginMapper
 import com.snakelord.pets.kbsustudentassistance.domain.mapper.Mapper
 import com.snakelord.pets.kbsustudentassistance.domain.mapper.error.StudentErrorMapper

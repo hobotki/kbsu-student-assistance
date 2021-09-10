@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:background="@drawable/item_day_background_states"
+    android:elevation="@dimen/cardview_default_elevation"
+    android:gravity="center"
+    android:orientation="vertical"
+    android:padding="8dp"
+    android:layout_margin="15dp"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <TextView
+        android:id="@+id/day_of_month"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        tools:text="15"
+        style="@style/PrimaryTextStyle"/>
+
+    <TextView
+        android:id="@+id/day_of_week"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        tools:text="@string/monday"
+        style="@style/SecondaryTextStyle"/>
+
+</LinearLayout>

@@ -34,5 +34,14 @@
     <string name="iodams">Институт стоматологии и челюстно-лицевой хирургии</string>
     <string name="ioacd">Институт Архитектуры, Строительства и Дизайна</string>
     <string name="eatf">Инженерно-технологический факультет</string>
+    <!--Locations name-->
+
+    <string name="classroom_placeholder">Аудитория №%s</string>
+
+    <string name="monday">ПН</string>
+    <string name="tuesday">ВТ</string>
+    <string name="wednesday">СР</string>
+    <string name="thursday">ЧТ</string>
+    <string name="friday">ПТ</string>
 
 </resources>

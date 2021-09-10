@@ -18,7 +18,8 @@ import com.snakelord.pets.kbsustudentassistance.presentation.common.state.UIStat
  */
 abstract class BaseFragment : Fragment() {
 
-    protected val factory = KbsuStudentAssistanceApp.applicationComponent.viewModelFactory()
+    protected val factory = KbsuStudentAssistanceApp.applicationComponent
+            .viewModelFactory()
 
     @IdRes
     protected val navGraphId = R.id.nav_graph
@@ -28,7 +29,9 @@ abstract class BaseFragment : Fragment() {
      *
      * @param state экземпляр sealed-класса [UIStates]
      */
-    open fun updateUIState(state: UIStates) {}
+    open fun updateUIState(state: UIStates) {
+        //Переопределяется по необходимости
+    }
 
     /**
      * Функция для отображения ошибки
