@@ -1,4 +1,4 @@
-package com.snakelord.pets.kbsustudentassistance.common.extensions
+package com.snakelord.pets.kbsustudentassistance.data.extensions
 
 /**
  * Функция-расширение для проверки ответа с API

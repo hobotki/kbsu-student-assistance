@@ -101,6 +101,12 @@ dependencies {
     //Yandex Maps
     implementation 'com.yandex.android:maps.mobile:4.0.0-lite'
 
+    //ZXing
+    implementation 'com.google.zxing:core:3.4.1'
+
+    //Preferences
+    implementation "androidx.preference:preference-ktx:1.1.1"
+
     //Tests
     testImplementation 'junit:junit:4.13.2'
     androidTestImplementation 'androidx.test.ext:junit:1.1.3'

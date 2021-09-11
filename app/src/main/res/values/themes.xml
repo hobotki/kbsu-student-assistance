@@ -12,7 +12,7 @@
     </style>
 
     <style name="SnackbarStyle" parent="Widget.MaterialComponents.Snackbar">
-        <item name="backgroundTint">@color/design_default_color_error</item>
+        <item name="backgroundTint">?attr/colorAccent</item>
     </style>
 
     <style name="Theme.KBSUStudentAssistance.SplashScreen">
@@ -35,7 +35,7 @@
         <item name="android:textColor">?attr/colorAccent</item>
     </style>
 
-    <style name="TimeTextStyle">
+    <style name="TextOnDarkBackground">
         <item name="android:textSize">20sp</item>
         <item name="android:textStyle">bold</item>
         <item name="android:textColor">@color/white</item>

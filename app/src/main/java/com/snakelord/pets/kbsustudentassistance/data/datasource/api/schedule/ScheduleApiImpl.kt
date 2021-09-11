@@ -1,6 +1,6 @@
 package com.snakelord.pets.kbsustudentassistance.data.datasource.api.schedule
 
-import com.snakelord.pets.kbsustudentassistance.common.extensions.responseIsEmpty
+import com.snakelord.pets.kbsustudentassistance.data.extensions.responseIsEmpty
 import com.snakelord.pets.kbsustudentassistance.data.datasource.api.schedule.model.DayDto
 import com.snakelord.pets.kbsustudentassistance.data.exception.BadResponseException
 import com.snakelord.pets.kbsustudentassistance.domain.mapper.Mapper
@@ -31,9 +31,10 @@ class ScheduleApiImpl @Inject constructor(
         if (!response.isSuccessful) {
             throw BadResponseException(response.code)
         }
-        if (response.body!!.string().responseIsEmpty())
+        val responseBody = response.body!!.string()
+        if (responseBody.responseIsEmpty())
             throw BadResponseException(404)
-        return scheduleResponseMapper.map(response.body!!.string())
+        return scheduleResponseMapper.map(responseBody)
     }
 
     private fun generateRequest(specialityCode: String): Request {

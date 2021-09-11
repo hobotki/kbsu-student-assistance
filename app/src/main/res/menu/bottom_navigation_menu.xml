@@ -7,8 +7,18 @@
         android:icon="@drawable/ic_schedule" />
 
     <item
+        android:id="@+id/passFragment"
+        android:title="@string/pass"
+        android:icon="@drawable/ic_pass"/>
+
+    <item
         android:id="@+id/navigationFragment"
         android:title="@string/navigation"
         android:icon="@drawable/ic_map"/>
+
+    <item
+        android:id="@+id/settingsFragment"
+        android:title="@string/settings"
+        android:icon="@drawable/ic_settings"/>
 
 </menu>

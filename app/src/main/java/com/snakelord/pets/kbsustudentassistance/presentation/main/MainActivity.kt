@@ -24,7 +24,6 @@ class MainActivity : AppCompatActivity(), NavigationCallback {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         bottomNavigationView = findViewById(R.id.bottomNavigation)
-        bottomNavigationView.itemIconTintList = null
         NavigationUI.setupWithNavController(bottomNavigationView, findNavController(R.id.container))
     }
 

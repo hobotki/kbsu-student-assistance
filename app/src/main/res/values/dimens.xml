@@ -19,4 +19,5 @@
     <dimen name="item_lecture_minimal_horizontal_margin">5dp</dimen>
     <dimen name="item_lecture_card_corner_radius">7dp</dimen>
     <dimen name="item_lecture_horizontal_margin">15dp</dimen>
+    <dimen name="qr_code_image_view_size">130dp</dimen>
 </resources>

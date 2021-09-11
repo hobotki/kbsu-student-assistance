@@ -7,7 +7,6 @@ import com.snakelord.pets.kbsustudentassistance.data.datasource.database.dao.sch
 import com.snakelord.pets.kbsustudentassistance.data.datasource.database.dao.student.StudentDao
 import com.snakelord.pets.kbsustudentassistance.data.datasource.database.entity.schedule.DayEntity
 import com.snakelord.pets.kbsustudentassistance.data.datasource.database.entity.student.StudentEntity
-import com.snakelord.pets.kbsustudentassistance.data.datasource.database.migrations.Migrations
 
 /**
  * База данных приложения

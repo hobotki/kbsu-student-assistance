@@ -22,7 +22,7 @@
     <fragment
         android:id="@+id/scheduleFragment"
         android:name="com.snakelord.pets.kbsustudentassistance.presentation.schedule.ScheduleFragment"
-        android:label="ScheduleFragment" >
+        android:label="ScheduleFragment">
 
         <action
             android:id="@+id/action_scheduleFragment_to_navigationFragment"
@@ -35,6 +35,11 @@
     </fragment>
 
     <fragment
+        android:id="@+id/passFragment"
+        android:name="com.snakelord.pets.kbsustudentassistance.presentation.pass.PassFragment"
+        android:label="PassFragment" />
+
+    <fragment
         android:id="@+id/navigationFragment"
         android:name="com.snakelord.pets.kbsustudentassistance.presentation.navigation.NavigationFragment"
         android:label="NavigationFragment" >
@@ -42,6 +47,21 @@
         <argument
             android:name="instituteId"
             app:argType="integer" />
+
+    </fragment>
+
+    <fragment
+        android:id="@+id/settingsFragment"
+        android:name="com.snakelord.pets.kbsustudentassistance.presentation.settings.SettingsFragment"
+        android:label="SettingsFragment" >
+
+        <action
+            android:id="@+id/action_settingsFragment_to_loginFragment"
+            app:destination="@id/loginFragment"
+            app:enterAnim="@anim/nav_default_enter_anim"
+            app:exitAnim="@anim/nav_default_exit_anim"
+            app:popUpTo="@+id/nav_graph"
+            app:popUpToInclusive="true" />
 
     </fragment>
 

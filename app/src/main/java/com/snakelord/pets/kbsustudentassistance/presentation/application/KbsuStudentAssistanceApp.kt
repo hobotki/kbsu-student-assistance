@@ -18,6 +18,7 @@ class KbsuStudentAssistanceApp : Application() {
 
     override fun onCreate() {
         super.onCreate()
+
         applicationComponent = DaggerApplicationComponent.builder()
             .context(applicationContext)
             .application(this)
