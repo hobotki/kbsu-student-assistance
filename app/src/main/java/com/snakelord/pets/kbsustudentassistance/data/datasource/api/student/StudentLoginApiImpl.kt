@@ -1,6 +1,6 @@
 package com.snakelord.pets.kbsustudentassistance.data.datasource.api.student
 
-import com.snakelord.pets.kbsustudentassistance.common.extensions.responseIsEmpty
+import com.snakelord.pets.kbsustudentassistance.data.extensions.responseIsEmpty
 import com.snakelord.pets.kbsustudentassistance.data.datasource.api.student.model.StudentDto
 import com.snakelord.pets.kbsustudentassistance.data.exception.BadResponseException
 import com.snakelord.pets.kbsustudentassistance.domain.mapper.Mapper

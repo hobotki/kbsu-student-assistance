@@ -43,5 +43,10 @@
     <string name="wednesday">WED</string>
     <string name="thursday">THU</string>
     <string name="friday">FRI</string>
+    <string name="pass">Pass</string>
+    <string name="qr_code_image_view_desc">This image contains QR Code which should be used as pass</string>
+
+    <string name="year_placeholder">Year: %s</string>
+    <string name="bring_your_phone_to_the_scanner">Bring your phone to the scanner</string>
 
 </resources>

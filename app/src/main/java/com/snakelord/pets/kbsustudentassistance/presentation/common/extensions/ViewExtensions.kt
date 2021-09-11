@@ -25,6 +25,17 @@ fun View.visible() {
 /**
  * Функция-расширение для [View]
  *
+ * Делает [View] невидимой, но не освобождает место
+ *
+ * @author Murad Luguev on 11-09-2021
+ */
+fun View.invisible() {
+    visibility = View.INVISIBLE
+}
+
+/**
+ * Функция-расширение для [View]
+ *
  * Делает [View] невидимой и освобождает место, занимаемое ей
  *
  * @author Murad Luguev on 27-08-2021

@@ -8,6 +8,7 @@ import com.snakelord.pets.kbsustudentassistance.data.datasource.database.Databas
 import com.snakelord.pets.kbsustudentassistance.data.datasource.database.entity.student.StudentEntity
 import io.reactivex.rxjava3.core.Completable
 import io.reactivex.rxjava3.core.Maybe
+import io.reactivex.rxjava3.core.Single
 
 /**
  * DAO для работы с таблицей студента
@@ -41,4 +42,12 @@ interface StudentDao {
     @Query("SELECT ${DatabaseConst.StudentTable.COLUMN_SPECIALITY_CODE} " +
             "FROM ${DatabaseConst.StudentTable.TABLE_NAME}")
     fun getSpecialityCode(): String
+
+    /**
+     * Функция для получения информации о студенте
+     *
+     * @return данные студента типа [Single]<[StudentEntity]>
+     */
+    @Query("SELECT * FROM ${DatabaseConst.StudentTable.TABLE_NAME}")
+    fun getStudentData(): Single<StudentEntity>
 }
