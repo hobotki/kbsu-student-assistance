@@ -103,7 +103,7 @@ dependencies {
 
     //ZXing
     implementation 'com.google.zxing:core:3.4.1'
-
+    
     //Preferences
     implementation "androidx.preference:preference-ktx:1.1.1"
 
