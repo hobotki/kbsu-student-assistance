@@ -6,7 +6,7 @@ import androidx.fragment.app.Fragment
 import com.google.android.material.snackbar.Snackbar
 import com.snakelord.pets.kbsustudentassistance.R
 import com.snakelord.pets.kbsustudentassistance.presentation.application.KbsuStudentAssistanceApp
-import com.snakelord.pets.kbsustudentassistance.presentation.common.extensions.moveToTop
+import com.snakelord.pets.kbsustudentassistance.presentation.common.dialog.ErrorDialog
 import com.snakelord.pets.kbsustudentassistance.presentation.common.state.UIStates
 
 /**
@@ -19,11 +19,12 @@ import com.snakelord.pets.kbsustudentassistance.presentation.common.state.UIStat
 abstract class BaseFragment : Fragment() {
 
     protected val factory = KbsuStudentAssistanceApp.applicationComponent
-            .viewModelFactory()
+        .viewModelFactory()
 
     @IdRes
     protected val navGraphId = R.id.nav_graph
 
+    private var errorDialog: ErrorDialog? = null
     /**
      * Функция для обновления экрана в зависимости от состояния [UIStates]
      *
@@ -31,6 +32,10 @@ abstract class BaseFragment : Fragment() {
      */
     open fun updateUIState(state: UIStates) {
         //Переопределяется по необходимости
+    }
+
+    open fun setOnTryAction(): (() -> Unit)? {
+        return null
     }
 
     /**
@@ -41,8 +46,14 @@ abstract class BaseFragment : Fragment() {
      * @param errorMessageResId строковый ресурс для отоюражения ошибки
      */
     protected fun showError(@StringRes errorMessageResId: Int) {
-        Snackbar.make(requireView(), errorMessageResId, Snackbar.LENGTH_LONG)
-            .moveToTop()
-            .show()
+        errorDialog = ErrorDialog.Builder()
+            .errorMessage(errorMessageResId)
+            .onTryAction(setOnTryAction())
+            .create()
+        errorDialog!!.show(parentFragmentManager, ERROR_DIALOG_TAG)
+    }
+
+    companion object {
+        private const val ERROR_DIALOG_TAG = "error_dialog"
     }
 }

@@ -8,11 +8,7 @@
         <item name="android:windowBackground">@color/bottomSheetBackgroundColor</item>
         <item name="android:statusBarColor" tools:targetApi="l">@color/statusBarColor</item>
         <item name="android:windowLightStatusBar" tools:targetApi="m">true</item>
-        <item name="snackbarStyle">@style/SnackbarStyle</item>
-    </style>
-
-    <style name="SnackbarStyle" parent="Widget.MaterialComponents.Snackbar">
-        <item name="backgroundTint">?attr/colorAccent</item>
+        <item name="bottomSheetDialogTheme">@style/CustomBottomSheetDialogTheme</item>
     </style>
 
     <style name="Theme.KBSUStudentAssistance.SplashScreen">
@@ -42,4 +38,12 @@
         <item name="android:gravity">center</item>
     </style>
 
+
+    <style name="CustomBottomSheetDialogTheme" parent="Theme.Design.Light.BottomSheetDialog">
+        <item name="bottomSheetStyle">@style/ErrorBottomSheetDialogStyle</item>
+    </style>
+
+   <style name="ErrorBottomSheetDialogStyle" parent="Widget.Design.BottomSheet.Modal">
+       <item name="android:background">@android:color/transparent</item>
+   </style>
 </resources>

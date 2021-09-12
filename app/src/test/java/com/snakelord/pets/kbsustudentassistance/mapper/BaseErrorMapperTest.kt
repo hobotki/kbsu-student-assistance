@@ -1,19 +1,19 @@
-package com.snakelord.pets.kbsustudentassistance.login.domain.mapper
+package com.snakelord.pets.kbsustudentassistance.mapper
 
 import com.google.common.truth.Truth
 import com.snakelord.pets.kbsustudentassistance.R
 import com.snakelord.pets.kbsustudentassistance.data.exception.BadResponseException
 import com.snakelord.pets.kbsustudentassistance.domain.mapper.Mapper
-import com.snakelord.pets.kbsustudentassistance.domain.mapper.error.StudentErrorMapper
+import com.snakelord.pets.kbsustudentassistance.domain.mapper.error.BaseErrorMapper
 import com.snakelord.pets.kbsustudentassistance.domain.model.OperationError
 import org.junit.Test
 import java.io.InterruptedIOException
 import java.lang.IllegalStateException
 import java.net.UnknownHostException
 
-class StudentErrorMapperTest {
+class BaseErrorMapperTest {
 
-    private val studentErrorMapper: Mapper<Throwable, OperationError> = StudentErrorMapper()
+    private val studentErrorMapper: Mapper<Throwable, OperationError> = BaseErrorMapper()
 
     @Test
     fun mapUnknownHostException() {
@@ -148,7 +148,7 @@ class StudentErrorMapperTest {
             OperationError(R.string.server_unavailable)
 
         private val NOT_FOUND_EXPECTED_RESULT =
-            OperationError(R.string.student_not_found)
+            OperationError(R.string.requested_info_not_found)
 
         private val REQUEST_TIMEOUT_EXPECTED_RESULT =
             OperationError(R.string.request_timeout_error)

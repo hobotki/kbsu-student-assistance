@@ -4,7 +4,6 @@ import com.snakelord.pets.kbsustudentassistance.R
 import com.snakelord.pets.kbsustudentassistance.data.exception.BadResponseException
 import com.snakelord.pets.kbsustudentassistance.domain.mapper.Mapper
 import com.snakelord.pets.kbsustudentassistance.domain.model.OperationError
-import java.io.IOException
 import java.io.InterruptedIOException
 import java.lang.IllegalStateException
 import java.net.UnknownHostException
@@ -15,7 +14,7 @@ import javax.inject.Inject
  *
  * @author Murad Luguev on 27-08-2021
  */
-class StudentErrorMapper @Inject constructor(): Mapper<Throwable, OperationError> {
+class BaseErrorMapper @Inject constructor(): Mapper<Throwable, OperationError> {
     override fun map(input: Throwable): OperationError {
         return when (input) {
             is UnknownHostException -> {
@@ -45,7 +44,7 @@ class StudentErrorMapper @Inject constructor(): Mapper<Throwable, OperationError
                 OperationError(R.string.server_unavailable)
             }
             NOT_FOUND -> {
-                OperationError(R.string.student_not_found)
+                OperationError(R.string.requested_info_not_found)
             }
             REQUEST_TIMEOUT -> {
                 OperationError(R.string.request_timeout_error)

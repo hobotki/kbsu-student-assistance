@@ -46,16 +46,6 @@ class ViewModelFactory @Inject constructor() : ViewModelProvider.Factory {
         }
     }
 
-    private fun createScheduleViewModel(): ScheduleViewModel {
-        val scheduleComponent = DaggerScheduleComponent.builder()
-            .applicationComponent(applicationComponent)
-            .build()
-        return ScheduleViewModel(
-            scheduleComponent.scheduleInteractor(),
-            applicationComponent.schedulersProvider()
-        )
-    }
-
     private fun createLoginViewModel(): LoginViewModel {
         val loginComponent = DaggerLoginComponent.builder()
             .applicationComponent(applicationComponent)
@@ -63,7 +53,18 @@ class ViewModelFactory @Inject constructor() : ViewModelProvider.Factory {
         return LoginViewModel(
             loginComponent.loginInteractor(),
             applicationComponent.schedulersProvider(),
-            loginComponent.studentErrorMapper()
+            applicationComponent.baseErrorMapper()
+        )
+    }
+
+    private fun createScheduleViewModel(): ScheduleViewModel {
+        val scheduleComponent = DaggerScheduleComponent.builder()
+            .applicationComponent(applicationComponent)
+            .build()
+        return ScheduleViewModel(
+            scheduleComponent.scheduleInteractor(),
+            applicationComponent.schedulersProvider(),
+            applicationComponent.baseErrorMapper()
         )
     }
 

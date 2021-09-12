@@ -133,11 +133,15 @@ class LoginFragment : BaseFragment() {
             is UIStates.Error -> {
                 enableAll()
                 showError(state.error.errorMessageResId)
-                if (state.error.errorMessageResId == R.string.student_not_found) {
+                if (state.error.errorMessageResId == R.string.requested_info_not_found) {
                     binding.secondNameTextInputLayout.showError()
                     binding.recordBookNumberTextInputLayout.showError()
                 }
             }
         }
+    }
+
+    override fun setOnTryAction(): (() -> Unit) {
+        return ::login
     }
 }

@@ -1,4 +1,4 @@
-package com.snakelord.pets.kbsustudentassistance.data.model.location
+package com.snakelord.pets.kbsustudentassistance.domain.model.location
 
 import androidx.annotation.StringRes
 import com.snakelord.pets.kbsustudentassistance.domain.model.schedule.Lecture

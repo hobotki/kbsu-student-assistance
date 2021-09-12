@@ -3,6 +3,7 @@ package com.snakelord.pets.kbsustudentassistance.schedule.presentation
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import com.google.common.truth.Truth
 import com.snakelord.pets.kbsustudentassistance.domain.interactor.schedule.ScheduleInteractor
+import com.snakelord.pets.kbsustudentassistance.domain.mapper.error.BaseErrorMapper
 import com.snakelord.pets.kbsustudentassistance.domain.model.schedule.Day
 import com.snakelord.pets.kbsustudentassistance.domain.model.schedule.Lecture
 import com.snakelord.pets.kbsustudentassistance.presentation.common.schedulers.SchedulersProvider
@@ -22,12 +23,13 @@ class ScheduleViewModelTest {
 
     private val scheduleInteractor: ScheduleInteractor = mockk()
     private val schedulersProvider: SchedulersProvider = SchedulersProviderTest()
+    private val baseErrorMapper = BaseErrorMapper()
     private lateinit var scheduleViewModel: ScheduleViewModel
 
     @Before
     fun setUp() {
         every { scheduleInteractor.getScheduleFromDatabase() } returns Single.just(EXPECTED_RESULT)
-        scheduleViewModel = ScheduleViewModel(scheduleInteractor, schedulersProvider)
+        scheduleViewModel = ScheduleViewModel(scheduleInteractor, schedulersProvider, baseErrorMapper)
     }
 
     @Test

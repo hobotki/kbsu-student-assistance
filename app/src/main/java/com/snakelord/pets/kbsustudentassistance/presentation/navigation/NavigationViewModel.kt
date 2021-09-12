@@ -4,9 +4,8 @@ import android.app.Application
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import com.snakelord.pets.kbsustudentassistance.data.model.location.LocationModel
+import com.snakelord.pets.kbsustudentassistance.domain.model.location.LocationModel
 import com.snakelord.pets.kbsustudentassistance.domain.interactor.navigation.LocationInteractor
-import com.snakelord.pets.kbsustudentassistance.presentation.application.KbsuStudentAssistanceApp
 import com.snakelord.pets.kbsustudentassistance.presentation.common.schedulers.SchedulersProvider
 import com.yandex.mapkit.MapKitFactory
 import io.reactivex.rxjava3.disposables.CompositeDisposable
