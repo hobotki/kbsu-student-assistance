@@ -1,6 +1,6 @@
 package com.snakelord.pets.kbsustudentassistance.domain.repository.navigation
 
-import com.snakelord.pets.kbsustudentassistance.data.model.location.LocationModel
+import com.snakelord.pets.kbsustudentassistance.domain.model.location.LocationModel
 import io.reactivex.rxjava3.core.Single
 
 /**

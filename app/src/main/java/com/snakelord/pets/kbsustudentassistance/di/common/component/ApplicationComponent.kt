@@ -7,9 +7,13 @@ import com.snakelord.pets.kbsustudentassistance.data.datasource.database.Databas
 import com.snakelord.pets.kbsustudentassistance.data.datasource.database.dao.schedule.ScheduleDao
 import com.snakelord.pets.kbsustudentassistance.data.datasource.database.dao.student.StudentDao
 import com.snakelord.pets.kbsustudentassistance.di.common.module.ApplicationModule
+import com.snakelord.pets.kbsustudentassistance.di.common.module.BaseErrorMapperModule
 import com.snakelord.pets.kbsustudentassistance.di.common.module.SchedulersProviderModule
 import com.snakelord.pets.kbsustudentassistance.di.common.module.ViewModelFactoryModule
+import com.snakelord.pets.kbsustudentassistance.domain.mapper.Mapper
+import com.snakelord.pets.kbsustudentassistance.domain.model.OperationError
 import com.snakelord.pets.kbsustudentassistance.presentation.common.schedulers.SchedulersProvider
+import com.snakelord.pets.kbsustudentassistance.presentation.common.theme.ThemeChanger
 import dagger.BindsInstance
 import dagger.Component
 import okhttp3.OkHttpClient
@@ -21,9 +25,12 @@ import javax.inject.Singleton
  * @author Murad Luguev on 27-08-2021
  */
 @Component(
-    modules = [ApplicationModule::class,
+    modules = [
+        ApplicationModule::class,
         ViewModelFactoryModule::class,
-        SchedulersProviderModule::class]
+        SchedulersProviderModule::class,
+        BaseErrorMapperModule::class
+    ]
 )
 @Singleton
 interface ApplicationComponent {
@@ -76,6 +83,20 @@ interface ApplicationComponent {
      * @return реализацию [StudentDao]
      */
     fun scheduleDao(): ScheduleDao
+
+    /**
+     * Функция, предоставляющая маппер для преобразования исключения в [OperationError]
+     *
+     * @return маппер исключений типа [Mapper]<[Throwable], [OperationError]>
+     */
+    fun baseErrorMapper(): Mapper<Throwable, OperationError>
+
+    /**
+     * Функция, предоставляющая [ThemeChanger] для изменеия/получения текущей темы приложения
+     *
+     * @return экземпляр [ThemeChanger]
+     */
+    fun themeChanger(): ThemeChanger
 
     /**
      * Builder для создания экземпляра [ApplicationComponent] с дополнительными параметрами

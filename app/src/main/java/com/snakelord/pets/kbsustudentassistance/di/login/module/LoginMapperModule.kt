@@ -4,7 +4,7 @@ import com.snakelord.pets.kbsustudentassistance.data.datasource.api.student.mode
 import com.snakelord.pets.kbsustudentassistance.data.datasource.database.entity.student.StudentEntity
 import com.snakelord.pets.kbsustudentassistance.data.mapper.student.StudentLoginMapper
 import com.snakelord.pets.kbsustudentassistance.domain.mapper.Mapper
-import com.snakelord.pets.kbsustudentassistance.domain.mapper.error.StudentErrorMapper
+import com.snakelord.pets.kbsustudentassistance.domain.mapper.error.BaseErrorMapper
 import com.snakelord.pets.kbsustudentassistance.domain.mapper.student.StudentDtoMapper
 import com.snakelord.pets.kbsustudentassistance.domain.model.OperationError
 import dagger.Binds
@@ -27,17 +27,6 @@ interface LoginMapperModule {
      */
     @Binds
     fun bindsStudentLoginMapper(studentLoginMapper: StudentLoginMapper): Mapper<String, StudentDto>
-
-    /**
-     * Функция, которая связвывает заданную реализацию с интерфейсом [Mapper]
-     *
-     * @param studentErrorMapper реализация интерфейса [Mapper]
-     *
-     * @return экземпляр [Mapper] с параметрами [Throwable] и [OperationError]
-     */
-    @Binds
-    fun bindsStudentErrorMapper(studentErrorMapper: StudentErrorMapper):
-            Mapper<Throwable, OperationError>
 
     /**
      * Функция, которая связвывает заданную реализацию с интерфейсом [Mapper]

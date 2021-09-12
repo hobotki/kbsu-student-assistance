@@ -4,6 +4,8 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.snakelord.pets.kbsustudentassistance.data.datasource.api.schedule.model.DayDto
 import com.snakelord.pets.kbsustudentassistance.domain.interactor.schedule.ScheduleInteractor
+import com.snakelord.pets.kbsustudentassistance.domain.mapper.Mapper
+import com.snakelord.pets.kbsustudentassistance.domain.model.OperationError
 import com.snakelord.pets.kbsustudentassistance.domain.model.schedule.Day
 import com.snakelord.pets.kbsustudentassistance.domain.model.schedule.Lecture
 import com.snakelord.pets.kbsustudentassistance.presentation.common.schedulers.SchedulersProvider
@@ -22,8 +24,9 @@ import java.util.*
  */
 class ScheduleViewModel(
     private val scheduleInteractor: ScheduleInteractor,
-    private val schedulersProvider: SchedulersProvider
-) : BaseViewModel() {
+    private val schedulersProvider: SchedulersProvider,
+    errorMapper: Mapper<Throwable, OperationError>,
+) : BaseViewModel(errorMapper) {
 
     private val scheduleMutableLiveData = MutableLiveData<List<Day>>()
 
@@ -44,20 +47,17 @@ class ScheduleViewModel(
             scheduleInteractor.getScheduleFromDatabase()
                 .observeOn(schedulersProvider.main())
                 .subscribeOn(schedulersProvider.io())
-                .subscribe(
-                    { scheduleFromDb ->
-                        if (scheduleFromDb.isEmpty()) {
-                            loadScheduleFromApi()
-                        } else {
-                            setSchedule(scheduleFromDb)
-                        }
-                    },
-                    { throwable -> performError(throwable) }
-                )
+                .subscribe { scheduleFromDb ->
+                    if (scheduleFromDb.isEmpty()) {
+                        loadScheduleFromApi()
+                    } else {
+                        setSchedule(scheduleFromDb)
+                    }
+                }
         compositeDisposable.add(getScheduleFromDbDisposable)
     }
 
-    private fun loadScheduleFromApi() {
+    fun loadScheduleFromApi() {
         val getSchedulerFromApiDisposable =
             scheduleInteractor.getScheduleFromApi()
                 .observeOn(schedulersProvider.main())
@@ -74,10 +74,7 @@ class ScheduleViewModel(
             scheduleInteractor.saveSchedule(scheduleFromApi)
                 .observeOn(schedulersProvider.main())
                 .subscribeOn(schedulersProvider.io())
-                .subscribe(
-                    { getScheduleFromDb() },
-                    { throwable -> performError(throwable) }
-                )
+                .subscribe{ getScheduleFromDb() }
         compositeDisposable.add(saveScheduleDisposable)
     }
 

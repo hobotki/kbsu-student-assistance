@@ -1,12 +1,12 @@
 package com.snakelord.pets.kbsustudentassistance.presentation.application
 
 import android.app.Application
+import androidx.preference.PreferenceManager
 import com.snakelord.pets.kbsustudentassistance.BuildConfig
 import com.snakelord.pets.kbsustudentassistance.di.common.component.ApplicationComponent
 import com.snakelord.pets.kbsustudentassistance.di.common.component.DaggerApplicationComponent
+import com.snakelord.pets.kbsustudentassistance.presentation.common.theme.ThemeChanger
 import com.yandex.mapkit.MapKitFactory
-import io.reactivex.rxjava3.core.Single
-import java.util.*
 
 /**
  * [Application] класс для инициализации компонентов, чей жизненный цикл
@@ -23,6 +23,10 @@ class KbsuStudentAssistanceApp : Application() {
             .context(applicationContext)
             .application(this)
             .build()
+
+        applicationComponent
+            .themeChanger()
+            .updateTheme()
 
         MapKitFactory.setApiKey(BuildConfig.YANDEX_MAP_API_KEY)
     }

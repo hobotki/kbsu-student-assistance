@@ -2,8 +2,8 @@ package com.snakelord.pets.kbsustudentassistance.data.repository.navigation
 
 import com.snakelord.pets.kbsustudentassistance.R
 import com.snakelord.pets.kbsustudentassistance.data.datasource.database.dao.schedule.ScheduleDao
-import com.snakelord.pets.kbsustudentassistance.data.model.location.LocationModel
-import com.snakelord.pets.kbsustudentassistance.data.model.location.LocationPoint
+import com.snakelord.pets.kbsustudentassistance.domain.model.location.LocationModel
+import com.snakelord.pets.kbsustudentassistance.domain.model.location.LocationPoint
 import com.snakelord.pets.kbsustudentassistance.domain.model.schedule.Lecture
 import com.snakelord.pets.kbsustudentassistance.domain.repository.navigation.LocationRepository
 import io.reactivex.rxjava3.core.Single

@@ -16,7 +16,7 @@
     <string name="request_illegal_state">Не удалось выполнить запрос</string>
     <string name="internal_server_error">Произошла ошибка со стороны сервера</string>
     <string name="server_unavailable">Не удалось связаться с сервером</string>
-    <string name="student_not_found">Студент с этими данными не был найден</string>
+    <string name="requested_info_not_found">Запрашиваемая информация не найдена</string>
     <string name="request_timeout_error">Превышено время ожидания ответа</string>
     <string name="unknown_error_code">Неизвестный код ошибки</string>
     <string name="schedule">Расписание</string>
@@ -54,4 +54,18 @@
     <string name="logout_message">Вы действительно хотите выйти?</string>
     <string name="positive_answer">Да</string>
     <string name="negative_answer">Нет</string>
+    <string name="ok">ОК</string>
+    <string name="try_again">ПОВТОРИТЬ ПОПЫТКУ</string>
+
+    <string name="theme">Тема</string>
+
+    <string-array name="modes">
+        <item name="system">Системная</item>
+        <item name="light">Светлая</item>
+        <item name="dark">Темная</item>
+    </string-array>
+
+    <string name="system_default_summary">Системная</string>
+    <string name="light_summary">Светлая</string>
+    <string name="dark_summary">Темная</string>
 </resources>

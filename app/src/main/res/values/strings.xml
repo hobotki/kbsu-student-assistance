@@ -16,7 +16,7 @@
     <string name="request_illegal_state">Unable to make request</string>
     <string name="internal_server_error">Internal server error</string>
     <string name="server_unavailable">Server is unavailable</string>
-    <string name="student_not_found">Student with this data was not found</string>
+    <string name="requested_info_not_found">The requested information was not found</string>
     <string name="request_timeout_error">Response timed out</string>
     <string name="unknown_error_code">Unknown error code</string>
     <string name="schedule">Schedule</string>
@@ -56,4 +56,25 @@
     <string name="logout_message">Are you sure you want to log out?</string>
     <string name="positive_answer">Yes</string>
     <string name="negative_answer">No</string>
+    <string name="ok">OK</string>
+    <string name="try_again">TRY AGAIN</string>
+
+    <string name="theme">Theme</string>
+
+    <string-array name="modes">
+        <item name="system">System default</item>
+        <item name="light">Light</item>
+        <item name="dark">Dark</item>
+    </string-array>
+
+    <string-array name="modes_values">
+        <item name="system">system</item>
+        <item name="light">light</item>
+        <item name="dark">dark</item>
+    </string-array>
+
+    <string name="mode" translatable="false">mode</string>
+    <string name="system_default_summary">System default</string>
+    <string name="light_summary">Light</string>
+    <string name="dark_summary">Dark</string>
 </resources>

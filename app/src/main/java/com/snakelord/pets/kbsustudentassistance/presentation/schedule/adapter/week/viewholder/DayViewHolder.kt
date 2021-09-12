@@ -44,7 +44,11 @@ class DayViewHolder(
         if (isSelected) {
             updateViewHolder(isSelected)
         } else {
-            updateViewHolder(isSelected, R.color.black, android.R.color.tab_indicator_text)
+            updateViewHolder(
+                isSelected,
+                R.color.primaryTextColor,
+                android.R.color.darker_gray
+            )
         }
     }
 

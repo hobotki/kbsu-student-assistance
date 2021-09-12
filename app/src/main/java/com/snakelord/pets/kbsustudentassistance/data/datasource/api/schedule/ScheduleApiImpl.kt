@@ -1,5 +1,6 @@
 package com.snakelord.pets.kbsustudentassistance.data.datasource.api.schedule
 
+import com.snakelord.pets.kbsustudentassistance.data.datasource.api.BaseApiMapper
 import com.snakelord.pets.kbsustudentassistance.data.extensions.responseIsEmpty
 import com.snakelord.pets.kbsustudentassistance.data.datasource.api.schedule.model.DayDto
 import com.snakelord.pets.kbsustudentassistance.data.exception.BadResponseException
@@ -20,30 +21,23 @@ import javax.inject.Inject
  */
 class ScheduleApiImpl @Inject constructor(
     private val okHttpClient: OkHttpClient,
-    private val scheduleResponseMapper: Mapper<String, List<DayDto>>
-) : ScheduleApi {
+    private val scheduleResponseMapper: Mapper<String, List<DayDto>>,
+) : BaseApiMapper<List<DayDto>>(
+    okHttpClient,
+    scheduleResponseMapper
+), ScheduleApi {
 
-    @Throws(BadResponseException::class, IOException::class, IllegalStateException::class)
     override fun getSchedule(specialityCode: String): List<DayDto> {
-        val response = okHttpClient
-            .newCall(generateRequest(specialityCode))
-            .execute()
-        if (!response.isSuccessful) {
-            throw BadResponseException(response.code)
-        }
-        val responseBody = response.body!!.string()
-        if (responseBody.responseIsEmpty())
-            throw BadResponseException(404)
-        return scheduleResponseMapper.map(responseBody)
+        return executeRequest(specialityCode)
     }
 
-    private fun generateRequest(specialityCode: String): Request {
+    override fun generateRequest(vararg params: String): Request {
         return Request.Builder()
             .url(BASE_URL +
                     """
-                        "$specialityCode"
+                        "${params[0]}"
                     """
-                    .trimIndent())
+                        .trimIndent())
             .get()
             .build()
     }

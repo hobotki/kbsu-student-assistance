@@ -3,7 +3,7 @@ package com.snakelord.pets.kbsustudentassistance.presentation.navigation.adapter
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.snakelord.pets.kbsustudentassistance.presentation.common.extensions.viewContext
-import com.snakelord.pets.kbsustudentassistance.data.model.location.LocationModel
+import com.snakelord.pets.kbsustudentassistance.domain.model.location.LocationModel
 import com.snakelord.pets.kbsustudentassistance.databinding.ItemInstituteBinding
 import com.snakelord.pets.kbsustudentassistance.presentation.navigation.adapter.lectures_minimal.LecturesMinimalAdapter
 
