@@ -10,7 +10,7 @@ import android.widget.LinearLayout
 import androidx.navigation.navGraphViewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.material.bottomsheet.BottomSheetBehavior
-import com.snakelord.pets.kbsustudentassistance.data.model.location.LocationModel
+import com.snakelord.pets.kbsustudentassistance.domain.model.location.LocationModel
 import com.snakelord.pets.kbsustudentassistance.databinding.FragmentNavigationBinding
 import com.snakelord.pets.kbsustudentassistance.presentation.common.extensions.collapse
 import com.snakelord.pets.kbsustudentassistance.presentation.common.extensions.expand

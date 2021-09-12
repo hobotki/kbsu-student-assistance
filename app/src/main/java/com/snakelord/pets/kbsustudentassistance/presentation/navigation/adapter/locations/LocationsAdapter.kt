@@ -5,7 +5,7 @@ import android.view.ViewGroup
 import androidx.annotation.IdRes
 import androidx.recyclerview.widget.RecyclerView
 import com.snakelord.pets.kbsustudentassistance.R
-import com.snakelord.pets.kbsustudentassistance.data.model.location.LocationModel
+import com.snakelord.pets.kbsustudentassistance.domain.model.location.LocationModel
 import com.snakelord.pets.kbsustudentassistance.databinding.ItemInstituteBinding
 import com.snakelord.pets.kbsustudentassistance.presentation.navigation.adapter.locations.viewholder.LocationViewHolder
 

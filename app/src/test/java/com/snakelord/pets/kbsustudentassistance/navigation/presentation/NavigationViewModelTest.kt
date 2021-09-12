@@ -4,11 +4,10 @@ import android.app.Application
 import android.content.Context
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import androidx.lifecycle.Observer
-import com.snakelord.pets.kbsustudentassistance.BuildConfig
 import com.snakelord.pets.kbsustudentassistance.R
 import com.snakelord.pets.kbsustudentassistance.data.datasource.database.entity.schedule.DayEntity
-import com.snakelord.pets.kbsustudentassistance.data.model.location.LocationModel
-import com.snakelord.pets.kbsustudentassistance.data.model.location.LocationPoint
+import com.snakelord.pets.kbsustudentassistance.domain.model.location.LocationModel
+import com.snakelord.pets.kbsustudentassistance.domain.model.location.LocationPoint
 import com.snakelord.pets.kbsustudentassistance.domain.interactor.navigation.LocationInteractor
 import com.snakelord.pets.kbsustudentassistance.domain.model.schedule.Lecture
 import com.snakelord.pets.kbsustudentassistance.presentation.common.schedulers.SchedulersProvider
@@ -21,7 +20,6 @@ import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
-import org.mockito.MockedStatic
 import org.mockito.Mockito
 import org.powermock.api.mockito.PowerMockito
 import org.powermock.core.classloader.annotations.PrepareForTest

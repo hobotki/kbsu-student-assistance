@@ -1,5 +1,6 @@
 package com.snakelord.pets.kbsustudentassistance.data.datasource.api.student
 
+import com.snakelord.pets.kbsustudentassistance.data.datasource.api.BaseApiMapper
 import com.snakelord.pets.kbsustudentassistance.data.extensions.responseIsEmpty
 import com.snakelord.pets.kbsustudentassistance.data.datasource.api.student.model.StudentDto
 import com.snakelord.pets.kbsustudentassistance.data.exception.BadResponseException
@@ -19,28 +20,20 @@ import javax.inject.Inject
  */
 class StudentLoginApiImpl @Inject constructor(
     private val okHttpClient: OkHttpClient,
-    private val loginMapper: Mapper<String, StudentDto>
-) : StudentLoginApi {
+    private val loginMapper: Mapper<String, StudentDto>,
+) : BaseApiMapper<StudentDto>(
+    okHttpClient,
+    loginMapper
+), StudentLoginApi {
 
-    @Throws(BadResponseException::class, IOException::class, IllegalStateException::class)
     override fun loginStudent(secondName: String, recordBookNumber: String): StudentDto {
-        val response = okHttpClient
-            .newCall(generateRequest(secondName, recordBookNumber))
-            .execute()
-        if (!response.isSuccessful) {
-            throw BadResponseException(response.code)
-        }
-        val responseBody = response.body!!.string()
-        if (responseBody.responseIsEmpty()) {
-            throw BadResponseException(STUDENT_NOT_FOUND)
-        }
-        return loginMapper.map(responseBody)
+        return executeRequest(secondName, recordBookNumber)
     }
 
-    private fun generateRequest(secondName: String, recordBookNumber: String): Request {
+    override fun generateRequest(vararg params: String): Request {
         val requestURL = "$BASE_URL?" +
-                "$QUERY_RECORD_BOOK_PATH=$recordBookNumber&" +
-                "$QUERY_SECOND_NAME_PATH=$secondName"
+                "$QUERY_RECORD_BOOK_PATH=${params[1]}&" +
+                "$QUERY_SECOND_NAME_PATH=${params[0]}"
         return Request.Builder()
             .url(requestURL)
             .get()
@@ -50,9 +43,7 @@ class StudentLoginApiImpl @Inject constructor(
     companion object {
         private const val BASE_URL =
             "https://my-json-server.typicode.com/snakelord757/FakeUniversityDB/students/"
-        
         private const val QUERY_RECORD_BOOK_PATH = "record_book_number"
         private const val QUERY_SECOND_NAME_PATH = "second_name"
-        private const val STUDENT_NOT_FOUND = 404
     }
 }

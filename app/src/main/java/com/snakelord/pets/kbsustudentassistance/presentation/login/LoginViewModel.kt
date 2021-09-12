@@ -17,15 +17,15 @@ import com.snakelord.pets.kbsustudentassistance.presentation.common.viewmodel.Ba
  * @property loginInteractor интерактор для работы с данными пользователя
  * @property schedulersProvider проводник планировщиков для асинхронной работы
  *
- * @param studentErrorMapper маппер ошибок
+ * @param errorMapper маппер ошибок
  *
  * @author Murad Luguev on 27-08-2021
  */
 class LoginViewModel(
     private val loginInteractor: LoginInteractor,
     private val schedulersProvider: SchedulersProvider,
-    studentErrorMapper: Mapper<Throwable, OperationError>
-) : BaseViewModel(studentErrorMapper) {
+    errorMapper: Mapper<Throwable, OperationError>
+) : BaseViewModel(errorMapper) {
 
     init {
         checkIsStudentLogined()

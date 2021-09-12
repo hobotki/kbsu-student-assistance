@@ -9,7 +9,7 @@ import com.snakelord.pets.kbsustudentassistance.data.exception.BadResponseExcept
 import com.snakelord.pets.kbsustudentassistance.domain.VerificationResult
 import com.snakelord.pets.kbsustudentassistance.domain.interactor.login.LoginInteractor
 import com.snakelord.pets.kbsustudentassistance.domain.mapper.Mapper
-import com.snakelord.pets.kbsustudentassistance.domain.mapper.error.StudentErrorMapper
+import com.snakelord.pets.kbsustudentassistance.domain.mapper.error.BaseErrorMapper
 import com.snakelord.pets.kbsustudentassistance.domain.model.OperationError
 import com.snakelord.pets.kbsustudentassistance.presentation.common.schedulers.SchedulersProvider
 import com.snakelord.pets.kbsustudentassistance.presentation.common.schedulers.SchedulersProviderTest
@@ -34,7 +34,7 @@ class LoginViewModelTest {
 
     private val loginInteractor: LoginInteractor = mockk(relaxed = true)
     private val schedulersProvider: SchedulersProvider = SchedulersProviderTest()
-    private val studentErrorMapper: Mapper<Throwable, OperationError> = StudentErrorMapper()
+    private val studentErrorMapper: Mapper<Throwable, OperationError> = BaseErrorMapper()
     private lateinit var loginViewModel: LoginViewModel
 
     private val uiStatesObserver: Observer<UIStates> = mockk()
@@ -235,7 +235,7 @@ class LoginViewModelTest {
 
         private val CONNECTION_ERROR = OperationError(R.string.failed_to_connect_to_server)
         private val CONNECTION_TIMEOUT = OperationError(R.string.connection_timeout)
-        private val BAD_RESPONSE_ERROR = OperationError(R.string.student_not_found)
+        private val BAD_RESPONSE_ERROR = OperationError(R.string.requested_info_not_found)
         private val ILLEGAL_STATE_ERROR = OperationError(R.string.request_illegal_state)
     }
 }

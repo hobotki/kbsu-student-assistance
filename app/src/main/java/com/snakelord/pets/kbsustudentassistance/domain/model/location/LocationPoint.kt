@@ -1,4 +1,4 @@
-package com.snakelord.pets.kbsustudentassistance.data.model.location
+package com.snakelord.pets.kbsustudentassistance.domain.model.location
 
 import com.yandex.mapkit.geometry.Point
 

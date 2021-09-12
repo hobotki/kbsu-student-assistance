@@ -85,7 +85,7 @@ class ScheduleFragment : BaseFragment() {
     }
 
     private fun showLocationById(instituteId: Int) {
-        val args = Bundle(1)
+        val args = Bundle(ARGS_CAPACITY)
         args.putInt(ARGUMENT_INSTITUTE_ID, instituteId)
         findNavController()
             .navigate(R.id.action_scheduleFragment_to_navigationFragment, args)
@@ -97,7 +97,12 @@ class ScheduleFragment : BaseFragment() {
         fragmentScheduleBinding = null
     }
 
+    override fun setOnTryAction(): () -> Unit {
+        return scheduleViewModel::loadScheduleFromApi
+    }
+
     companion object {
         private const val ARGUMENT_INSTITUTE_ID = "instituteId"
+        private const val ARGS_CAPACITY = 1
     }
 }
