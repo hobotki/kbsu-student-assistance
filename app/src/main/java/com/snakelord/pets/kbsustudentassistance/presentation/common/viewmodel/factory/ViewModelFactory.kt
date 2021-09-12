@@ -7,14 +7,13 @@ import com.snakelord.pets.kbsustudentassistance.di.login.component.DaggerLoginCo
 import com.snakelord.pets.kbsustudentassistance.di.navigation.component.DaggerNavigationComponent
 import com.snakelord.pets.kbsustudentassistance.di.pass.component.DaggerPassComponent
 import com.snakelord.pets.kbsustudentassistance.di.schedule.component.DaggerScheduleComponent
-import com.snakelord.pets.kbsustudentassistance.domain.interactor.pass.PassInteractorImpl
-import com.snakelord.pets.kbsustudentassistance.domain.mapper.pass.StudentDataMapper
-import com.snakelord.pets.kbsustudentassistance.domain.mapper.pass.StudentMapper
+import com.snakelord.pets.kbsustudentassistance.di.settings.component.DaggerSettingsComponent
 import com.snakelord.pets.kbsustudentassistance.presentation.application.KbsuStudentAssistanceApp
 import com.snakelord.pets.kbsustudentassistance.presentation.login.LoginViewModel
 import com.snakelord.pets.kbsustudentassistance.presentation.navigation.NavigationViewModel
 import com.snakelord.pets.kbsustudentassistance.presentation.pass.PassViewModel
 import com.snakelord.pets.kbsustudentassistance.presentation.schedule.ScheduleViewModel
+import com.snakelord.pets.kbsustudentassistance.presentation.settings.SettingsViewModel
 import javax.inject.Inject
 
 /**
@@ -39,6 +38,9 @@ class ViewModelFactory @Inject constructor() : ViewModelProvider.Factory {
             }
             modelClass.isAssignableFrom(PassViewModel::class.java) -> {
                 createPassViewModel() as T
+            }
+            modelClass.isAssignableFrom(SettingsViewModel::class.java) -> {
+                createSettingsViewModel() as T
             }
             else -> throw IllegalStateException()
         }
@@ -82,6 +84,16 @@ class ViewModelFactory @Inject constructor() : ViewModelProvider.Factory {
             .build()
         return PassViewModel(
             passComponent.passInteractor(),
+            applicationComponent.schedulersProvider()
+        )
+    }
+
+    private fun createSettingsViewModel(): SettingsViewModel {
+        val settingsComponent = DaggerSettingsComponent.builder()
+            .applicationComponent(applicationComponent)
+            .build()
+        return SettingsViewModel(
+            settingsComponent.settingsInteractor(),
             applicationComponent.schedulersProvider()
         )
     }

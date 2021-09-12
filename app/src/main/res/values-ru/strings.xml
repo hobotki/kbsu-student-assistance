@@ -49,4 +49,9 @@
     <string name="year_placeholder">Курс: %s</string>
     <string name="bring_your_phone_to_the_scanner">Поднесите телефон к сканеру</string>
 
+    <string name="settings">Настройки</string>
+    <string name="warning">Предупреждение</string>
+    <string name="logout_message">Вы действительно хотите выйти?</string>
+    <string name="positive_answer">Да</string>
+    <string name="negative_answer">Нет</string>
 </resources>

@@ -49,4 +49,11 @@
     <string name="year_placeholder">Year: %s</string>
     <string name="bring_your_phone_to_the_scanner">Bring your phone to the scanner</string>
 
+    <string name="settings">Settings</string>
+
+    <string name="logout_key" translatable="false">logout_key</string>
+    <string name="warning">Warning</string>
+    <string name="logout_message">Are you sure you want to log out?</string>
+    <string name="positive_answer">Yes</string>
+    <string name="negative_answer">No</string>
 </resources>
