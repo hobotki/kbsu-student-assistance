@@ -2,7 +2,6 @@ package com.snakelord.pets.kbsustudentassistance.presentation.common.viewmodel.f
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
-import com.snakelord.pets.kbsustudentassistance.data.repository.pass.PassRepositoryImpl
 import com.snakelord.pets.kbsustudentassistance.di.login.component.DaggerLoginComponent
 import com.snakelord.pets.kbsustudentassistance.di.navigation.component.DaggerNavigationComponent
 import com.snakelord.pets.kbsustudentassistance.di.pass.component.DaggerPassComponent
@@ -75,6 +74,7 @@ class ViewModelFactory @Inject constructor() : ViewModelProvider.Factory {
         return NavigationViewModel(
             navigationComponent.locationInteractor(),
             applicationComponent.schedulersProvider(),
+            applicationComponent.themeChanger(),
             applicationComponent.application()
         )
     }
@@ -95,7 +95,8 @@ class ViewModelFactory @Inject constructor() : ViewModelProvider.Factory {
             .build()
         return SettingsViewModel(
             settingsComponent.settingsInteractor(),
-            applicationComponent.schedulersProvider()
+            applicationComponent.schedulersProvider(),
+            applicationComponent.themeChanger()
         )
     }
 }

@@ -58,4 +58,23 @@
     <string name="negative_answer">No</string>
     <string name="ok">OK</string>
     <string name="try_again">TRY AGAIN</string>
+
+    <string name="theme">Theme</string>
+
+    <string-array name="modes">
+        <item name="system">System default</item>
+        <item name="light">Light</item>
+        <item name="dark">Dark</item>
+    </string-array>
+
+    <string-array name="modes_values">
+        <item name="system">system</item>
+        <item name="light">light</item>
+        <item name="dark">dark</item>
+    </string-array>
+
+    <string name="mode" translatable="false">mode</string>
+    <string name="system_default_summary">System default</string>
+    <string name="light_summary">Light</string>
+    <string name="dark_summary">Dark</string>
 </resources>

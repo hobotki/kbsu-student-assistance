@@ -1,49 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
 <resources xmlns:tools="http://schemas.android.com/tools">
-    <!-- Base application theme. -->
-    <style name="Theme.KBSUStudentAssistance" parent="Theme.MaterialComponents.Light.NoActionBar">
+
+    <style name="Theme.KBSUStudentAssistance" parent="Theme.MaterialComponents.DayNight.NoActionBar">
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorOnPrimary">@color/white</item>
         <item name="colorSecondary">@color/colorSecondary</item>
         <item name="colorOnSecondary">@color/white</item>
         <item name="android:windowBackground">@color/bottomSheetBackgroundColor</item>
+        <item name="bottomNavigationColor">@color/white</item>
         <item name="android:statusBarColor" tools:targetApi="l">@color/statusBarColor</item>
         <item name="android:windowLightStatusBar" tools:targetApi="m">true</item>
         <item name="bottomSheetDialogTheme">@style/CustomBottomSheetDialogTheme</item>
+        <item name="appBackgroundColor">@color/backgroundColor</item>
+        <item name="itemBackgroundColor">@color/white</item>
+        <item name="bottomSheetColor">@color/bottomSheetBackgroundColor</item>
+        <item name="primaryTextColor">@color/primaryTextColor</item>
     </style>
 
     <style name="Theme.KBSUStudentAssistance.SplashScreen">
         <item name="android:windowBackground">@drawable/splash_screen_icon</item>
     </style>
 
-    <style name="PrimaryTextStyle">
-        <item name="android:textSize">@dimen/title_text_size</item>
-        <item name="android:textColor">@color/black</item>
-        <item name="android:textStyle">bold</item>
-    </style>
-
-    <style name="SecondaryTextStyle">
-        <item name="android:textSize">16sp</item>
-        <item name="android:textColor">@android:color/darker_gray</item>
-    </style>
-
-    <style name="ClickableTextStyle">
-        <item name="android:textSize">16sp</item>
-        <item name="android:textColor">?attr/colorAccent</item>
-    </style>
-
-    <style name="TextOnDarkBackground">
-        <item name="android:textSize">20sp</item>
-        <item name="android:textStyle">bold</item>
-        <item name="android:textColor">@color/white</item>
-        <item name="android:gravity">center</item>
-    </style>
-
-
-    <style name="CustomBottomSheetDialogTheme" parent="Theme.Design.Light.BottomSheetDialog">
-        <item name="bottomSheetStyle">@style/ErrorBottomSheetDialogStyle</item>
-    </style>
-
-   <style name="ErrorBottomSheetDialogStyle" parent="Widget.Design.BottomSheet.Modal">
-       <item name="android:background">@android:color/transparent</item>
-   </style>
 </resources>

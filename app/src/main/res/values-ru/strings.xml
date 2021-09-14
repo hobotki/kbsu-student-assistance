@@ -56,4 +56,16 @@
     <string name="negative_answer">Нет</string>
     <string name="ok">ОК</string>
     <string name="try_again">ПОВТОРИТЬ ПОПЫТКУ</string>
+
+    <string name="theme">Тема</string>
+
+    <string-array name="modes">
+        <item name="system">Системная</item>
+        <item name="light">Светлая</item>
+        <item name="dark">Темная</item>
+    </string-array>
+
+    <string name="system_default_summary">Системная</string>
+    <string name="light_summary">Светлая</string>
+    <string name="dark_summary">Темная</string>
 </resources>

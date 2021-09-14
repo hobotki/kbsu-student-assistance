@@ -69,7 +69,7 @@ class StudentLoginMapperTest {
         private val EXPECTED_STUDENT_DTO = StudentDto(
             fullName = "Иванов Иван Иванович",
             id = 3,
-            specialtyCode = "09.03.01"
+            specialtyCode = "09.03.01-3"
         )
     }
 }

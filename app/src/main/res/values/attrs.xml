@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <attr name="appBackgroundColor" format="color"/>
+    <attr name="itemBackgroundColor" format="color"/>
+    <attr name="primaryTextColor" format="color"/>
+    <attr name="bottomNavigationColor" format="color"/>
+    <attr name="bottomSheetColor" format="color"/>
+</resources>

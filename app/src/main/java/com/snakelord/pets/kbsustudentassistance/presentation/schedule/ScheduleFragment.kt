@@ -53,7 +53,7 @@ class ScheduleFragment : BaseFragment() {
     }
 
     private fun initWeekRecyclerView() {
-        val calendar = Calendar.getInstance(Locale.forLanguageTag("ru-RU"))
+        val calendar = Calendar.getInstance(Locale.forLanguageTag(RU_LANGUAGE_TAG))
         val today = scheduleViewModel.selectedIndex
         val week = calendar.getWeek()
         val weekAdapter = WeekAdapter(
@@ -102,6 +102,7 @@ class ScheduleFragment : BaseFragment() {
     }
 
     companion object {
+        private const val RU_LANGUAGE_TAG = "ru-RU"
         private const val ARGUMENT_INSTITUTE_ID = "instituteId"
         private const val ARGS_CAPACITY = 1
     }

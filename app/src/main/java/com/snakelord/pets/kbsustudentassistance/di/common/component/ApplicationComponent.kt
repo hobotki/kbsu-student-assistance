@@ -13,6 +13,7 @@ import com.snakelord.pets.kbsustudentassistance.di.common.module.ViewModelFactor
 import com.snakelord.pets.kbsustudentassistance.domain.mapper.Mapper
 import com.snakelord.pets.kbsustudentassistance.domain.model.OperationError
 import com.snakelord.pets.kbsustudentassistance.presentation.common.schedulers.SchedulersProvider
+import com.snakelord.pets.kbsustudentassistance.presentation.common.theme.ThemeChanger
 import dagger.BindsInstance
 import dagger.Component
 import okhttp3.OkHttpClient
@@ -89,6 +90,13 @@ interface ApplicationComponent {
      * @return маппер исключений типа [Mapper]<[Throwable], [OperationError]>
      */
     fun baseErrorMapper(): Mapper<Throwable, OperationError>
+
+    /**
+     * Функция, предоставляющая [ThemeChanger] для изменеия/получения текущей темы приложения
+     *
+     * @return экземпляр [ThemeChanger]
+     */
+    fun themeChanger(): ThemeChanger
 
     /**
      * Builder для создания экземпляра [ApplicationComponent] с дополнительными параметрами
