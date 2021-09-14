@@ -6,7 +6,7 @@ import com.snakelord.pets.kbsustudentassistance.data.datasource.api.schedule.mod
 import com.snakelord.pets.kbsustudentassistance.data.datasource.api.schedule.model.LectureDto
 import com.snakelord.pets.kbsustudentassistance.data.exception.BadResponseException
 import com.snakelord.pets.kbsustudentassistance.data.mapper.schedule.ScheduleResponseMapper
-import com.snakelord.pets.kbsustudentassistance.domain.json_adapter.ScheduleJsonAdapter
+import com.snakelord.pets.kbsustudentassistance.domain.json_adapter.schedule.ScheduleJsonAdapter
 import com.snakelord.pets.kbsustudentassistance.domain.mapper.Mapper
 import io.mockk.every
 import io.mockk.mockk

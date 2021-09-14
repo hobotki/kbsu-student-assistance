@@ -4,7 +4,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.snakelord.pets.kbsustudentassistance.domain.mapper.Mapper
-import com.snakelord.pets.kbsustudentassistance.domain.model.OperationError
+import com.snakelord.pets.kbsustudentassistance.domain.model.error.OperationError
 import com.snakelord.pets.kbsustudentassistance.presentation.common.state.UIStates
 import io.reactivex.rxjava3.disposables.CompositeDisposable
 
@@ -26,10 +26,6 @@ abstract class BaseViewModel(
 
     protected val compositeDisposable = CompositeDisposable()
 
-    override fun onCleared() {
-        compositeDisposable.dispose()
-    }
-
     /**
      * Функция для обновления значения у [uiStatesMutableLiveData]
      *
@@ -49,5 +45,9 @@ abstract class BaseViewModel(
             val error = mapper.map(throwable)
             updateUIState(UIStates.Error(error))
         }
+    }
+
+    override fun onCleared() {
+        compositeDisposable.dispose()
     }
 }

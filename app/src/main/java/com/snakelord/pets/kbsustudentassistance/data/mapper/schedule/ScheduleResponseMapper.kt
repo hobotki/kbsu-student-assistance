@@ -1,7 +1,7 @@
 package com.snakelord.pets.kbsustudentassistance.data.mapper.schedule
 
 import com.snakelord.pets.kbsustudentassistance.data.datasource.api.schedule.model.DayDto
-import com.snakelord.pets.kbsustudentassistance.domain.json_adapter.ScheduleJsonAdapter
+import com.snakelord.pets.kbsustudentassistance.domain.json_adapter.schedule.ScheduleJsonAdapter
 import com.snakelord.pets.kbsustudentassistance.domain.mapper.Mapper
 import javax.inject.Inject
 

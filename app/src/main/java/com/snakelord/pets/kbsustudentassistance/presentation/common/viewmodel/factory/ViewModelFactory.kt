@@ -2,10 +2,10 @@ package com.snakelord.pets.kbsustudentassistance.presentation.common.viewmodel.f
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
-import com.snakelord.pets.kbsustudentassistance.data.repository.pass.PassRepositoryImpl
 import com.snakelord.pets.kbsustudentassistance.di.login.component.DaggerLoginComponent
 import com.snakelord.pets.kbsustudentassistance.di.navigation.component.DaggerNavigationComponent
 import com.snakelord.pets.kbsustudentassistance.di.pass.component.DaggerPassComponent
+import com.snakelord.pets.kbsustudentassistance.di.pass.component.PassComponent
 import com.snakelord.pets.kbsustudentassistance.di.schedule.component.DaggerScheduleComponent
 import com.snakelord.pets.kbsustudentassistance.di.settings.component.DaggerSettingsComponent
 import com.snakelord.pets.kbsustudentassistance.presentation.application.KbsuStudentAssistanceApp
@@ -75,12 +75,13 @@ class ViewModelFactory @Inject constructor() : ViewModelProvider.Factory {
         return NavigationViewModel(
             navigationComponent.locationInteractor(),
             applicationComponent.schedulersProvider(),
+            applicationComponent.themeChanger(),
             applicationComponent.application()
         )
     }
 
     private fun createPassViewModel(): PassViewModel {
-        val passComponent = DaggerPassComponent.builder()
+        val passComponent: PassComponent = DaggerPassComponent.builder()
             .applicationComponent(applicationComponent)
             .build()
         return PassViewModel(
@@ -95,7 +96,8 @@ class ViewModelFactory @Inject constructor() : ViewModelProvider.Factory {
             .build()
         return SettingsViewModel(
             settingsComponent.settingsInteractor(),
-            applicationComponent.schedulersProvider()
+            applicationComponent.schedulersProvider(),
+            applicationComponent.themeChanger()
         )
     }
 }

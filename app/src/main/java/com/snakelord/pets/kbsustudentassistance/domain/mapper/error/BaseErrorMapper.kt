@@ -3,14 +3,14 @@ package com.snakelord.pets.kbsustudentassistance.domain.mapper.error
 import com.snakelord.pets.kbsustudentassistance.R
 import com.snakelord.pets.kbsustudentassistance.data.exception.BadResponseException
 import com.snakelord.pets.kbsustudentassistance.domain.mapper.Mapper
-import com.snakelord.pets.kbsustudentassistance.domain.model.OperationError
+import com.snakelord.pets.kbsustudentassistance.domain.model.error.OperationError
 import java.io.InterruptedIOException
 import java.lang.IllegalStateException
 import java.net.UnknownHostException
 import javax.inject.Inject
 
 /**
- * Маппер ошибок, возникаемых во время получения данных студента
+ * Маппер ошибок, возникаемых во время получения данных
  *
  * @author Murad Luguev on 27-08-2021
  */

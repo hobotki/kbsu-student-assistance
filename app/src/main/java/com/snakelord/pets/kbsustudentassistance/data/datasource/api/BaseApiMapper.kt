@@ -1,7 +1,7 @@
 package com.snakelord.pets.kbsustudentassistance.data.datasource.api
 
 import com.snakelord.pets.kbsustudentassistance.data.exception.BadResponseException
-import com.snakelord.pets.kbsustudentassistance.data.extensions.responseIsEmpty
+import com.snakelord.pets.kbsustudentassistance.domain.extensions.responseIsEmpty
 import com.snakelord.pets.kbsustudentassistance.domain.mapper.Mapper
 import okhttp3.OkHttpClient
 import okhttp3.Request
@@ -37,13 +37,15 @@ abstract class BaseApiMapper<T>(
             throw BadResponseException(response.code)
         }
 
-        val responseBody = response.body!!.string()
+        val responseBody = response.body ?: throw IllegalStateException()
 
-        if (responseBody.responseIsEmpty()) {
+        val responseContent = responseBody.string()
+
+        if (responseContent.responseIsEmpty()) {
             throw BadResponseException(ANSWER_NOT_FOUND)
         }
 
-        return responseMapper.map(responseBody)
+        return responseMapper.map(responseContent)
     }
 
     /**

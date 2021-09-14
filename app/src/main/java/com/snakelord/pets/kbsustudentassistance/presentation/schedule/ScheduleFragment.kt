@@ -13,7 +13,6 @@ import com.snakelord.pets.kbsustudentassistance.domain.model.schedule.Lecture
 import com.snakelord.pets.kbsustudentassistance.presentation.common.extensions.gone
 import com.snakelord.pets.kbsustudentassistance.presentation.common.extensions.visible
 import com.snakelord.pets.kbsustudentassistance.presentation.common.fragment.BaseFragment
-import com.snakelord.pets.kbsustudentassistance.presentation.common.state.UIStates
 import com.snakelord.pets.kbsustudentassistance.presentation.schedule.adapter.lectures.LecturesAdapter
 import com.snakelord.pets.kbsustudentassistance.presentation.schedule.adapter.week.WeekAdapter
 import com.snakelord.pets.kbsustudentassistance.presentation.schedule.extensions.getWeek
@@ -53,7 +52,7 @@ class ScheduleFragment : BaseFragment() {
     }
 
     private fun initWeekRecyclerView() {
-        val calendar = Calendar.getInstance(Locale.forLanguageTag("ru-RU"))
+        val calendar = Calendar.getInstance(Locale.forLanguageTag(RU_LANGUAGE_TAG))
         val today = scheduleViewModel.selectedIndex
         val week = calendar.getWeek()
         val weekAdapter = WeekAdapter(
@@ -64,31 +63,40 @@ class ScheduleFragment : BaseFragment() {
         binding.week.adapter = weekAdapter
     }
 
-    override fun updateUIState(state: UIStates) {
-        when (state) {
-            is UIStates.Loading -> {
-                binding.progressBar.visible()
-            }
-            is UIStates.Error -> {
-                showError(state.error.errorMessageResId)
-            }
-            is UIStates.Successful -> {
-                binding.progressBar.gone()
-                binding.schedule.visible()
-            }
-        }
+    override fun onLoading() {
+        binding.progressBar.visible()
+        binding.schedule.gone()
+    }
+
+    override fun onSuccess() {
+        binding.progressBar.gone()
+        binding.schedule.visible()
+        binding.week.visible()
+    }
+
+    override fun showError(errorMessageResId: Int) {
+        super.showError(errorMessageResId)
+
+        binding.progressBar.gone()
+        binding.schedule.visible()
+        binding.week.gone()
+        showSchedule(emptyList())
     }
 
     private fun showSchedule(schedule: List<Lecture>) {
-        val lecturesAdapter = LecturesAdapter(schedule, ::showLocationById)
+        val lecturesAdapter = LecturesAdapter(schedule, ::showLocationById, getOnTryAction())
         binding.schedule.adapter = lecturesAdapter
     }
 
     private fun showLocationById(instituteId: Int) {
         val args = Bundle(ARGS_CAPACITY)
         args.putInt(ARGUMENT_INSTITUTE_ID, instituteId)
+
         findNavController()
-            .navigate(R.id.action_scheduleFragment_to_navigationFragment, args)
+            .navigate(
+                R.id.action_scheduleFragment_to_navigationFragment,
+                args
+            )
     }
 
     override fun onDestroy() {
@@ -97,11 +105,12 @@ class ScheduleFragment : BaseFragment() {
         fragmentScheduleBinding = null
     }
 
-    override fun setOnTryAction(): () -> Unit {
+    override fun getOnTryAction(): () -> Unit {
         return scheduleViewModel::loadScheduleFromApi
     }
 
     companion object {
+        private const val RU_LANGUAGE_TAG = "ru-RU"
         private const val ARGUMENT_INSTITUTE_ID = "instituteId"
         private const val ARGS_CAPACITY = 1
     }

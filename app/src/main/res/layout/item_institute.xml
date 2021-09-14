@@ -7,14 +7,15 @@
     android:layout_margin="@dimen/default_margin"
     android:background="@drawable/common_item_shape"
     android:elevation="@dimen/cardview_default_elevation"
-    android:orientation="vertical"
-    android:padding="@dimen/default_padding">
+    android:orientation="vertical">
 
     <TextView
         android:id="@+id/instituteName"
+        android:gravity="center"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:gravity="center"
+        android:layout_marginTop="@dimen/default_margin"
+        android:layout_marginHorizontal="@dimen/default_margin"
         tools:text="Институт физики и математики"
         style="@style/PrimaryTextStyle"/>
 
@@ -22,6 +23,7 @@
         android:id="@+id/lectures"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:layout_margin="@dimen/default_margin"
         android:layout_marginTop="@dimen/lectures_recycler_view_top_margin"
         tools:itemCount="2"
         tools:listitem="@layout/item_lecture_minimal" />
@@ -31,13 +33,16 @@
         android:text="@string/open_on_map"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        style="@style/Widget.MaterialComponents.Button.TextButton"/>
+        android:layout_marginHorizontal="@dimen/default_margin"/>
 
     <Button
         android:id="@+id/makeAPath"
         android:text="@string/make_a_path"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        style="@style/Widget.MaterialComponents.Button.TextButton"/>
+        android:layout_marginHorizontal="@dimen/default_margin"
+        android:layout_marginBottom="@dimen/default_margin"
+        android:textColor="@color/colorPrimary"
+        android:backgroundTint="?appBackgroundColor" />
 
 </LinearLayout>

@@ -6,11 +6,11 @@ import com.snakelord.pets.kbsustudentassistance.R
 import com.snakelord.pets.kbsustudentassistance.data.datasource.api.student.model.StudentDto
 import com.snakelord.pets.kbsustudentassistance.data.datasource.database.entity.student.StudentEntity
 import com.snakelord.pets.kbsustudentassistance.data.exception.BadResponseException
-import com.snakelord.pets.kbsustudentassistance.domain.VerificationResult
 import com.snakelord.pets.kbsustudentassistance.domain.interactor.login.LoginInteractor
 import com.snakelord.pets.kbsustudentassistance.domain.mapper.Mapper
 import com.snakelord.pets.kbsustudentassistance.domain.mapper.error.BaseErrorMapper
-import com.snakelord.pets.kbsustudentassistance.domain.model.OperationError
+import com.snakelord.pets.kbsustudentassistance.domain.model.error.OperationError
+import com.snakelord.pets.kbsustudentassistance.domain.model.login.VerificationResult
 import com.snakelord.pets.kbsustudentassistance.presentation.common.schedulers.SchedulersProvider
 import com.snakelord.pets.kbsustudentassistance.presentation.common.schedulers.SchedulersProviderTest
 import com.snakelord.pets.kbsustudentassistance.presentation.common.state.UIStates
@@ -22,9 +22,8 @@ import io.reactivex.rxjava3.core.Single
 import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
-import java.io.IOException
 import java.io.InterruptedIOException
-import java.lang.IllegalStateException
+import java.net.UnknownHostException
 
 class LoginViewModelTest {
 
@@ -43,6 +42,42 @@ class LoginViewModelTest {
 
     @Before
     fun setUp() {
+        every { uiStatesObserver.onChanged(any()) } just Runs
+        every { secondNameVerificationResultObserver.onChanged(any()) } just Runs
+        every { recordBookNumberVerificationResultObserver.onChanged(any()) } just Runs
+
+        loginViewModel = LoginViewModel(loginInteractor, schedulersProvider, studentErrorMapper)
+
+        loginViewModel.uiStates.observeForever(
+            uiStatesObserver
+        )
+        loginViewModel.secondNameVerification.observeForever(
+            secondNameVerificationResultObserver
+        )
+        loginViewModel.recordBookVerification.observeForever(
+            recordBookNumberVerificationResultObserver
+        )
+    }
+
+    @Test
+    fun initStudentNotLoginedTest() {
+        //Arrange
+        every { loginInteractor.isStudentLogined() } returns Maybe.empty()
+
+        //Assert
+        verifySequence {
+            uiStatesObserver wasNot Called
+            secondNameVerificationResultObserver wasNot Called
+            recordBookNumberVerificationResultObserver wasNot Called
+        }
+    }
+
+    @Test
+    fun initStudentLoginedTest() {
+        //Arrange
+        val expectedStudentEntity = STUDENT_ENTITY
+        every { loginInteractor.isStudentLogined() } returns Maybe.just(expectedStudentEntity)
+
         loginViewModel = LoginViewModel(loginInteractor, schedulersProvider, studentErrorMapper)
         loginViewModel.uiStates.observeForever(
             uiStatesObserver
@@ -54,36 +89,16 @@ class LoginViewModelTest {
             recordBookNumberVerificationResultObserver
         )
 
-        every { uiStatesObserver.onChanged(any()) } just Runs
-        every { secondNameVerificationResultObserver.onChanged(any()) } just Runs
-        every { recordBookNumberVerificationResultObserver.onChanged(any()) } just Runs
-    }
-
-    @Test
-    fun initStudentNotLogined() {
-        //Arrange
-        every { loginInteractor.isStudentLogined() } returns Maybe.empty()
-
         //Assert
-        verify { uiStatesObserver wasNot Called }
-        verify { secondNameVerificationResultObserver wasNot Called }
-        verify { recordBookNumberVerificationResultObserver wasNot Called }
+        verifySequence {
+            uiStatesObserver.onChanged(any())
+            secondNameVerificationResultObserver wasNot Called
+            recordBookNumberVerificationResultObserver wasNot Called
+        }
     }
 
     @Test
-    fun initStudentLogined() {
-        //Arrange
-        val studentEntity: StudentEntity = mockk()
-        every { loginInteractor.isStudentLogined() } returns Maybe.fromCallable { studentEntity }
-
-        //Assert
-        every { uiStatesObserver.onChanged(any()) } just Runs
-        verify { secondNameVerificationResultObserver wasNot Called }
-        verify { recordBookNumberVerificationResultObserver wasNot Called }
-    }
-
-    @Test
-    fun loginTestEmptyFields() {
+    fun loginTestEmptyFieldsTest() {
         //Arrange
         every { loginInteractor.verifySecondName(any()) } returns
                 EMPTY_FIELDS_VERIFICATION_RESULT
@@ -102,7 +117,7 @@ class LoginViewModelTest {
     }
 
     @Test
-    fun loginTestShortFields() {
+    fun loginTestShortFieldsTest() {
         //Arrange
         every { loginInteractor.verifySecondName(any()) } returns
                 SHORT_FIELDS_VERIFICATION_RESULT
@@ -125,7 +140,7 @@ class LoginViewModelTest {
         //Arrange
         every { loginInteractor.verifySecondName(any()) } returns VERIFICATION_SUCCESSFUL
         every { loginInteractor.verifyRecordBookNumber(any()) } returns VERIFICATION_SUCCESSFUL
-        every { loginInteractor.loginUser(any(), any()) } returns
+        every { loginInteractor.loginStudent(any(), any()) } returns
                 Single.fromCallable { STUDENT_DTO }
         every { loginInteractor.saveStudentInfo(any()) } returns Completable.complete()
         val expectedUIState = STATE_SUCCESSFUL
@@ -147,7 +162,9 @@ class LoginViewModelTest {
         //Arrange
         every { loginInteractor.verifySecondName(any()) } returns VERIFICATION_SUCCESSFUL
         every { loginInteractor.verifyRecordBookNumber(any()) } returns VERIFICATION_SUCCESSFUL
-        every { loginInteractor.loginUser(any(), any()) } returns Single.error(IOException())
+        every { loginInteractor.loginStudent(any(), any()) } returns Single.error(
+            UnknownHostException()
+        )
         val expectedUIState = UIStates.Error(CONNECTION_ERROR)
 
         //Act
@@ -165,7 +182,7 @@ class LoginViewModelTest {
         //Arrange
         every { loginInteractor.verifySecondName(any()) } returns VERIFICATION_SUCCESSFUL
         every { loginInteractor.verifyRecordBookNumber(any()) } returns VERIFICATION_SUCCESSFUL
-        every { loginInteractor.loginUser(any(), any()) } returns
+        every { loginInteractor.loginStudent(any(), any()) } returns
                 Single.error(InterruptedIOException())
         val expectedUIState = UIStates.Error(CONNECTION_TIMEOUT)
 
@@ -184,7 +201,7 @@ class LoginViewModelTest {
         //Arrange
         every { loginInteractor.verifySecondName(any()) } returns VERIFICATION_SUCCESSFUL
         every { loginInteractor.verifyRecordBookNumber(any()) } returns VERIFICATION_SUCCESSFUL
-        every { loginInteractor.loginUser(any(), any()) } returns
+        every { loginInteractor.loginStudent(any(), any()) } returns
                 Single.error(BadResponseException(404))
         val expectedUIState = UIStates.Error(BAD_RESPONSE_ERROR)
 
@@ -202,7 +219,7 @@ class LoginViewModelTest {
     fun illegalStateErrorTest() {
         every { loginInteractor.verifySecondName(any()) } returns VERIFICATION_SUCCESSFUL
         every { loginInteractor.verifyRecordBookNumber(any()) } returns VERIFICATION_SUCCESSFUL
-        every { loginInteractor.loginUser(any(), any()) } returns
+        every { loginInteractor.loginStudent(any(), any()) } returns
                 Single.error(IllegalStateException())
         val expectedUIState = UIStates.Error(ILLEGAL_STATE_ERROR)
 
@@ -227,7 +244,13 @@ class LoginViewModelTest {
         private val STUDENT_DTO = StudentDto(
             fullName = "Иванов Иван Иванович",
             id = 3,
-            specialtyCode = "09.03.01-3"
+            specialityCode = "09.03.01-3"
+        )
+
+        private val STUDENT_ENTITY = StudentEntity(
+            fullName = "Иванов Иван Иванович",
+            id = 3,
+            specialityCode = "09.03.01-3"
         )
 
         private val STATE_LOADING = UIStates.Loading

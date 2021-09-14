@@ -25,10 +25,10 @@ class StudentDataMapperTest {
         private val EXPECTED_STUDENT = Student(
             fullName = "Иванов Иван Иванович",
             id = 3,
-            specialtyCode = "09.03.01-3"
+            specialityCode = "09.03.01-3"
         )
 
         private const val EXPECTED_RESULT =
-            """{"id":3,"fullName":"Иванов Иван Иванович","specialtyCode":"09.03.01-3"}"""
+            """{"id":3,"fullName":"Иванов Иван Иванович","specialityCode":"09.03.01-3"}"""
     }
 }

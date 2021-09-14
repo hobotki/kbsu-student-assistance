@@ -5,7 +5,7 @@ import androidx.lifecycle.MutableLiveData
 import com.snakelord.pets.kbsustudentassistance.data.datasource.api.schedule.model.DayDto
 import com.snakelord.pets.kbsustudentassistance.domain.interactor.schedule.ScheduleInteractor
 import com.snakelord.pets.kbsustudentassistance.domain.mapper.Mapper
-import com.snakelord.pets.kbsustudentassistance.domain.model.OperationError
+import com.snakelord.pets.kbsustudentassistance.domain.model.error.OperationError
 import com.snakelord.pets.kbsustudentassistance.domain.model.schedule.Day
 import com.snakelord.pets.kbsustudentassistance.domain.model.schedule.Lecture
 import com.snakelord.pets.kbsustudentassistance.presentation.common.schedulers.SchedulersProvider
@@ -27,8 +27,6 @@ class ScheduleViewModel(
     private val schedulersProvider: SchedulersProvider,
     errorMapper: Mapper<Throwable, OperationError>,
 ) : BaseViewModel(errorMapper) {
-
-    private val scheduleMutableLiveData = MutableLiveData<List<Day>>()
 
     private val selectedScheduleMutableLiveData = MutableLiveData<List<Lecture>>()
     val selectedSchedule: LiveData<List<Lecture>>
@@ -58,6 +56,7 @@ class ScheduleViewModel(
     }
 
     fun loadScheduleFromApi() {
+        updateUIState(UIStates.Loading)
         val getSchedulerFromApiDisposable =
             scheduleInteractor.getScheduleFromApi()
                 .observeOn(schedulersProvider.main())
@@ -79,7 +78,7 @@ class ScheduleViewModel(
     }
 
     private fun setSchedule(scheduleFromDb: List<Day>) {
-        scheduleMutableLiveData.value = scheduleFromDb
+        scheduleInteractor.setSchedule(scheduleFromDb)
         showScheduleByDay()
         updateUIState(UIStates.Successful)
     }
@@ -92,6 +91,6 @@ class ScheduleViewModel(
      */
     fun showScheduleByDay(index: Int = selectedIndex) {
         selectedIndex = index
-        selectedScheduleMutableLiveData.value = scheduleMutableLiveData.value!![index].lectures
+        selectedScheduleMutableLiveData.value = scheduleInteractor.getScheduleByIndex(index)
     }
 }

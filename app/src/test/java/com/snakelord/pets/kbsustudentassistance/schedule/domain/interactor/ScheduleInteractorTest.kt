@@ -1,5 +1,6 @@
 package com.snakelord.pets.kbsustudentassistance.schedule.domain.interactor
 
+import com.google.common.truth.Truth
 import com.snakelord.pets.kbsustudentassistance.data.datasource.api.schedule.model.DayDto
 import com.snakelord.pets.kbsustudentassistance.data.datasource.api.schedule.model.LectureDto
 import com.snakelord.pets.kbsustudentassistance.data.datasource.database.entity.schedule.DayEntity
@@ -128,6 +129,19 @@ class ScheduleInteractorTest {
             .dispose()
     }
 
+    @Test
+    fun getScheduleByIndexText() {
+        //Arrange
+        scheduleInteractorImpl.setSchedule(EXPECTED_RESULT)
+        val expectedResult = EXPECTED_RESULT[0].lectures
+
+        //Act
+        val actualResult = scheduleInteractorImpl.getScheduleByIndex(EXPECTED_INDEX)
+
+        //Assert
+        Truth.assertThat(actualResult).isEqualTo(expectedResult)
+    }
+
     companion object {
 
         private const val RANDOM_ERROR_CODE = 757
@@ -200,5 +214,7 @@ class ScheduleInteractorTest {
                 )
             )
         )
+
+        private const val EXPECTED_INDEX = 0
     }
 }

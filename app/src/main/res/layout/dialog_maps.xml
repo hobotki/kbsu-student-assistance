@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@drawable/bottom_sheet_shape"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <View
+        android:id="@+id/dragView"
+        android:background="@drawable/drag_view_shape"
+        android:layout_gravity="center"
+        android:layout_marginVertical="@dimen/drag_view_vertical_margin"
+        android:layout_width="@dimen/drag_view_width"
+        android:layout_height="@dimen/drag_view_height"/>
+
+    <Button
+        android:id="@+id/yandexMaps"
+        android:text="@string/yandex_maps"
+        android:visibility="gone"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="@dimen/default_margin"
+        app:backgroundTint="@color/colorSecondary"
+        tools:visibility="visible" />
+
+    <Button
+        android:id="@+id/googleMaps"
+        android:text="@string/google_maps"
+        android:visibility="gone"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="@dimen/default_margin"
+        android:layout_marginBottom="@dimen/default_margin"
+        app:backgroundTint="@color/colorSecondary"
+        tools:visibility="visible" />
+
+    <TextView
+        android:id="@+id/makeAPathErrorMessage"
+        android:text="@string/make_a_path_error"
+        android:textSize="@dimen/default_text_size"
+        android:textColor="?primaryTextColor"
+        android:gravity="center"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginHorizontal="@dimen/default_margin"
+        tools:visibility="gone"/>
+
+    <Button
+        android:id="@+id/dismissDialog"
+        android:text="@string/ok"
+        android:textColor="?colorPrimary"
+        android:visibility="gone"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="@dimen/default_margin"
+        android:layout_marginHorizontal="@dimen/default_margin"
+        style="@style/Widget.MaterialComponents.Button.TextButton"/>
+
+    <Button
+        android:id="@+id/installYandexMaps"
+        android:text="@string/install_yandex_maps"
+        android:visibility="visible"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/default_margin"
+        app:backgroundTint="@color/colorSecondary"
+        tools:visibility="gone"/>
+
+</LinearLayout>

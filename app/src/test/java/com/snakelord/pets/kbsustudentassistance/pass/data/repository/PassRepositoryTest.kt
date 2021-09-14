@@ -33,7 +33,7 @@ class PassRepositoryTest {
         private val EXPECTED_STUDENT_ENTITY = StudentEntity(
             fullName = "Иванов Иван Иванович",
             id = 3,
-            specialtyCode = "09.03.01-3"
+            specialityCode = "09.03.01-3"
         )
     }
 }

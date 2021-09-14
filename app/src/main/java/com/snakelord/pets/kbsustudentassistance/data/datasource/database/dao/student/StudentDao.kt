@@ -21,7 +21,8 @@ interface StudentDao {
      * Функция для сохранения студента в базу данных
      *
      * @param studentEntity информация о студенте
-     * @return экземпляр [Completable]
+     *
+     * @return состояние операции сохранения типа [Completable]
      */
     @Insert(onConflict = OnConflictStrategy.IGNORE)
     fun saveStudent(studentEntity: StudentEntity): Completable
@@ -29,10 +30,10 @@ interface StudentDao {
     /**
      * Функция для проверки состояния авторизации студента
      *
-     * @return экземпляр [Maybe] с типом [StudentEntity]
+     * @return состояние авторизации студента типа [Maybe]<[StudentEntity]>
      */
     @Query("SELECT * FROM ${DatabaseConst.StudentTable.TABLE_NAME}")
-    fun isUserLogined(): Maybe<StudentEntity>
+    fun isStudentLogined(): Maybe<StudentEntity>
 
     /**
      * Функция для получения кода специальности студента

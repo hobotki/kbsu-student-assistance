@@ -4,7 +4,7 @@ import com.snakelord.pets.kbsustudentassistance.domain.model.location.LocationMo
 import io.reactivex.rxjava3.core.Single
 
 /**
- * Репозиторий для получения точек на карте
+ * Репозиторий для получения локаций для отображения на карте
  *
  * @author Murad Luguev on 26-08-2021
  */
@@ -12,7 +12,7 @@ interface LocationRepository {
     /**
      * Возвращает список [LocationModel], в котором содержаться точки для отображения на карте
      *
-     * @return спиок [LocationModel] с лекциями, которые проходят в предоставленных корпусах
+     * @return список [LocationModel] с лекциями, которые проходят в предоставленных корпусах
      */
     fun getEnterPoints(): Single<List<LocationModel>>
 

@@ -1,14 +1,14 @@
 package com.snakelord.pets.kbsustudentassistance.presentation.pass
 
+import android.annotation.SuppressLint
+import android.content.pm.ActivityInfo
+import android.content.res.Configuration
 import android.graphics.Bitmap
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.core.content.ContextCompat
 import androidx.navigation.navGraphViewModels
-import com.google.android.material.snackbar.Snackbar
 import com.snakelord.pets.kbsustudentassistance.R
 import com.snakelord.pets.kbsustudentassistance.databinding.FragmentPassBinding
 import com.snakelord.pets.kbsustudentassistance.domain.model.pass.Student
@@ -16,7 +16,6 @@ import com.snakelord.pets.kbsustudentassistance.presentation.common.extensions.g
 import com.snakelord.pets.kbsustudentassistance.presentation.common.extensions.invisible
 import com.snakelord.pets.kbsustudentassistance.presentation.common.extensions.visible
 import com.snakelord.pets.kbsustudentassistance.presentation.common.fragment.BaseFragment
-import com.snakelord.pets.kbsustudentassistance.presentation.common.state.UIStates
 
 /**
  * Фрагмент пропуска
@@ -44,11 +43,14 @@ class PassFragment : BaseFragment() {
         passViewModel.qrcodeBitmap.observe(viewLifecycleOwner, ::showQrCode)
         passViewModel.student.observe(viewLifecycleOwner, ::showStudentInfo)
         passViewModel.uiStates.observe(viewLifecycleOwner, ::updateUIState)
+
+        setPortraitOrientation()
     }
 
     override fun onResume() {
         super.onResume()
-        passViewModel.getQrCode(binding.studentQrCode.measuredWidth)
+
+        passViewModel.getQrCode(binding.studentQrCode.width)
     }
 
     private fun showQrCode(qrCodeBitmap: Bitmap) {
@@ -58,29 +60,29 @@ class PassFragment : BaseFragment() {
     private fun showStudentInfo(student: Student) {
         binding.studentFullName.text = student.fullName
         binding.year.text = requireContext().getString(
-            R.string.year_placeholder, student.specialtyCode.last()
+            R.string.year_placeholder, student.specialityCode.last()
         )
     }
 
-    override fun updateUIState(state: UIStates) {
-        when(state) {
-            is UIStates.Loading -> {
-                binding.progressBar.visible()
-                binding.studentFullName.gone()
-                binding.year.gone()
-                binding.guideMessage.gone()
-                binding.studentQrCode.invisible()
-            }
-            is UIStates.Successful -> {
-                binding.progressBar.gone()
-                binding.studentFullName.visible()
-                binding.year.visible()
-                binding.guideMessage.visible()
-                binding.studentQrCode.visible()
-            }
-            is UIStates.Error -> {
-                showError(state.error.errorMessageResId)
-            }
-        }
+
+    override fun onConfigurationChanged(newConfig: Configuration) {
+        super.onConfigurationChanged(newConfig)
+
+        passViewModel.getQrCode(binding.studentQrCode.measuredWidth)
+    }
+    override fun onLoading() {
+        binding.progressBar.visible()
+        binding.studentFullName.gone()
+        binding.year.gone()
+        binding.guideMessage.gone()
+        binding.studentQrCode.invisible()
+    }
+
+    override fun onSuccess() {
+        binding.progressBar.gone()
+        binding.studentFullName.visible()
+        binding.year.visible()
+        binding.guideMessage.visible()
+        binding.studentQrCode.visible()
     }
 }

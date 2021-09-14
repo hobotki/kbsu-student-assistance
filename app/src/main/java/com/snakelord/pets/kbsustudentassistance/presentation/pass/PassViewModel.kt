@@ -8,6 +8,8 @@ import com.snakelord.pets.kbsustudentassistance.domain.model.pass.Student
 import com.snakelord.pets.kbsustudentassistance.presentation.common.schedulers.SchedulersProvider
 import com.snakelord.pets.kbsustudentassistance.presentation.common.state.UIStates
 import com.snakelord.pets.kbsustudentassistance.presentation.common.viewmodel.BaseViewModel
+import com.snakelord.pets.kbsustudentassistance.presentation.pass.utils.BitmapUtil
+import io.reactivex.rxjava3.core.Single
 
 /**
  * ViewModel для экрана пропуска
@@ -19,7 +21,7 @@ import com.snakelord.pets.kbsustudentassistance.presentation.common.viewmodel.Ba
  */
 class PassViewModel(
     private val passInteractor: PassInteractor,
-    private val schedulersProvider: SchedulersProvider
+    private val schedulersProvider: SchedulersProvider,
 ) : BaseViewModel() {
 
     private val studentMutableLiveData = MutableLiveData<Student>()
@@ -50,7 +52,12 @@ class PassViewModel(
     }
 
     private fun generateQrCode(student: Student, size: Int) {
-        val qrCodeDisposable = passInteractor.getQrCode(student, size)
+        val qrCodeDisposable = Single.fromCallable {
+            return@fromCallable BitmapUtil.generateQrCodeBitmap(
+                passInteractor.convertStudentToJson(student),
+                size
+            )
+        }
             .observeOn(schedulersProvider.main())
             .subscribeOn(schedulersProvider.io())
             .subscribe {
@@ -58,5 +65,11 @@ class PassViewModel(
                 updateUIState(UIStates.Successful)
             }
         compositeDisposable.add(qrCodeDisposable)
+    }
+
+    override fun onCleared() {
+        super.onCleared()
+
+        qrCodeBitmapMutableLiveData.value?.recycle()
     }
 }

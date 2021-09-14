@@ -1,29 +1,34 @@
 package com.snakelord.pets.kbsustudentassistance.presentation.settings
 
+import android.content.SharedPreferences
 import android.os.Bundle
 import android.view.View
 import androidx.appcompat.app.AlertDialog
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.navGraphViewModels
+import androidx.preference.ListPreference
 import androidx.preference.Preference
 import androidx.preference.PreferenceFragmentCompat
 import com.snakelord.pets.kbsustudentassistance.R
 import com.snakelord.pets.kbsustudentassistance.presentation.application.KbsuStudentAssistanceApp
 import com.snakelord.pets.kbsustudentassistance.presentation.common.extensions.navigationCallback
 import com.snakelord.pets.kbsustudentassistance.presentation.common.state.UIStates
+import com.snakelord.pets.kbsustudentassistance.presentation.settings.extensions.sharedPreferences
 
 /**
  * Экран настроек
  *
  * @author Murad Luguev on 12-09-2021
  */
-class SettingsFragment : PreferenceFragmentCompat() {
+class SettingsFragment : PreferenceFragmentCompat(),
+    SharedPreferences.OnSharedPreferenceChangeListener {
 
     private val settingsViewModel: SettingsViewModel by navGraphViewModels(R.id.nav_graph) {
         KbsuStudentAssistanceApp.applicationComponent.viewModelFactory()
     }
 
     private var dialog: AlertDialog? = null
+    private var modeListPreference: ListPreference? = null
 
     override fun onCreatePreferences(savedInstanceState: Bundle?, rootKey: String?) {
         setPreferencesFromResource(R.xml.fragment_settings, rootKey)
@@ -32,29 +37,49 @@ class SettingsFragment : PreferenceFragmentCompat() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         settingsViewModel.uiStates.observe(viewLifecycleOwner, ::updateUIState)
+        restoreModeSummary()
+    }
+
+    private fun restoreModeSummary() {
+        modeListPreference = findPreference(getString(R.string.mode))
+
+        modeListPreference?.summary = getString(
+            settingsViewModel.getSummaryByTheme()
+        )
+    }
+
+    override fun onResume() {
+        super.onResume()
+        sharedPreferences.registerOnSharedPreferenceChangeListener(this)
     }
 
     private fun updateUIState(state: UIStates) {
         if (state == UIStates.Successful) {
             findNavController()
-                .navigate(R.id.action_settingsFragment_to_loginFragment)
+                .navigate(R.id.go_to_login)
             navigationCallback.hideBottomNavigationView()
         }
     }
 
     override fun onPreferenceTreeClick(preference: Preference): Boolean {
-        when (preference.key) {
-            getString(R.string.logout_key) -> {
-                buildLogoutDialog()
-            }
+        if (preference.key == getString(R.string.logout_key)) {
+                showLogoutDialog()
         }
         return super.onPreferenceTreeClick(preference)
     }
 
+    override fun onSharedPreferenceChanged(sharedPreferences: SharedPreferences, key: String) {
+        settingsViewModel.updateTheme()
+        modeListPreference?.summary = getString(
+            settingsViewModel.getSummaryByTheme()
+        )
+    }
+
     override fun onSaveInstanceState(outState: Bundle) {
         super.onSaveInstanceState(outState)
+
         dialog?.run {
-            outState.putBoolean(IS_SHOWING_KEY, isVisible)
+            outState.putBoolean(IS_SHOWING_KEY, isShowing)
         }
     }
 
@@ -62,15 +87,13 @@ class SettingsFragment : PreferenceFragmentCompat() {
         super.onViewStateRestored(savedInstanceState)
 
         savedInstanceState?.run {
-            val isShowing = savedInstanceState.getBoolean(IS_SHOWING_KEY)
-            if (isShowing) {
-                buildLogoutDialog()
-                dialog!!.show()
+            if (savedInstanceState.getBoolean(IS_SHOWING_KEY)) {
+                showLogoutDialog()
             }
         }
     }
 
-    private fun buildLogoutDialog() {
+    private fun showLogoutDialog() {
         dialog = AlertDialog.Builder(requireContext())
             .setTitle(R.string.warning)
             .setMessage(R.string.logout_message)
@@ -80,18 +103,26 @@ class SettingsFragment : PreferenceFragmentCompat() {
             .setNegativeButton(R.string.negative_answer) { dialog, _ ->
                 dialog.dismiss()
             }
-            .setCancelable(false)
             .create()
+
         dialog!!.show()
     }
 
     override fun onStop() {
         super.onStop()
 
+        sharedPreferences.unregisterOnSharedPreferenceChangeListener(this)
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+
+        modeListPreference = null
+
         dialog?.dismiss()
     }
 
     companion object {
-        const val IS_SHOWING_KEY = "is_showing"
+        private const val IS_SHOWING_KEY = "is_showing"
     }
 }

@@ -1,9 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
 <PreferenceScreen
-    xmlns:android="http://schemas.android.com/apk/res/android">
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <ListPreference
+        android:icon="@drawable/ic_theme"
+        android:title="@string/theme"
+        android:key="@string/mode"
+        android:defaultValue="system"
+        app:entries="@array/modes"
+        app:entryValues="@array/modes_values"/>
 
     <Preference
+        android:icon="@drawable/ic_logout"
         android:key="@string/logout_key"
-        android:title="Выйти"/>
+        android:title="@string/log_out"/>
 
 </PreferenceScreen>

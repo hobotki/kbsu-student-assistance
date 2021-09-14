@@ -1,13 +1,15 @@
 package com.snakelord.pets.kbsustudentassistance.di.common.module
 
 import android.content.Context
+import android.content.SharedPreferences
+import androidx.preference.PreferenceManager
 import androidx.room.Room
-import androidx.room.migration.Migration
 import com.snakelord.pets.kbsustudentassistance.data.datasource.database.Database
 import com.snakelord.pets.kbsustudentassistance.data.datasource.database.DatabaseConst
 import com.snakelord.pets.kbsustudentassistance.data.datasource.database.dao.schedule.ScheduleDao
 import com.snakelord.pets.kbsustudentassistance.data.datasource.database.dao.student.StudentDao
 import com.snakelord.pets.kbsustudentassistance.data.datasource.database.migrations.Migrations
+import com.snakelord.pets.kbsustudentassistance.presentation.common.theme.ThemeChanger
 import dagger.Module
 import dagger.Provides
 import okhttp3.OkHttpClient
@@ -89,6 +91,34 @@ class ApplicationModule {
     @Provides
     fun provideScheduleDao(database: Database): ScheduleDao {
         return database.scheduleDao()
+    }
+
+    /**
+     * Предоставляет [SharedPreferences] для изменеия/получения текущей темы
+     *
+     * @param context контекст для получения стадндартных [SharedPreferences]
+     *
+     * @return преференсы для зменеия/получения текущей темы типа [SharedPreferences]
+     */
+    @Provides
+    fun provideSettingsSharedPreferences(context: Context): SharedPreferences {
+        return PreferenceManager.getDefaultSharedPreferences(context)
+    }
+
+    /**
+     * Предоставляет [ThemeChanger] для изменения/получения текущей темы
+     *
+     * @param context контекст для получения информации о используемой системой теме
+     * @param settingsSharedPreferences преференсы для зменеия/получения текущей темы
+     *
+     * @return экземпляр [ThemeChanger]
+     */
+    @Provides
+    fun provideThemeChanger(
+        context: Context,
+        settingsSharedPreferences: SharedPreferences
+    ): ThemeChanger {
+        return ThemeChanger(context, settingsSharedPreferences)
     }
 
     companion object {

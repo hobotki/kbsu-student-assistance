@@ -7,7 +7,6 @@ import androidx.room.Query
 import com.snakelord.pets.kbsustudentassistance.data.datasource.database.DatabaseConst.ScheduleTable
 import com.snakelord.pets.kbsustudentassistance.data.datasource.database.entity.schedule.DayEntity
 import io.reactivex.rxjava3.core.Completable
-import io.reactivex.rxjava3.core.Maybe
 import io.reactivex.rxjava3.core.Single
 
 /**

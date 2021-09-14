@@ -14,7 +14,7 @@
     <item
         android:id="@+id/navigationFragment"
         android:title="@string/navigation"
-        android:icon="@drawable/ic_map"/>
+        android:icon="@drawable/ic_navigation"/>
 
     <item
         android:id="@+id/settingsFragment"

@@ -10,7 +10,7 @@ import com.snakelord.pets.kbsustudentassistance.data.datasource.database.Databas
  *
  * @property id идентификатор студента
  * @property fullName ФИО студента
- * @property specialtyCode код специальности студента
+ * @property specialityCode код специальности студента
  *
  * @author Murad Luguev on 27-08-2021
  */
@@ -24,5 +24,5 @@ data class StudentEntity(
     val fullName: String,
 
     @ColumnInfo(name = StudentTable.COLUMN_SPECIALITY_CODE)
-    val specialtyCode: String
+    val specialityCode: String
 )

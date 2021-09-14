@@ -7,7 +7,6 @@ import com.snakelord.pets.kbsustudentassistance.data.datasource.database.dao.stu
 import com.snakelord.pets.kbsustudentassistance.data.datasource.database.entity.schedule.DayEntity
 import com.snakelord.pets.kbsustudentassistance.domain.repository.schedule.ScheduleRepository
 import io.reactivex.rxjava3.core.Completable
-import io.reactivex.rxjava3.core.Maybe
 import io.reactivex.rxjava3.core.Single
 import javax.inject.Inject
 

@@ -1,5 +1,6 @@
 package com.snakelord.pets.kbsustudentassistance.domain.interactor.navigation
 
+import androidx.annotation.WorkerThread
 import com.snakelord.pets.kbsustudentassistance.domain.model.location.LocationModel
 import com.snakelord.pets.kbsustudentassistance.domain.repository.navigation.LocationRepository
 import io.reactivex.rxjava3.core.Single
@@ -16,6 +17,7 @@ class LocationInteractorImpl @Inject constructor(
     private val locationRepository: LocationRepository
 ) : LocationInteractor {
 
+    @WorkerThread
     override fun getEnterPoints(): Single<List<LocationModel>> {
         return locationRepository.getEnterPoints()
     }

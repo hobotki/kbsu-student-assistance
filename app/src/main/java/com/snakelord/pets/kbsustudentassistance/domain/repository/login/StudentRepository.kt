@@ -7,7 +7,7 @@ import io.reactivex.rxjava3.core.Maybe
 import io.reactivex.rxjava3.core.Single
 
 /**
- * Интерфейс для получения данных студента с удаленног и локлаьного хранилища
+ * Интерфейс для получения данных студента с удаленного и локлального хранилища
  *
  * @author Murad Luguev on 27-08-2021
  */
@@ -19,7 +19,7 @@ interface StudentRepository {
      * @param secondName фамилия студента
      * @param recordBookNumber номер зачётной книжки студента
      *
-     * @return экземпляр [Single] с типом [StudentDto]
+     * @return данные о студенте типа [Single]<[StudentDto]>
      */
     fun loginStudent(secondName: String, recordBookNumber: String): Single<StudentDto>
 
@@ -29,14 +29,14 @@ interface StudentRepository {
      * @param studentEntity экземпляр класса [StudentEntity]
      * для сохранения информации в базе данных
      *
-     * @return экземпляр [Completable]
+     * @return состояние операции сохранения типа [Completable]
      */
     fun saveStudent(studentEntity: StudentEntity): Completable
 
     /**
      * Функция для проверки состояния авторизации студента
      *
-     * @return экземпляр класса [Maybe] с типом [StudentEntity]
+     * @return состояние авторизации студента типа [Maybe]<[StudentEntity]>
      */
     fun isStudentLogined(): Maybe<StudentEntity>
 }
