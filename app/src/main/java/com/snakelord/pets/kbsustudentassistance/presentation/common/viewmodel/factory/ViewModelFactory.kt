@@ -5,6 +5,7 @@ import androidx.lifecycle.ViewModelProvider
 import com.snakelord.pets.kbsustudentassistance.di.login.component.DaggerLoginComponent
 import com.snakelord.pets.kbsustudentassistance.di.navigation.component.DaggerNavigationComponent
 import com.snakelord.pets.kbsustudentassistance.di.pass.component.DaggerPassComponent
+import com.snakelord.pets.kbsustudentassistance.di.pass.component.PassComponent
 import com.snakelord.pets.kbsustudentassistance.di.schedule.component.DaggerScheduleComponent
 import com.snakelord.pets.kbsustudentassistance.di.settings.component.DaggerSettingsComponent
 import com.snakelord.pets.kbsustudentassistance.presentation.application.KbsuStudentAssistanceApp
@@ -80,7 +81,7 @@ class ViewModelFactory @Inject constructor() : ViewModelProvider.Factory {
     }
 
     private fun createPassViewModel(): PassViewModel {
-        val passComponent = DaggerPassComponent.builder()
+        val passComponent: PassComponent = DaggerPassComponent.builder()
             .applicationComponent(applicationComponent)
             .build()
         return PassViewModel(

@@ -56,7 +56,7 @@ class SettingsFragment : PreferenceFragmentCompat(),
     private fun updateUIState(state: UIStates) {
         if (state == UIStates.Successful) {
             findNavController()
-                .navigate(R.id.action_settingsFragment_to_loginFragment)
+                .navigate(R.id.go_to_login)
             navigationCallback.hideBottomNavigationView()
         }
     }

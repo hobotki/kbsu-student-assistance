@@ -1,6 +1,6 @@
 package com.snakelord.pets.kbsustudentassistance.presentation.common.state
 
-import com.snakelord.pets.kbsustudentassistance.domain.model.OperationError
+import com.snakelord.pets.kbsustudentassistance.domain.model.error.OperationError
 
 
 /**

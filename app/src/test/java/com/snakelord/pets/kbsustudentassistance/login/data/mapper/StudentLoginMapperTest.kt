@@ -3,14 +3,15 @@ package com.snakelord.pets.kbsustudentassistance.login.data.mapper
 import com.google.common.truth.Truth
 import com.snakelord.pets.kbsustudentassistance.data.datasource.api.student.model.StudentDto
 import com.snakelord.pets.kbsustudentassistance.data.mapper.student.StudentLoginMapper
-import com.snakelord.pets.kbsustudentassistance.domain.mapper.Mapper
+import com.snakelord.pets.kbsustudentassistance.domain.json_adapter.login.StudentJsonAdapter
 import com.squareup.moshi.JsonEncodingException
 import org.junit.Test
 import java.io.EOFException
 
 class StudentLoginMapperTest {
 
-    private val studentLoginMapper: Mapper<String, StudentDto> = StudentLoginMapper()
+    private val studentJsonAdapter = StudentJsonAdapter()
+    private val studentLoginMapper = StudentLoginMapper(studentJsonAdapter)
 
     @Test
     fun mapTest() {
@@ -69,7 +70,7 @@ class StudentLoginMapperTest {
         private val EXPECTED_STUDENT_DTO = StudentDto(
             fullName = "Иванов Иван Иванович",
             id = 3,
-            specialtyCode = "09.03.01-3"
+            specialityCode = "09.03.01-3"
         )
     }
 }

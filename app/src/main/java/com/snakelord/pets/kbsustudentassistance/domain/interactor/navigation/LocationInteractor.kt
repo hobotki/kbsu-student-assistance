@@ -12,7 +12,7 @@ interface LocationInteractor {
     /**
      * Возвращает список [LocationModel], в котором содержаться точки для отображения на карте
      *
-     * @return спиок [LocationModel]
+     * @return список корпусов типа [LocationModel]
      */
     fun getEnterPoints(): Single<List<LocationModel>>
 
@@ -20,7 +20,7 @@ interface LocationInteractor {
      * Возвращает точку для отображения главного входа в ВУЗ
      *
      * @return экземпляр [LocationModel], который содержит информацию о
-     * местоположении главного входа
+     * местоположении главного корпуса
      */
     fun getMainEnterPoint(): LocationModel
 }

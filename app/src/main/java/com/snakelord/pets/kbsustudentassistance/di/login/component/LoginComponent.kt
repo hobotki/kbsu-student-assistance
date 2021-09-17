@@ -7,8 +7,6 @@ import com.snakelord.pets.kbsustudentassistance.di.login.module.LoginMapperModul
 import com.snakelord.pets.kbsustudentassistance.di.login.module.LoginRepositoryModule
 import com.snakelord.pets.kbsustudentassistance.di.login.scope.LoginScope
 import com.snakelord.pets.kbsustudentassistance.domain.interactor.login.LoginInteractor
-import com.snakelord.pets.kbsustudentassistance.domain.mapper.Mapper
-import com.snakelord.pets.kbsustudentassistance.domain.model.OperationError
 import dagger.Component
 
 /**
@@ -30,12 +28,4 @@ interface LoginComponent {
      * @return экземпляр [LoginInteractor]
      */
     fun loginInteractor(): LoginInteractor
-
-    /**
-     * Функция, предоставляющая экземпляр [Mapper]
-     * для обработки ошибок во время авторизации
-     *
-     * @return экземпляр [Mapper] с типами [Throwable] и [OperationError]
-     */
-    fun studentErrorMapper(): Mapper<Throwable, OperationError>
 }

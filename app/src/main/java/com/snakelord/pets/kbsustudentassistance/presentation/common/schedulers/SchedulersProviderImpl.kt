@@ -5,6 +5,11 @@ import io.reactivex.rxjava3.core.Scheduler
 import io.reactivex.rxjava3.schedulers.Schedulers
 import javax.inject.Inject
 
+/**
+ * Проводник планировщиков для приложения
+ *
+ * @author Murad Luguev on 27-08-2021
+ */
 class SchedulersProviderImpl @Inject constructor() : SchedulersProvider {
     override fun io(): Scheduler {
         return Schedulers.io()

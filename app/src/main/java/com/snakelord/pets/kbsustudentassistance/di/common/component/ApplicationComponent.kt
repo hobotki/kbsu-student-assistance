@@ -11,7 +11,7 @@ import com.snakelord.pets.kbsustudentassistance.di.common.module.BaseErrorMapper
 import com.snakelord.pets.kbsustudentassistance.di.common.module.SchedulersProviderModule
 import com.snakelord.pets.kbsustudentassistance.di.common.module.ViewModelFactoryModule
 import com.snakelord.pets.kbsustudentassistance.domain.mapper.Mapper
-import com.snakelord.pets.kbsustudentassistance.domain.model.OperationError
+import com.snakelord.pets.kbsustudentassistance.domain.model.error.OperationError
 import com.snakelord.pets.kbsustudentassistance.presentation.common.schedulers.SchedulersProvider
 import com.snakelord.pets.kbsustudentassistance.presentation.common.theme.ThemeChanger
 import dagger.BindsInstance
@@ -36,7 +36,7 @@ import javax.inject.Singleton
 interface ApplicationComponent {
 
     /**
-     * Функция, предоставляющая провайдер планировщиков
+     * Функция, предоставляющая проводник планировщиков
      *
      * @return реализацию [SchedulersProvider]
      */
@@ -45,21 +45,21 @@ interface ApplicationComponent {
     /**
      * Функция, предоставляющая фабрику для всех ViewModel в приложении
      *
-     * @return реализацию [ViewModelProvider.Factory]
+     * @return фабрику типа [ViewModelProvider.Factory]
      */
     fun viewModelFactory(): ViewModelProvider.Factory
 
     /**
      * Функция, предоставляющая клиент для работы с API
      *
-     * @return экземпляр [OkHttpClient]
+     * @return клиент для HTTPS запросов типа [OkHttpClient]
      */
     fun okHttpClient(): OkHttpClient
 
     /**
      * Функция, предоставляющая базу данных
      *
-     * @return экземпляр [Database]
+     * @return экземпляр [Database] для взаимодействия с базой данных
      */
     fun database(): Database
 
@@ -110,6 +110,7 @@ interface ApplicationComponent {
          * Функция, для предоставления [Context] в граф зависимостей
          *
          * @param context экземпляр [Context]
+         *
          * @return билдер для сборки компонента
          */
         @BindsInstance
@@ -119,6 +120,7 @@ interface ApplicationComponent {
          * Функция, для предоставления [Application] в граф зависимостей
          *
          * @param application экземпляр [Application]
+         *
          * @return билдер для сборки компонента
          */
         @BindsInstance

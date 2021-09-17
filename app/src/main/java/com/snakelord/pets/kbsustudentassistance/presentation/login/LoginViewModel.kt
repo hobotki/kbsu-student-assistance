@@ -3,10 +3,10 @@ package com.snakelord.pets.kbsustudentassistance.presentation.login
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.snakelord.pets.kbsustudentassistance.data.datasource.api.student.model.StudentDto
-import com.snakelord.pets.kbsustudentassistance.domain.VerificationResult
+import com.snakelord.pets.kbsustudentassistance.domain.model.login.VerificationResult
 import com.snakelord.pets.kbsustudentassistance.domain.interactor.login.LoginInteractor
 import com.snakelord.pets.kbsustudentassistance.domain.mapper.Mapper
-import com.snakelord.pets.kbsustudentassistance.domain.model.OperationError
+import com.snakelord.pets.kbsustudentassistance.domain.model.error.OperationError
 import com.snakelord.pets.kbsustudentassistance.presentation.common.schedulers.SchedulersProvider
 import com.snakelord.pets.kbsustudentassistance.presentation.common.state.UIStates
 import com.snakelord.pets.kbsustudentassistance.presentation.common.viewmodel.BaseViewModel
@@ -61,7 +61,7 @@ class LoginViewModel(
 
     private fun login(secondName: String, recordBookNumber: String) {
         updateUIState(UIStates.Loading)
-        val loginDisposable = loginInteractor.loginUser(secondName, recordBookNumber)
+        val loginDisposable = loginInteractor.loginStudent(secondName, recordBookNumber)
             .observeOn(schedulersProvider.main())
             .subscribeOn(schedulersProvider.io())
             .subscribe(
@@ -86,10 +86,9 @@ class LoginViewModel(
         val checkDisposable = loginInteractor.isStudentLogined()
             .observeOn(schedulersProvider.main())
             .subscribeOn(schedulersProvider.io())
-            .subscribe(
-                { updateUIState(UIStates.Successful) },
-                { throwable -> performError(throwable) }
-            )
+            .subscribe {
+                updateUIState(UIStates.Successful)
+            }
         compositeDisposable.add(checkDisposable)
     }
 }

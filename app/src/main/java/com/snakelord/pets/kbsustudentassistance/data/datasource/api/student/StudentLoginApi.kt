@@ -14,7 +14,7 @@ interface StudentLoginApi {
      * @param secondName фамилия студента
      * @param recordBookNumber номер зачетной книжки студента
      *
-     * @return экземпляр [StudentDto]
+     * @return информацию о студенте типа [StudentDto]
      */
     fun loginStudent(secondName: String, recordBookNumber: String): StudentDto
 }

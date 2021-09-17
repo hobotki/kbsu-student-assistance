@@ -1,4 +1,4 @@
-package com.snakelord.pets.kbsustudentassistance.domain
+package com.snakelord.pets.kbsustudentassistance.domain.model.login
 
 /**
  * Перечисление для отображения результата проверки введенных полей
@@ -19,5 +19,10 @@ enum class VerificationResult {
     /**
      * Поле пусто
      */
-    FIELD_IS_EMPTY
+    FIELD_IS_EMPTY,
+
+    /**
+     * Поле содержит недопустимые символы
+     */
+    FIELD_CONTAINS_INVALID_SYMBOLS
 }

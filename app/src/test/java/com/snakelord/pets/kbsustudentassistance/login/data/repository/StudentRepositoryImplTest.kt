@@ -5,24 +5,23 @@ import com.snakelord.pets.kbsustudentassistance.data.datasource.api.student.mode
 import com.snakelord.pets.kbsustudentassistance.data.datasource.database.dao.student.StudentDao
 import com.snakelord.pets.kbsustudentassistance.data.datasource.database.entity.student.StudentEntity
 import com.snakelord.pets.kbsustudentassistance.data.repository.login.StudentRepositoryImpl
-import com.snakelord.pets.kbsustudentassistance.domain.repository.login.StudentRepository
 import io.mockk.every
 import io.mockk.mockk
 import io.reactivex.rxjava3.core.Completable
 import io.reactivex.rxjava3.core.Maybe
 import org.junit.Test
 
-class StudentRepositoryTest {
+class StudentRepositoryImplTest {
 
     private val studentLoginApi: StudentLoginApi = mockk()
     private val studentDao: StudentDao = mockk()
-    private val studentRepository: StudentRepository =
+    private val studentRepository =
         StudentRepositoryImpl(studentLoginApi, studentDao)
 
     @Test
     fun studentIsNotLoginedTest() {
         //Arrange
-        every { studentDao.isUserLogined() } returns Maybe.empty()
+        every { studentDao.isStudentLogined() } returns Maybe.empty()
 
         //Act
         val testObserver = studentRepository.isStudentLogined()
@@ -37,7 +36,7 @@ class StudentRepositoryTest {
     @Test
     fun studentLoginedTest() {
         //Arrange
-        every { studentDao.isUserLogined() } returns Maybe.fromCallable { EXPECTED_STUDENT_ENTITY }
+        every { studentDao.isStudentLogined() } returns Maybe.fromCallable { EXPECTED_STUDENT_ENTITY }
 
         //Act
         val testObserver = studentRepository.isStudentLogined()
@@ -86,13 +85,13 @@ class StudentRepositoryTest {
         private val EXPECTED_STUDENT_ENTITY = StudentEntity(
             fullName = "Иванов Иван Иванович",
             id = 3,
-            specialtyCode = "09.03.01-3"
+            specialityCode = "09.03.01-3"
         )
 
         private val EXPECTED_STUDENT_DTO = StudentDto(
             fullName = "Иванов Иван Иванович",
             id = 3,
-            specialtyCode = "09.03.01-3"
+            specialityCode = "09.03.01-3"
         )
 
         private const val STUDENT_SECOND_NAME = "Иванов"

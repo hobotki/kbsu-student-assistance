@@ -8,5 +8,5 @@ data class Student(
 
     val fullName: String,
 
-    val specialtyCode: String,
+    val specialityCode: String,
 )

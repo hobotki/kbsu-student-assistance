@@ -5,6 +5,13 @@
 
     <uses-permission android:name="android.permission.INTERNET"/>
 
+    <queries>
+        <package android:name="ru.yandex.yandexmaps" />
+        <package android:name="com.google.android.apps.maps" />
+        <package android:name="com.huawei.appmarket"/>
+        <package android:name="com.android.vending"/>
+    </queries>
+
     <application
         android:allowBackup="false"
         android:name="com.snakelord.pets.kbsustudentassistance.presentation.application.KbsuStudentAssistanceApp"

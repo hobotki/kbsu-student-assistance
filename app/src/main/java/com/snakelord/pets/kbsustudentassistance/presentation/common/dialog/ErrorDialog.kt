@@ -5,7 +5,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.annotation.StringRes
-import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.snakelord.pets.kbsustudentassistance.R
 import com.snakelord.pets.kbsustudentassistance.databinding.DialogErrorBinding
@@ -28,7 +27,7 @@ class ErrorDialog : BottomSheetDialogFragment() {
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
-        savedInstanceState: Bundle?
+        savedInstanceState: Bundle?,
     ): View {
         errorDialogBinding = DialogErrorBinding.inflate(inflater, container, false)
         return binding.root
@@ -44,27 +43,21 @@ class ErrorDialog : BottomSheetDialogFragment() {
 
         binding.errorMessage.text = getString(errorMessageId)
 
-        if (errorMessageId == R.string.requested_info_not_found)
-            binding.positiveButton.gone()
+        if (errorMessageId == R.string.requested_info_not_found || onTryAction == null) {
+            binding.onTryButton.gone()
+        }
 
-        binding.positiveButton.setOnClickListener {
-            onTryAction?.invoke()
+        binding.onTryButton.setOnClickListener {
+            onTryAction!!.invoke()
             dismiss()
         }
 
-        binding.neutralButton.setOnClickListener { dismiss() }
+        binding.okButton.setOnClickListener { dismiss() }
+
         expand()
     }
 
-    private fun expand() {
-        val viewGroup: ViewGroup = dialog!!.findViewById(
-            com.google.android.material.R.id.design_bottom_sheet
-        )
-        val bottomSheetBehavior = BottomSheetBehavior.from(viewGroup)
-        bottomSheetBehavior.expand()
-    }
-
-    private fun setOnTryAction(action: (() -> Unit)?) {
+    fun setOnTryAction(action: (() -> Unit)?) {
         onTryAction = action
     }
 

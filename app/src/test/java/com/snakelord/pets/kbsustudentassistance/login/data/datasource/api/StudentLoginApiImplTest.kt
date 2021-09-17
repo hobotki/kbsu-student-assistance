@@ -1,11 +1,11 @@
 package com.snakelord.pets.kbsustudentassistance.login.data.datasource.api
 
 import com.google.common.truth.Truth
-import com.snakelord.pets.kbsustudentassistance.data.datasource.api.student.StudentLoginApi
 import com.snakelord.pets.kbsustudentassistance.data.datasource.api.student.StudentLoginApiImpl
 import com.snakelord.pets.kbsustudentassistance.data.datasource.api.student.model.StudentDto
 import com.snakelord.pets.kbsustudentassistance.data.exception.BadResponseException
 import com.snakelord.pets.kbsustudentassistance.data.mapper.student.StudentLoginMapper
+import com.snakelord.pets.kbsustudentassistance.domain.json_adapter.login.StudentJsonAdapter
 import com.snakelord.pets.kbsustudentassistance.domain.mapper.Mapper
 import io.mockk.every
 import io.mockk.mockk
@@ -16,12 +16,12 @@ import org.junit.Test
 import java.io.IOException
 import java.io.InterruptedIOException
 
-class StudentLoginApiTest {
+class StudentLoginApiImplTest {
 
-    private val studentMapper: Mapper<String, StudentDto> = StudentLoginMapper()
+    private val studentMapper: Mapper<String, StudentDto> = StudentLoginMapper(StudentJsonAdapter())
     private val okHttpClient: OkHttpClient = mockk()
     private val response: Response = mockk()
-    private val studentLoginApi: StudentLoginApi = StudentLoginApiImpl(okHttpClient, studentMapper)
+    private val studentLoginApi = StudentLoginApiImpl(okHttpClient, studentMapper)
 
     @Before
     fun setUp() {
@@ -103,7 +103,7 @@ class StudentLoginApiTest {
         private val EXPECTED_STUDENT_DTO = StudentDto(
             fullName = "Иванов Иван Иванович",
             id = 3,
-            specialtyCode = "09.03.01-3"
+            specialityCode = "09.03.01-3"
         )
     }
 }

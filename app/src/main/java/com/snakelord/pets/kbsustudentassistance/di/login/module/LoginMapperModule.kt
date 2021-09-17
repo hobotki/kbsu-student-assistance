@@ -4,9 +4,7 @@ import com.snakelord.pets.kbsustudentassistance.data.datasource.api.student.mode
 import com.snakelord.pets.kbsustudentassistance.data.datasource.database.entity.student.StudentEntity
 import com.snakelord.pets.kbsustudentassistance.data.mapper.student.StudentLoginMapper
 import com.snakelord.pets.kbsustudentassistance.domain.mapper.Mapper
-import com.snakelord.pets.kbsustudentassistance.domain.mapper.error.BaseErrorMapper
 import com.snakelord.pets.kbsustudentassistance.domain.mapper.student.StudentDtoMapper
-import com.snakelord.pets.kbsustudentassistance.domain.model.OperationError
 import dagger.Binds
 import dagger.Module
 

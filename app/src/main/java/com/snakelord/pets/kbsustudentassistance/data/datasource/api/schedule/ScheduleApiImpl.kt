@@ -1,14 +1,10 @@
 package com.snakelord.pets.kbsustudentassistance.data.datasource.api.schedule
 
 import com.snakelord.pets.kbsustudentassistance.data.datasource.api.BaseApiMapper
-import com.snakelord.pets.kbsustudentassistance.data.extensions.responseIsEmpty
 import com.snakelord.pets.kbsustudentassistance.data.datasource.api.schedule.model.DayDto
-import com.snakelord.pets.kbsustudentassistance.data.exception.BadResponseException
 import com.snakelord.pets.kbsustudentassistance.domain.mapper.Mapper
 import okhttp3.OkHttpClient
 import okhttp3.Request
-import java.io.IOException
-import java.lang.IllegalStateException
 import javax.inject.Inject
 
 /**

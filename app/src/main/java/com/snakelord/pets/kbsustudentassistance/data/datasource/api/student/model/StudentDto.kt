@@ -8,7 +8,7 @@ import com.squareup.moshi.JsonClass
  *
  * @property fullName ФИО студента
  * @property id идентификатор студента
- * @property specialtyCode код специальности студента
+ * @property specialityCode код специальности студента
  *
  * @author Murad Luguev on 27-08-2021
  */
@@ -18,10 +18,10 @@ data class StudentDto(
     val fullName: String,
     val id: Int,
     @field:Json(name = SPECIALITY_CODE_JSON_KEY)
-    val specialtyCode: String
+    val specialityCode: String
 ) {
     companion object {
         private const val FULL_NAME_JSON_KEY = "full_name"
-        private const val SPECIALITY_CODE_JSON_KEY = "specialty_code"
+        private const val SPECIALITY_CODE_JSON_KEY = "speciality_code"
     }
 }

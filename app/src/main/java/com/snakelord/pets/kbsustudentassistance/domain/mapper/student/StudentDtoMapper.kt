@@ -15,7 +15,7 @@ class StudentDtoMapper @Inject constructor(): Mapper<StudentDto, StudentEntity> 
         return StudentEntity(
             id = input.id,
             fullName = input.fullName,
-            specialtyCode = input.specialtyCode
+            specialityCode = input.specialityCode
         )
     }
 }

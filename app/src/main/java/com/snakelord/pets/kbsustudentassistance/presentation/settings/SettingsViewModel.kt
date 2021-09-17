@@ -46,6 +46,6 @@ class SettingsViewModel(
      * Функция для обновления темы приложения
      */
     fun updateTheme() {
-        themeChanger.updateTheme()
+        themeChanger.setTheme()
     }
 }

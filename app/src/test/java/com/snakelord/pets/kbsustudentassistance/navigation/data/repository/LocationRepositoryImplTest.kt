@@ -1,33 +1,33 @@
-package com.snakelord.pets.kbsustudentassistance.navigation.domain.interactor
+package com.snakelord.pets.kbsustudentassistance.navigation.data.repository
 
 import com.google.common.truth.Truth
 import com.snakelord.pets.kbsustudentassistance.R
+import com.snakelord.pets.kbsustudentassistance.data.datasource.database.dao.schedule.ScheduleDao
 import com.snakelord.pets.kbsustudentassistance.data.datasource.database.entity.schedule.DayEntity
 import com.snakelord.pets.kbsustudentassistance.domain.model.location.LocationModel
 import com.snakelord.pets.kbsustudentassistance.domain.model.location.LocationPoint
-import com.snakelord.pets.kbsustudentassistance.domain.interactor.navigation.LocationInteractor
-import com.snakelord.pets.kbsustudentassistance.domain.interactor.navigation.LocationInteractorImpl
+import com.snakelord.pets.kbsustudentassistance.data.repository.navigation.LocationRepositoryImpl
 import com.snakelord.pets.kbsustudentassistance.domain.model.schedule.Lecture
-import com.snakelord.pets.kbsustudentassistance.domain.repository.navigation.LocationRepository
 import io.mockk.every
 import io.mockk.mockk
 import io.reactivex.rxjava3.core.Single
 import org.junit.Test
 
-class LocationInteractorTest {
+class LocationRepositoryImplTest {
 
-    private val locationRepository: LocationRepository = mockk()
-    private val locationInteractor: LocationInteractor = LocationInteractorImpl(locationRepository)
+    private val scheduleDao: ScheduleDao = mockk()
+    private val locationRepository = LocationRepositoryImpl(scheduleDao)
 
     @Test
     fun getEnterPointsTest() {
         //Arrange
-        every { locationRepository.getEnterPoints() } returns Single.just(LOCATION_EXPECTED_RESULT)
+        every { scheduleDao.getSchedule() } returns Single.just(EXPECTED_SCHEDULE)
         val expectedResult = LOCATION_EXPECTED_RESULT
 
         //Act
-        val actualResult = locationInteractor.getEnterPoints()
-            .test()
+        val actualResult =
+            locationRepository.getEnterPoints()
+                .test()
 
         //Assert
         actualResult
@@ -38,17 +38,17 @@ class LocationInteractorTest {
     @Test
     fun getMainEnterPointTest() {
         //Arrange
-        every { locationRepository.getMainEnterPoint() } returns MAIN_ENTRANCE_EXPECTED_RESULT
         val expectedResult = MAIN_ENTRANCE_EXPECTED_RESULT
 
         //Act
-        val actualResult = locationInteractor.getMainEnterPoint()
+        val actualResult = locationRepository.getMainEnterPoint()
 
         //Assert
         Truth.assertThat(actualResult).isEqualTo(expectedResult)
     }
 
     companion object {
+
         private val EXPECTED_LECTURE = Lecture(
             "Физика",
             "",

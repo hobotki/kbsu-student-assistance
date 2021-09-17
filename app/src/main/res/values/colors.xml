@@ -3,6 +3,7 @@
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
     <color name="primaryTextColor">@color/black</color>
+    <color name="error_color">#B00020</color>
 
     <!--Light theme-->
     <color name="colorPrimary">#1565c0</color>
@@ -17,8 +18,6 @@
     <color name="colorPrimaryDark">#64b5f6</color>
     <color name="colorSecondaryDark">#2286c3</color>
     <color name="statusBarColorDark">#313131</color>
-    <color name="backgroundColorDark">#2e2e2e</color>
-    <color name="dragViewColorDark">#B3bdbdbd</color>
     <color name="appBackgroundDark">#414141</color>
     <color name="itemBackgroundDark">#525252</color>
     <color name="bottomSheetBackgroundColorDark">@color/appBackgroundDark</color>

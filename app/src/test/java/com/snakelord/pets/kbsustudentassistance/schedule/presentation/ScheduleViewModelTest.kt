@@ -9,8 +9,7 @@ import com.snakelord.pets.kbsustudentassistance.domain.model.schedule.Lecture
 import com.snakelord.pets.kbsustudentassistance.presentation.common.schedulers.SchedulersProvider
 import com.snakelord.pets.kbsustudentassistance.presentation.common.schedulers.SchedulersProviderTest
 import com.snakelord.pets.kbsustudentassistance.presentation.schedule.ScheduleViewModel
-import io.mockk.mockk
-import io.mockk.every
+import io.mockk.*
 import io.reactivex.rxjava3.core.Single
 import org.junit.Before
 import org.junit.Rule

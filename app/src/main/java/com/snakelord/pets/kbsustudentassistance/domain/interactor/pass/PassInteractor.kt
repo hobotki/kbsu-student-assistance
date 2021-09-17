@@ -1,6 +1,5 @@
 package com.snakelord.pets.kbsustudentassistance.domain.interactor.pass
 
-import android.graphics.Bitmap
 import com.snakelord.pets.kbsustudentassistance.domain.model.pass.Student
 import io.reactivex.rxjava3.core.Single
 
@@ -18,12 +17,11 @@ interface PassInteractor {
     fun getStudentData(): Single<Student>
 
     /**
-     * Функция, которая возвращает QR-код, сгенерированный по данным студента
+     * Преобразует данные студента типа [Student] в JSON
      *
-     * @param student данные студента
-     * @param size размер ImageView, в который будет помещён QR-код
+     * @param student данные о студенте
      *
-     * @return сгенерированный QR-код типа [Single]<[Bitmap]>
+     * @return данные студента представленные в виде JSON
      */
-    fun getQrCode(student: Student, size: Int): Single<Bitmap>
+    fun convertStudentToJson(student: Student): String
 }
