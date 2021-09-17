@@ -20,4 +20,5 @@
     <dimen name="qr_code_image_view_size">130dp</dimen>
     <dimen name="days_margin">5dp</dimen>
     <dimen name="days_padding">10dp</dimen>
+    <dimen name="app_icon_size">64dp</dimen>
 </resources>

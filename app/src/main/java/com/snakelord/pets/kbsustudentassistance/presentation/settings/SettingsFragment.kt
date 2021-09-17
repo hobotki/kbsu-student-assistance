@@ -12,6 +12,8 @@ import androidx.preference.PreferenceFragmentCompat
 import com.snakelord.pets.kbsustudentassistance.R
 import com.snakelord.pets.kbsustudentassistance.presentation.application.KbsuStudentAssistanceApp
 import com.snakelord.pets.kbsustudentassistance.presentation.common.extensions.navigationCallback
+import com.snakelord.pets.kbsustudentassistance.presentation.common.extensions.setPortraitOrientation
+import com.snakelord.pets.kbsustudentassistance.presentation.common.extensions.setUnspecifiedOrientation
 import com.snakelord.pets.kbsustudentassistance.presentation.common.state.UIStates
 import com.snakelord.pets.kbsustudentassistance.presentation.settings.extensions.sharedPreferences
 
@@ -29,6 +31,12 @@ class SettingsFragment : PreferenceFragmentCompat(),
 
     private var dialog: AlertDialog? = null
     private var modeListPreference: ListPreference? = null
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+
+        setUnspecifiedOrientation()
+    }
 
     override fun onCreatePreferences(savedInstanceState: Bundle?, rootKey: String?) {
         setPreferencesFromResource(R.xml.fragment_settings, rootKey)

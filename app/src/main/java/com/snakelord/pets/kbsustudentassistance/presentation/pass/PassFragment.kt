@@ -1,7 +1,5 @@
 package com.snakelord.pets.kbsustudentassistance.presentation.pass
 
-import android.annotation.SuppressLint
-import android.content.pm.ActivityInfo
 import android.content.res.Configuration
 import android.graphics.Bitmap
 import android.os.Bundle
@@ -14,6 +12,7 @@ import com.snakelord.pets.kbsustudentassistance.databinding.FragmentPassBinding
 import com.snakelord.pets.kbsustudentassistance.domain.model.pass.Student
 import com.snakelord.pets.kbsustudentassistance.presentation.common.extensions.gone
 import com.snakelord.pets.kbsustudentassistance.presentation.common.extensions.invisible
+import com.snakelord.pets.kbsustudentassistance.presentation.common.extensions.setPortraitOrientation
 import com.snakelord.pets.kbsustudentassistance.presentation.common.extensions.visible
 import com.snakelord.pets.kbsustudentassistance.presentation.common.fragment.BaseFragment
 
@@ -36,6 +35,9 @@ class PassFragment : BaseFragment() {
         savedInstanceState: Bundle?
     ): View {
         fragmentPassBinding = FragmentPassBinding.inflate(inflater, container, false)
+
+        setPortraitOrientation()
+
         return binding.root
     }
 
@@ -44,13 +46,10 @@ class PassFragment : BaseFragment() {
         passViewModel.student.observe(viewLifecycleOwner, ::showStudentInfo)
         passViewModel.uiStates.observe(viewLifecycleOwner, ::updateUIState)
 
-        setPortraitOrientation()
-    }
-
-    override fun onResume() {
-        super.onResume()
-
-        passViewModel.getQrCode(binding.studentQrCode.width)
+        passViewModel.getQrCode(requireContext()
+            .resources
+            .getDimensionPixelSize(R.dimen.qr_code_image_view_size)
+        )
     }
 
     private fun showQrCode(qrCodeBitmap: Bitmap) {
@@ -64,12 +63,6 @@ class PassFragment : BaseFragment() {
         )
     }
 
-
-    override fun onConfigurationChanged(newConfig: Configuration) {
-        super.onConfigurationChanged(newConfig)
-
-        passViewModel.getQrCode(binding.studentQrCode.measuredWidth)
-    }
     override fun onLoading() {
         binding.progressBar.visible()
         binding.studentFullName.gone()

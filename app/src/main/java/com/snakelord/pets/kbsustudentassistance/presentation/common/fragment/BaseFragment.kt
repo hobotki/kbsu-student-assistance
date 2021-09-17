@@ -9,6 +9,7 @@ import androidx.fragment.app.Fragment
 import com.snakelord.pets.kbsustudentassistance.R
 import com.snakelord.pets.kbsustudentassistance.presentation.application.KbsuStudentAssistanceApp
 import com.snakelord.pets.kbsustudentassistance.presentation.common.dialog.ErrorDialog
+import com.snakelord.pets.kbsustudentassistance.presentation.common.extensions.setUnspecifiedOrientation
 import com.snakelord.pets.kbsustudentassistance.presentation.common.state.UIStates
 
 /**
@@ -90,15 +91,6 @@ abstract class BaseFragment : Fragment() {
      */
     open fun getOnTryAction(): (() -> Unit)? {
         return null
-    }
-
-    @SuppressLint("SourceLockedOrientationActivity")
-    protected fun setPortraitOrientation() {
-        activity?.requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_PORTRAIT
-    }
-
-    private fun setUnspecifiedOrientation() {
-        activity?.requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_UNSPECIFIED
     }
 
     companion object {
