@@ -18,7 +18,6 @@ import javax.inject.Inject
  *
  * @author Murad Luguev on 27-08-2021
  */
-
 class StudentRepositoryImpl @Inject constructor(
     private val studentLoginApi: StudentLoginApi,
     private val studentDao: StudentDao
@@ -35,7 +34,7 @@ class StudentRepositoryImpl @Inject constructor(
     }
 
     override fun isStudentLogined(): Maybe<StudentEntity> {
-        return studentDao.isUserLogined()
+        return studentDao.isStudentLogined()
     }
 
 }

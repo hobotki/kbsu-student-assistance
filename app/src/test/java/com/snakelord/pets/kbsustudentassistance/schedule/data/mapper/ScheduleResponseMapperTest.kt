@@ -4,7 +4,7 @@ import com.google.common.truth.Truth
 import com.snakelord.pets.kbsustudentassistance.data.datasource.api.schedule.model.DayDto
 import com.snakelord.pets.kbsustudentassistance.data.datasource.api.schedule.model.LectureDto
 import com.snakelord.pets.kbsustudentassistance.data.mapper.schedule.ScheduleResponseMapper
-import com.snakelord.pets.kbsustudentassistance.domain.json_adapter.ScheduleJsonAdapter
+import com.snakelord.pets.kbsustudentassistance.domain.json_adapter.schedule.ScheduleJsonAdapter
 import com.squareup.moshi.JsonDataException
 import org.junit.Test
 import java.io.EOFException

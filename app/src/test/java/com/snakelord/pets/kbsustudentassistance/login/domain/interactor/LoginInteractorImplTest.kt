@@ -3,11 +3,10 @@ package com.snakelord.pets.kbsustudentassistance.login.domain.interactor
 import com.google.common.truth.Truth
 import com.snakelord.pets.kbsustudentassistance.data.datasource.api.student.model.StudentDto
 import com.snakelord.pets.kbsustudentassistance.data.datasource.database.entity.student.StudentEntity
-import com.snakelord.pets.kbsustudentassistance.domain.VerificationResult
-import com.snakelord.pets.kbsustudentassistance.domain.interactor.login.LoginInteractor
 import com.snakelord.pets.kbsustudentassistance.domain.interactor.login.LoginInteractorImpl
 import com.snakelord.pets.kbsustudentassistance.domain.mapper.Mapper
 import com.snakelord.pets.kbsustudentassistance.domain.mapper.student.StudentDtoMapper
+import com.snakelord.pets.kbsustudentassistance.domain.model.login.VerificationResult
 import com.snakelord.pets.kbsustudentassistance.domain.repository.login.StudentRepository
 import io.mockk.every
 import io.mockk.mockk
@@ -16,11 +15,11 @@ import io.reactivex.rxjava3.core.Maybe
 import io.reactivex.rxjava3.core.Single
 import org.junit.Test
 
-class LoginInteractorTest {
+class LoginInteractorImplTest {
 
     private val studentRepository: StudentRepository = mockk()
     private val studentMapper: Mapper<StudentDto, StudentEntity> = StudentDtoMapper()
-    private val loginInteractor: LoginInteractor =
+    private val loginInteractor =
         LoginInteractorImpl(studentRepository, studentMapper)
 
     @Test
@@ -51,7 +50,6 @@ class LoginInteractorTest {
         //Assert
         testObserver
             .assertValue(EXPECTED_STUDENT_ENTITY)
-            .assertComplete()
             .dispose()
     }
 
@@ -111,12 +109,40 @@ class LoginInteractorTest {
     }
 
     @Test
+    fun verifySecondNameContainsInvalidSymbolsTest() {
+        //Arrange
+        val expectedResult = FIELD_CONTAINS_INVALID_SYMBOLS
+
+        //Act
+        val actualResult = loginInteractor.verifySecondName(
+            SECOND_NAME_WITH_INVALID_SYMBOLS
+        )
+
+        Truth.assertThat(actualResult).isEqualTo(expectedResult)
+    }
+
+    @Test
+    fun verifyRecordBookNumberContainsInvalidSymbolsTest() {
+        //Arrange
+        val expectedResult = FIELD_CONTAINS_INVALID_SYMBOLS
+
+        //Act
+        val actualResult = loginInteractor.verifyRecordBookNumber(
+            RECORD_BOOK_WITH_INVALID_SYMBOLS
+        )
+
+        Truth.assertThat(actualResult).isEqualTo(expectedResult)
+    }
+
+    @Test
     fun verifyRecordBookIsCorrectTest() {
         //Arrange
         val expectedResult = SUCCESSFUL
 
         //Act
-        val actualResult = loginInteractor.verifySecondName(STUDENT_RECORD_BOOK_NUMBER)
+        val actualResult = loginInteractor.verifyRecordBookNumber(
+            STUDENT_RECORD_BOOK_NUMBER
+        )
 
         Truth.assertThat(actualResult).isEqualTo(expectedResult)
     }
@@ -130,7 +156,7 @@ class LoginInteractorTest {
 
         //Act
         val testObserver = loginInteractor
-            .loginUser(STUDENT_SECOND_NAME, STUDENT_RECORD_BOOK_NUMBER)
+            .loginStudent(STUDENT_SECOND_NAME, STUDENT_RECORD_BOOK_NUMBER)
             .test()
 
         //Assert
@@ -159,21 +185,26 @@ class LoginInteractorTest {
         private val EXPECTED_STUDENT_ENTITY = StudentEntity(
             fullName = "Иванов Иван Иванович",
             id = 3,
-            specialtyCode = "09.03.01-3"
+            specialityCode = "09.03.01-3"
         )
 
         private val EXPECTED_STUDENT_DTO = StudentDto(
             fullName = "Иванов Иван Иванович",
             id = 3,
-            specialtyCode = "09.03.01-3"
+            specialityCode = "09.03.01-3"
         )
 
         private val FIELD_IS_TOO_SHORT = VerificationResult.FIELD_IS_TOO_SHORT
         private val FIELD_IS_EMPTY = VerificationResult.FIELD_IS_EMPTY
+        private val FIELD_CONTAINS_INVALID_SYMBOLS =
+            VerificationResult.FIELD_CONTAINS_INVALID_SYMBOLS
         private val SUCCESSFUL = VerificationResult.SUCCESSFUL
 
-        private const val EMPTY_FIELD  = ""
+        private const val EMPTY_FIELD = ""
         private const val SHORT_FIELD = "tes"
+
+        private const val SECOND_NAME_WITH_INVALID_SYMBOLS = "Иван,ов"
+        private const val RECORD_BOOK_WITH_INVALID_SYMBOLS = "18002!8"
 
         private const val STUDENT_SECOND_NAME = "Иванов"
         private const val STUDENT_RECORD_BOOK_NUMBER = "1800218"

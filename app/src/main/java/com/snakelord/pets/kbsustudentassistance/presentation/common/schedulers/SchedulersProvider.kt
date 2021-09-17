@@ -3,7 +3,7 @@ package com.snakelord.pets.kbsustudentassistance.presentation.common.schedulers
 import io.reactivex.rxjava3.core.Scheduler
 
 /**
- * Провайдер планировщиков для асинхронного выполнения операций
+ * Проводник планировщиков для асинхронного выполнения операций
  *
  * @author Murad Luguev on 27-08-2021
  */

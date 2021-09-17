@@ -9,13 +9,16 @@ import android.text.TextWatcher
  *
  * @author Murad Luguev on 27-08-2021
  */
-open class SimpleTextWatcher : TextWatcher {
+abstract class SimpleTextWatcher : TextWatcher {
     override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
+        //Реализовать по мере необходимости
     }
 
     override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+        //Реализовать по мере необходимости
     }
 
     override fun afterTextChanged(s: Editable?) {
+        //Реализовать по мере необходимости
     }
 }

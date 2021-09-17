@@ -7,10 +7,8 @@
     <string name="second_name_too_short">Длина фамилии не соответствует минимальной</string>
     <string name="record_book_is_empty">Номер зачетной книжки не заполнен</string>
     <string name="record_book_too_short">Длина номера зачетной книжки не соответствует минимальной</string>
-    <string name="second_name_miss_match">Не удалось найти студента с этой фамилией</string>
-    <string name="record_book_miss_match">Не удалось найти студента с этим номером зачетной книжки</string>
+    <string name="field_contains_invalid_character">Поле содержит недопустимые символы</string>
     <string name="something_went_wrong">Что-то пошло не так. Попробуйте позже</string>
-    <string name="connection_lost">Соединение потеряно</string>
     <string name="connection_timeout">Превышено время ожидания запроса</string>
     <string name="failed_to_connect_to_server">Не удалось соединиться с сервером. Пожалуйста, попробуйте позже</string>
     <string name="request_illegal_state">Не удалось выполнить запрос</string>
@@ -21,12 +19,11 @@
     <string name="unknown_error_code">Неизвестный код ошибки</string>
     <string name="schedule">Расписание</string>
     <string name="navigation">Навигация</string>
-    <string name="lectures_message">Здесь проходят следующие лекции</string>
     <string name="open_on_map">Открыть на карте</string>
     <string name="make_a_path">Проложить маршрут</string>
 
     <!--Locations name-->
-    <string name="main_entrance">Главный вход</string>
+    <string name="main_entrance">Главный корпус</string>
     <string name="iopam">Институт физики и математики</string>
     <string name="information_centre">Информационный центр</string>
     <string name="fom">Медицинский факультет</string>
@@ -68,4 +65,11 @@
     <string name="system_default_summary">Системная</string>
     <string name="light_summary">Светлая</string>
     <string name="dark_summary">Темная</string>
+    <string name="yandex_maps">Яндекс.Карты</string>
+    <string name="google_maps">Google Карты</string>
+
+    <string name="make_a_path_error">Нет поддерживаемых приложений для отображения маршрута</string>
+    <string name="unable_to_load_schedule">Не удалось загрузить расписание</string>
+    <string name="install_yandex_maps">Установить Яндекс.Карты</string>
+    <string name="log_out">Выйти</string>
 </resources>

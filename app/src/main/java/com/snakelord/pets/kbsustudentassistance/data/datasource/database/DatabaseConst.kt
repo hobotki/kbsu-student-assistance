@@ -9,6 +9,9 @@ object DatabaseConst {
     const val DATABASE_NAME = "applicationDatabase"
     const val DATABASE_VERSION = 3
 
+    /**
+     * Константы для таблицы, содержащей данные студента
+     */
     object StudentTable {
         const val TABLE_NAME = "student"
         const val COLUMN_ID = "id"
@@ -16,6 +19,9 @@ object DatabaseConst {
         const val COLUMN_SPECIALITY_CODE = "speciality_code"
     }
 
+    /**
+     * Константы для таблицы, содержащей расписание
+     */
     object ScheduleTable {
         const val TABLE_NAME = "schedule"
         const val COLUMN_DAY = "day"

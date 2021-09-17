@@ -143,27 +143,14 @@ fun TextInputEditText.textToString(): String {
 }
 
 /**
- * Функция-расширение для [Snackbar]
- *
- * Задает LayoutParams для [Snackbar], чтобы отобразить его наверху
- *
- * @return экземпляр [Snackbar] с заданными LayoutParams
- */
-fun Snackbar.moveToTop(): Snackbar {
-    val snackbarLayoutParams = view.layoutParams as FrameLayout.LayoutParams
-    snackbarLayoutParams.gravity = Gravity.TOP
-    view.layoutParams = snackbarLayoutParams
-    return this
-}
-
-/**
  * Поле расширение для [BottomSheetBehavior]
  *
  * * Принимает значение [trye] если [BottomSheetBehavior.state]
  *   равен [BottomSheetBehavior.STATE_EXPANDED]
  * * Принимает значение [false] во всех остальных случаях
  *
- * @param T наследуется от [View] для того, чтобы любой экземпляр [BottomSheetBehavior] мог обратится к этой функции
+ * @param T наследуется от [View] для того,
+ * чтобы любой экземпляр [BottomSheetBehavior]мог обратится к этой функции
  *
  * @author Murad Luguev on 27-08-2021
  */

@@ -10,7 +10,7 @@ class StudentMapper @Inject constructor() : Mapper<StudentEntity, Student> {
         return Student(
             id = input.id,
             fullName = input.fullName,
-            specialtyCode = input.specialtyCode
+            specialityCode = input.specialityCode
         )
     }
 }

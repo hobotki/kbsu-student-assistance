@@ -4,7 +4,6 @@ import android.content.Context
 import android.content.SharedPreferences
 import androidx.preference.PreferenceManager
 import androidx.room.Room
-import androidx.room.migration.Migration
 import com.snakelord.pets.kbsustudentassistance.data.datasource.database.Database
 import com.snakelord.pets.kbsustudentassistance.data.datasource.database.DatabaseConst
 import com.snakelord.pets.kbsustudentassistance.data.datasource.database.dao.schedule.ScheduleDao
@@ -106,6 +105,14 @@ class ApplicationModule {
         return PreferenceManager.getDefaultSharedPreferences(context)
     }
 
+    /**
+     * Предоставляет [ThemeChanger] для изменения/получения текущей темы
+     *
+     * @param context контекст для получения информации о используемой системой теме
+     * @param settingsSharedPreferences преференсы для зменеия/получения текущей темы
+     *
+     * @return экземпляр [ThemeChanger]
+     */
     @Provides
     fun provideThemeChanger(
         context: Context,

@@ -1,13 +1,10 @@
 package com.snakelord.pets.kbsustudentassistance.data.datasource.api.student
 
 import com.snakelord.pets.kbsustudentassistance.data.datasource.api.BaseApiMapper
-import com.snakelord.pets.kbsustudentassistance.data.extensions.responseIsEmpty
 import com.snakelord.pets.kbsustudentassistance.data.datasource.api.student.model.StudentDto
-import com.snakelord.pets.kbsustudentassistance.data.exception.BadResponseException
 import com.snakelord.pets.kbsustudentassistance.domain.mapper.Mapper
 import okhttp3.OkHttpClient
 import okhttp3.Request
-import java.io.IOException
 import javax.inject.Inject
 
 /**
@@ -27,13 +24,13 @@ class StudentLoginApiImpl @Inject constructor(
 ), StudentLoginApi {
 
     override fun loginStudent(secondName: String, recordBookNumber: String): StudentDto {
-        return executeRequest(secondName, recordBookNumber)
+        return executeRequest(recordBookNumber, secondName)
     }
 
     override fun generateRequest(vararg params: String): Request {
         val requestURL = "$BASE_URL?" +
-                "$QUERY_RECORD_BOOK_PATH=${params[1]}&" +
-                "$QUERY_SECOND_NAME_PATH=${params[0]}"
+                "$QUERY_RECORD_BOOK_PATH=${params[0]}&" +
+                "$QUERY_SECOND_NAME_PATH=${params[1]}"
         return Request.Builder()
             .url(requestURL)
             .get()

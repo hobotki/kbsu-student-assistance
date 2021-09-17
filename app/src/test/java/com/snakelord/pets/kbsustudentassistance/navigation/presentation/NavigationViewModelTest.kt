@@ -12,6 +12,7 @@ import com.snakelord.pets.kbsustudentassistance.domain.interactor.navigation.Loc
 import com.snakelord.pets.kbsustudentassistance.domain.model.schedule.Lecture
 import com.snakelord.pets.kbsustudentassistance.presentation.common.schedulers.SchedulersProvider
 import com.snakelord.pets.kbsustudentassistance.presentation.common.schedulers.SchedulersProviderTest
+import com.snakelord.pets.kbsustudentassistance.presentation.common.theme.ThemeChanger
 import com.snakelord.pets.kbsustudentassistance.presentation.navigation.NavigationViewModel
 import com.yandex.mapkit.MapKitFactory
 import io.mockk.*
@@ -30,6 +31,7 @@ import org.powermock.modules.junit4.PowerMockRunner
 class NavigationViewModelTest {
 
     private val locationInteractor: LocationInteractor = mockk()
+    private val themeChanger: ThemeChanger = mockk()
     private val schedulersProvider: SchedulersProvider = SchedulersProviderTest()
     private lateinit var navigationViewModel: NavigationViewModel
     private val currentLocationObserver: Observer<LocationModel> = mockk()
@@ -43,6 +45,8 @@ class NavigationViewModelTest {
     fun setUp() {
         every { locationInteractor.getMainEnterPoint() } returns MAIN_ENTRANCE_EXPECTED_RESULT
         every { locationInteractor.getEnterPoints() } returns Single.just(LOCATION_EXPECTED_RESULT)
+        every { currentLocationObserver.onChanged(any()) } just Runs
+        every { locationsObserver.onChanged(any()) } just Runs
 
         val application: Application = mockk()
 
@@ -57,15 +61,21 @@ class NavigationViewModelTest {
         navigationViewModel = NavigationViewModel(
             locationInteractor,
             schedulersProvider,
+            themeChanger,
             application
         )
+
+        navigationViewModel.currentLocation.observeForever(currentLocationObserver)
+        navigationViewModel.locations.observeForever(locationsObserver)
     }
 
     @Test
     fun initTest() {
         //Assert
-        every { currentLocationObserver.onChanged(MAIN_ENTRANCE_EXPECTED_RESULT) } just Runs
-        every { locationsObserver.onChanged(LOCATION_EXPECTED_RESULT) } just Runs
+        verifySequence {
+            currentLocationObserver.onChanged(MAIN_ENTRANCE_EXPECTED_RESULT)
+            locationsObserver.onChanged(LOCATION_EXPECTED_RESULT)
+        }
     }
 
     @Test
@@ -77,8 +87,10 @@ class NavigationViewModelTest {
         navigationViewModel.showSelectedEntrance(expectedResult)
 
         //Assert
-        every { currentLocationObserver.onChanged(MAIN_ENTRANCE_EXPECTED_RESULT) } just Runs
-        every { currentLocationObserver.onChanged(EXPECTED_SELECTED_ENTRANCE) } just Runs
+        verifySequence {
+            currentLocationObserver.onChanged(MAIN_ENTRANCE_EXPECTED_RESULT)
+            currentLocationObserver.onChanged(EXPECTED_SELECTED_ENTRANCE)
+        }
     }
 
     @Test
@@ -92,7 +104,7 @@ class NavigationViewModelTest {
 
         //Assert
         every { currentLocationObserver.onChanged(MAIN_ENTRANCE_EXPECTED_RESULT) } just Runs
-        every { currentLocationObserver.onChanged(EXPECTED_SELECTED_ENTRANCE) } just Runs
+        every { currentLocationObserver.onChanged(expectedResult) } just Runs
     }
 
     companion object {
@@ -157,15 +169,6 @@ class NavigationViewModelTest {
             R.string.main_entrance,
             1,
             LocationPoint(43.494545, 43.596298)
-        )
-
-        private val EXPECTED_SCHEDULE = listOf(
-            DayEntity(
-                "MONDAY",
-                listOf(
-                    EXPECTED_LECTURE
-                )
-            )
         )
 
         private val EXPECTED_SELECTED_ENTRANCE = LocationModel(

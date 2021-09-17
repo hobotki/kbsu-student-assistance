@@ -7,10 +7,8 @@
     <string name="second_name_too_short">Second name length is too short</string>
     <string name="record_book_is_empty">Record book number is empty</string>
     <string name="record_book_too_short">Record book number length is too short</string>
-    <string name="second_name_miss_match">Unable to find student with this second name</string>
-    <string name="record_book_miss_match">Unable to find student with this record book number</string>
+    <string name="field_contains_invalid_character">Filed contains invalid characters</string>
     <string name="something_went_wrong">Something went wrong. Try again later</string>
-    <string name="connection_lost">Connection is lost</string>
     <string name="connection_timeout">Request timed out</string>
     <string name="failed_to_connect_to_server">Failed to connect to server. Please, try again later</string>
     <string name="request_illegal_state">Unable to make request</string>
@@ -21,12 +19,11 @@
     <string name="unknown_error_code">Unknown error code</string>
     <string name="schedule">Schedule</string>
     <string name="navigation">Navigation</string>
-    <string name="lectures_message">The following lectures are held here</string>
     <string name="open_on_map">Open on map</string>
     <string name="make_a_path">Make a path</string>
 
     <!--Locations name-->
-    <string name="main_entrance">Main entrance</string>
+    <string name="main_entrance">Main building</string>
     <string name="iopam">Institute of Physics and Mathematics</string>
     <string name="information_centre">Information centre</string>
     <string name="fom">Faculty of Medicine</string>
@@ -77,4 +74,10 @@
     <string name="system_default_summary">System default</string>
     <string name="light_summary">Light</string>
     <string name="dark_summary">Dark</string>
+    <string name="yandex_maps">Yandex Maps</string>
+    <string name="google_maps">Google Maps</string>
+    <string name="make_a_path_error">No supported apps to display path</string>
+    <string name="unable_to_load_schedule">Unable to load schedule</string>
+    <string name="install_yandex_maps">Install Yandex.Maps</string>
+    <string name="log_out">Log out</string>
 </resources>

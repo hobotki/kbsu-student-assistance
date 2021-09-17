@@ -4,16 +4,28 @@ import android.content.Context
 import android.content.SharedPreferences
 import android.content.res.Configuration
 import android.os.Build
+import androidx.annotation.StringRes
 import androidx.appcompat.app.AppCompatDelegate
 import com.snakelord.pets.kbsustudentassistance.R
 import javax.inject.Inject
 
+/**
+ * Утилитный класс для взаимодействия с темой приложения
+ *
+ * @property context контекст для получения строковых русурсов и темы устройства
+ * @property settingsSharedPreferences преференсы настроек приложения
+ *
+ * @author Murad Luguev on 15-09-2021
+ */
 class ThemeChanger @Inject constructor(
     private val context: Context,
     private val settingsSharedPreferences: SharedPreferences,
 ) {
 
-    fun updateTheme() {
+    /**
+     * Функция для установки темы, указанной в настройках
+     */
+    fun setTheme() {
         val mode: Int = when(getCurrentTheme()) {
             LIGHT -> {
                 AppCompatDelegate.MODE_NIGHT_NO
@@ -40,6 +52,12 @@ class ThemeChanger @Inject constructor(
         return settingsSharedPreferences.getString(context.getString(R.string.mode), null)
     }
 
+    /**
+     * Возвращает текстовое представление текущей темы для отображения в настройках
+     *
+     * @return идентификатор строкового ресурса для отображения текущей темы в настроках
+     */
+    @StringRes
     fun getSummaryByTheme(): Int {
         return when (getCurrentTheme()) {
             LIGHT -> {
@@ -54,7 +72,13 @@ class ThemeChanger @Inject constructor(
         }
     }
 
-    fun isDarkTheme(): Boolean {
+    /**
+     * Функция для проверки является ли текущая тема тёмной
+     *
+     * @return * [true] если тема тёмная
+     * * [false] если тема светлая
+     */
+    fun isAppInDarkTheme(): Boolean {
         val currentTheme = getCurrentTheme()
         if (currentTheme == DARK) {
             return true

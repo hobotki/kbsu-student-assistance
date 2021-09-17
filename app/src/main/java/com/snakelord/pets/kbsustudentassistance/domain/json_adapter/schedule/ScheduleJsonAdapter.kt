@@ -1,4 +1,4 @@
-package com.snakelord.pets.kbsustudentassistance.domain.json_adapter
+package com.snakelord.pets.kbsustudentassistance.domain.json_adapter.schedule
 
 import com.snakelord.pets.kbsustudentassistance.data.datasource.api.schedule.model.DayDto
 import com.snakelord.pets.kbsustudentassistance.data.datasource.api.schedule.model.LectureDto
@@ -85,6 +85,6 @@ class ScheduleJsonAdapter @Inject constructor() : JsonAdapter<List<DayDto>>() {
     }
 
     override fun toJson(writer: JsonWriter, value: List<DayDto>?) {
-        //Метод не переопределён, т.к. нет необходимости переводить в json List<DayDto>
+        //Метод не переопределён, т.к. нет необходимости переводить List<DayDto> в JSON
     }
 }

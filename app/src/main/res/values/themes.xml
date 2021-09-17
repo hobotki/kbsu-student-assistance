@@ -17,8 +17,4 @@
         <item name="primaryTextColor">@color/primaryTextColor</item>
     </style>
 
-    <style name="Theme.KBSUStudentAssistance.SplashScreen">
-        <item name="android:windowBackground">@drawable/splash_screen_icon</item>
-    </style>
-
 </resources>

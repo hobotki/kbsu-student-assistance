@@ -4,6 +4,8 @@ import com.snakelord.pets.kbsustudentassistance.di.common.component.ApplicationC
 import com.snakelord.pets.kbsustudentassistance.di.pass.module.PassModule
 import com.snakelord.pets.kbsustudentassistance.di.pass.scope.PassScope
 import com.snakelord.pets.kbsustudentassistance.domain.interactor.pass.PassInteractor
+import com.snakelord.pets.kbsustudentassistance.domain.mapper.Mapper
+import com.snakelord.pets.kbsustudentassistance.domain.model.pass.Student
 import dagger.Component
 
 @Component(
@@ -13,4 +15,6 @@ import dagger.Component
 @PassScope
 interface PassComponent {
     fun passInteractor(): PassInteractor
+
+    fun studentDataMapper(): Mapper<Student, String>
 }

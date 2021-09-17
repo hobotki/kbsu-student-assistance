@@ -1,11 +1,10 @@
-package com.snakelord.pets.kbsustudentassistance.mapper
+package com.snakelord.pets.kbsustudentassistance.common.mapper
 
 import com.google.common.truth.Truth
 import com.snakelord.pets.kbsustudentassistance.R
 import com.snakelord.pets.kbsustudentassistance.data.exception.BadResponseException
-import com.snakelord.pets.kbsustudentassistance.domain.mapper.Mapper
 import com.snakelord.pets.kbsustudentassistance.domain.mapper.error.BaseErrorMapper
-import com.snakelord.pets.kbsustudentassistance.domain.model.OperationError
+import com.snakelord.pets.kbsustudentassistance.domain.model.error.OperationError
 import org.junit.Test
 import java.io.InterruptedIOException
 import java.lang.IllegalStateException
@@ -13,7 +12,7 @@ import java.net.UnknownHostException
 
 class BaseErrorMapperTest {
 
-    private val studentErrorMapper: Mapper<Throwable, OperationError> = BaseErrorMapper()
+    private val studentErrorMapper = BaseErrorMapper()
 
     @Test
     fun mapUnknownHostException() {

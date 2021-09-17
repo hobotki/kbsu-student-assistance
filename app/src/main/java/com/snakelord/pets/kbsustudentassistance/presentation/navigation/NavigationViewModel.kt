@@ -4,8 +4,10 @@ import android.app.Application
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import com.snakelord.pets.kbsustudentassistance.domain.model.location.LocationModel
 import com.snakelord.pets.kbsustudentassistance.domain.interactor.navigation.LocationInteractor
+import com.snakelord.pets.kbsustudentassistance.domain.model.location.LocationModel
+import com.snakelord.pets.kbsustudentassistance.presentation.application.KbsuStudentAssistanceApp
+import com.snakelord.pets.kbsustudentassistance.presentation.common.extensions.isPackageExist
 import com.snakelord.pets.kbsustudentassistance.presentation.common.schedulers.SchedulersProvider
 import com.snakelord.pets.kbsustudentassistance.presentation.common.theme.ThemeChanger
 import com.yandex.mapkit.MapKitFactory
@@ -15,6 +17,9 @@ import io.reactivex.rxjava3.disposables.CompositeDisposable
  * ViewModel для фрагмента навигации
  *
  * @property locationInteractor интерактор для отображения локаций
+ * @property schedulersProvider проводник планировщиков для асинхронной работы
+ * @property themeChanger утилитный класс для взаимодействия с темой приложения
+ * @param application [Application] для работы с контекстом
  *
  * @author Murad Luguev on 26-08-2021
  */
@@ -22,7 +27,7 @@ class NavigationViewModel(
     private val locationInteractor: LocationInteractor,
     private val schedulersProvider: SchedulersProvider,
     private val themeChanger: ThemeChanger,
-    application: Application
+    application: Application,
 ) : AndroidViewModel(application) {
 
     private val compositeDisposable = CompositeDisposable()
@@ -80,15 +85,53 @@ class NavigationViewModel(
         }
     }
 
+    /**
+     * Функция для проверки текущей темы
+     *
+     * @return * [true] если приложение использует темную тему
+     * * [false] если приложение не использует темную тему
+     */
     fun isAppInDarkTheme(): Boolean {
-        return themeChanger.isDarkTheme()
+        return themeChanger.isAppInDarkTheme()
     }
 
+    /**
+     * Функция, которая устанавливает текущее состояние BottomSheet
+     *
+     * @param isExpanded раскрыт ли BottomSheet
+     */
     fun setBottomSheetExpandedState(isExpanded: Boolean) {
         isBottomSheetExpanded = isExpanded
     }
 
+    /**
+     * Функция для проверки наличия приложения "Яндекс.Карты" на устройстве
+     *
+     * @return * [true] если приложение установлено
+     * * [false] если приложение не установлено
+     */
+    fun isYandexMapsInstalled(): Boolean {
+        return getApplication<KbsuStudentAssistanceApp>()
+            .isPackageExist(YANDEX_MAPS_PACKAGE_NAME)
+    }
+
+    /**
+     * Функция для проверки наличия приложения "Google Карты" на устройстве
+     *
+     * @return * [true] если приложение установлено
+     * * [false] если приложение не установлено
+     */
+    fun isGoogleMapsInstalled(): Boolean {
+        return getApplication<KbsuStudentAssistanceApp>()
+            .isPackageExist(GOOGLE_MAPS_PACKAGE_NAME)
+    }
+
     override fun onCleared() {
         compositeDisposable.dispose()
+    }
+
+    companion object {
+        private const val YANDEX_MAPS_PACKAGE_NAME = "ru.yandex.yandexmaps"
+        private const val GOOGLE_MAPS_PACKAGE_NAME = "com.google.android.apps.maps"
     }
 }

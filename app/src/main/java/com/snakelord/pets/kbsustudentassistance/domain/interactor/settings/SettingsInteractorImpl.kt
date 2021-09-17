@@ -1,5 +1,6 @@
 package com.snakelord.pets.kbsustudentassistance.domain.interactor.settings
 
+import androidx.annotation.WorkerThread
 import com.snakelord.pets.kbsustudentassistance.domain.repository.settings.SettingsRepository
 import io.reactivex.rxjava3.core.Completable
 import javax.inject.Inject
@@ -15,6 +16,7 @@ class SettingsInteractorImpl @Inject constructor(
     private val settingsRepository: SettingsRepository
 ) : SettingsInteractor {
 
+    @WorkerThread
     override fun logout(): Completable {
         return settingsRepository.logout()
     }

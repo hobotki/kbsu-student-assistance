@@ -1,4 +1,4 @@
-package com.snakelord.pets.kbsustudentassistance.utils
+package com.snakelord.pets.kbsustudentassistance.presentation.pass.utils
 
 import android.graphics.Bitmap
 import android.graphics.Color

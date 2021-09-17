@@ -1,7 +1,5 @@
 package com.snakelord.pets.kbsustudentassistance.presentation.navigation
 
-import android.content.Intent
-import android.net.Uri
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -10,6 +8,7 @@ import android.widget.LinearLayout
 import androidx.navigation.navGraphViewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.material.bottomsheet.BottomSheetBehavior
+import com.snakelord.pets.kbsustudentassistance.R
 import com.snakelord.pets.kbsustudentassistance.databinding.FragmentNavigationBinding
 import com.snakelord.pets.kbsustudentassistance.domain.model.location.LocationModel
 import com.snakelord.pets.kbsustudentassistance.presentation.common.extensions.collapse
@@ -18,10 +17,12 @@ import com.snakelord.pets.kbsustudentassistance.presentation.common.extensions.i
 import com.snakelord.pets.kbsustudentassistance.presentation.common.fragment.BaseFragment
 import com.snakelord.pets.kbsustudentassistance.presentation.common.simple_interfaces.SimpleBottomSheetCallback
 import com.snakelord.pets.kbsustudentassistance.presentation.navigation.adapter.locations.LocationsAdapter
+import com.snakelord.pets.kbsustudentassistance.presentation.navigation.dialog.MapsBottomSheetDialog
 import com.snakelord.pets.kbsustudentassistance.presentation.navigation.extensions.setNightTheme
 import com.yandex.mapkit.Animation
 import com.yandex.mapkit.MapKitFactory
 import com.yandex.mapkit.map.CameraPosition
+import com.yandex.runtime.image.ImageProvider
 
 /**
  * Фрагмент навигации по университету
@@ -39,7 +40,7 @@ class NavigationFragment : BaseFragment() {
 
     private lateinit var bottomSheetCallback: BottomSheetBehavior.BottomSheetCallback
 
-    private lateinit var institutesBottomSheet: BottomSheetBehavior<LinearLayout>
+    private var institutesBottomSheet: BottomSheetBehavior<LinearLayout>? = null
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -47,6 +48,8 @@ class NavigationFragment : BaseFragment() {
         savedInstanceState: Bundle?,
     ): View {
         fragmentNavigationBinding = FragmentNavigationBinding.inflate(inflater, container, false)
+
+        initInstituteBottomSheet()
 
         return binding.root
     }
@@ -57,8 +60,6 @@ class NavigationFragment : BaseFragment() {
         navigationViewModel.currentLocation.observe(viewLifecycleOwner, ::showSelectedPoint)
         navigationViewModel.locations.observe(viewLifecycleOwner, ::showLocationList)
 
-        initInstituteBottomSheet()
-
         binding.bottomSheetContent.institutes.layoutManager = LinearLayoutManager(requireContext())
 
         binding.bottomSheetContent.dragView.setOnClickListener {
@@ -66,14 +67,12 @@ class NavigationFragment : BaseFragment() {
         }
 
         checkArguments()
-
-        setMapTheme()
     }
 
     private fun initInstituteBottomSheet() {
         institutesBottomSheet = BottomSheetBehavior.from(binding.bottomSheetContent.root)
         bottomSheetCallback = getBottomSheetCallback()
-        institutesBottomSheet.addBottomSheetCallback(bottomSheetCallback)
+        institutesBottomSheet?.addBottomSheetCallback(bottomSheetCallback)
     }
 
     private fun getBottomSheetCallback(): BottomSheetBehavior.BottomSheetCallback {
@@ -90,7 +89,7 @@ class NavigationFragment : BaseFragment() {
 
     private fun restoreBottomSheetState() {
         if (navigationViewModel.isBottomSheetExpanded)
-            institutesBottomSheet.expand()
+            institutesBottomSheet?.expand()
     }
 
     private fun checkArguments() {
@@ -111,6 +110,8 @@ class NavigationFragment : BaseFragment() {
         MapKitFactory.getInstance()
             .onStart()
         binding.mapView.onStart()
+
+        setMapTheme()
     }
 
     override fun onResume() {
@@ -120,24 +121,23 @@ class NavigationFragment : BaseFragment() {
     }
 
     private fun updateBottomSheetState() {
-        if (!institutesBottomSheet.isExpanded) {
-            institutesBottomSheet.expand()
+        if (!institutesBottomSheet?.isExpanded!!) {
+            institutesBottomSheet?.expand()
         } else {
-            institutesBottomSheet.collapse()
+            institutesBottomSheet?.collapse()
         }
     }
 
     private fun showSelectedPoint(locationModel: LocationModel) {
-        institutesBottomSheet.collapse()
+        institutesBottomSheet?.collapse()
         binding.mapView.map.move(
-            CameraPosition(locationModel.locationPoint, 17.5f, 319.0f, 0.0f),
-            Animation(Animation.Type.SMOOTH, 0.5f),
+            CameraPosition(locationModel.locationPoint, MAP_ZOOM, MAP_AZIMUTH, MAP_TILT),
+            Animation(Animation.Type.SMOOTH, ZOOM_ANIMATION_DURATION),
             null
         )
     }
 
     private fun showLocationList(locations: List<LocationModel>) {
-
         val locationsAdapter = LocationsAdapter(
             locations,
             navigationViewModel::showSelectedEntrance,
@@ -149,14 +149,12 @@ class NavigationFragment : BaseFragment() {
     }
 
     private fun makeAPath(locationModel: LocationModel) {
-        institutesBottomSheet.collapse()
-        val point = locationModel.locationPoint
-        val pathUri = Uri.parse(
-            YANDEX_MAP_URI_PATH +
-                    "${point.latitude}," +
-                    "${point.longitude}"
-        )
-        startActivity(Intent(Intent.ACTION_VIEW, pathUri))
+        val mapsBottomSheetDialog = MapsBottomSheetDialog.Builder()
+            .setIsYandexMapsInstalled(navigationViewModel.isYandexMapsInstalled())
+            .setIsGoogleMapsInstalled(navigationViewModel.isGoogleMapsInstalled())
+            .setPoint(locationModel.locationPoint)
+            .create()
+        mapsBottomSheetDialog.show(parentFragmentManager, null)
     }
 
     private fun addPlaceMarks(locations: List<LocationModel>) {
@@ -164,14 +162,19 @@ class NavigationFragment : BaseFragment() {
             binding.mapView
                 .map
                 .mapObjects
-                .addPlacemark(location.locationPoint)
+                .addPlacemark(location.locationPoint,
+                    ImageProvider.fromResource(
+                        requireContext(),
+                        R.drawable.ic_pin
+                    )
+                )
         }
     }
 
     override fun onSaveInstanceState(outState: Bundle) {
         super.onSaveInstanceState(outState)
 
-        navigationViewModel.setBottomSheetExpandedState(institutesBottomSheet.isExpanded)
+        navigationViewModel.setBottomSheetExpandedState(institutesBottomSheet?.isExpanded == true)
     }
 
     override fun onStop() {
@@ -181,11 +184,14 @@ class NavigationFragment : BaseFragment() {
         MapKitFactory.getInstance()
             .onStop()
 
-        institutesBottomSheet.removeBottomSheetCallback(bottomSheetCallback)
+        institutesBottomSheet?.removeBottomSheetCallback(bottomSheetCallback)
     }
 
     companion object {
-        private const val YANDEX_MAP_URI_PATH = "yandexmaps://maps.yandex.ru/?rtext=~"
         private const val ARGUMENT_INSTITUTE_ID = "instituteId"
+        private const val MAP_ZOOM = 17.5f
+        private const val MAP_AZIMUTH = 319.0f
+        private const val MAP_TILT = 0.0f
+        private const val ZOOM_ANIMATION_DURATION = 0.2f
     }
 }

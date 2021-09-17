@@ -1,5 +1,6 @@
 package com.snakelord.pets.kbsustudentassistance.data.datasource.database.migrations
 
+import androidx.room.RenameColumn
 import androidx.room.migration.Migration
 import androidx.sqlite.db.SupportSQLiteDatabase
 import com.snakelord.pets.kbsustudentassistance.data.datasource.database.DatabaseConst.StudentTable
@@ -11,7 +12,7 @@ import com.snakelord.pets.kbsustudentassistance.data.datasource.database.Databas
  */
 object Migrations {
     /**
-     * Миграция для поднятия версии базы данных с версии 1 до версии 2
+     * Миграция для повышения версии базы данных с версии 1 до версии 2
      *
      * Удалено поле [year], а поля [fullName] и [specialityCode] были переименованы
      */

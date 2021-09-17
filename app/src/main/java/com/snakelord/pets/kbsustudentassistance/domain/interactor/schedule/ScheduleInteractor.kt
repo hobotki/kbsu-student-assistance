@@ -2,6 +2,7 @@ package com.snakelord.pets.kbsustudentassistance.domain.interactor.schedule
 
 import com.snakelord.pets.kbsustudentassistance.data.datasource.api.schedule.model.DayDto
 import com.snakelord.pets.kbsustudentassistance.domain.model.schedule.Day
+import com.snakelord.pets.kbsustudentassistance.domain.model.schedule.Lecture
 import io.reactivex.rxjava3.core.Completable
 import io.reactivex.rxjava3.core.Single
 
@@ -33,4 +34,20 @@ interface ScheduleInteractor {
      * @return результат операции типа [Completable]
      */
     fun saveSchedule(schedule: List<DayDto>): Completable
+
+    /**
+     * Функция для установки расписания на уровне интерактора
+     *
+     * @param schedule расписание типа [List]<[Day]>
+     */
+    fun setSchedule(schedule: List<Day>)
+
+    /**
+     * Функция для получения расписания по выбранному дню
+     *
+     * @param index индекс текущего дня
+     *
+     * @return список лекций типа [List]<[Lecture]>
+     */
+    fun getScheduleByIndex(index: Int): List<Lecture>
 }

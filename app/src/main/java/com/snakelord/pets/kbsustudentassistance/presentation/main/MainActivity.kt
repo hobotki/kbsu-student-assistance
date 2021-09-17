@@ -23,17 +23,24 @@ class MainActivity : AppCompatActivity(), NavigationCallback {
         setTheme(R.style.Theme_KBSUStudentAssistance)
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+
         bottomNavigationView = findViewById(R.id.bottomNavigation)
-        NavigationUI.setupWithNavController(bottomNavigationView, findNavController(R.id.container))
+
+        NavigationUI.setupWithNavController(
+            bottomNavigationView,
+            findNavController(R.id.container)
+        )
     }
 
     override fun onSaveInstanceState(outState: Bundle) {
         super.onSaveInstanceState(outState)
+
         outState.putBoolean(NAVIGATION_VISIBILITY_KEY, bottomNavigationView.isVisible)
     }
 
     override fun onRestoreInstanceState(savedInstanceState: Bundle) {
         super.onRestoreInstanceState(savedInstanceState)
+
         if (savedInstanceState.getBoolean(NAVIGATION_VISIBILITY_KEY)) {
             showNavigationView()
         }
@@ -48,6 +55,6 @@ class MainActivity : AppCompatActivity(), NavigationCallback {
     }
 
     companion object {
-        private const val NAVIGATION_VISIBILITY_KEY = "visible"
+        private const val NAVIGATION_VISIBILITY_KEY = "is_navigation_visible"
     }
 }

@@ -5,8 +5,8 @@
     android:elevation="@dimen/cardview_default_elevation"
     android:gravity="center"
     android:orientation="vertical"
-    android:padding="8dp"
-    android:layout_margin="15dp"
+    android:padding="@dimen/days_padding"
+    android:layout_margin="@dimen/days_margin"
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
 
