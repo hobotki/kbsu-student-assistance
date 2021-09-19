@@ -64,8 +64,6 @@
         android:text="@string/authorisation"
         android:layout_marginTop="@dimen/elements_margin"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:strokeColor="?attr/colorPrimary"
-        style="@style/Widget.MaterialComponents.Button.OutlinedButton"/>
+        android:layout_height="wrap_content" />
 
 </LinearLayout>

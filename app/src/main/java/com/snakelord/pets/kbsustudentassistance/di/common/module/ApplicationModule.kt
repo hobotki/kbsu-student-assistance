@@ -1,5 +1,6 @@
 package com.snakelord.pets.kbsustudentassistance.di.common.module
 
+import android.app.Application
 import android.content.Context
 import android.content.SharedPreferences
 import androidx.preference.PreferenceManager
@@ -32,9 +33,9 @@ class ApplicationModule {
      * @return экземпляр [Database]
      */
     @Provides
-    fun provideDatabase(context: Context): Database {
+    fun provideDatabase(application: Application): Database {
         return Room
-            .databaseBuilder(context, Database::class.java, DatabaseConst.DATABASE_NAME)
+            .databaseBuilder(application, Database::class.java, DatabaseConst.DATABASE_NAME)
             .addMigrations(Migrations.MIGRATION_1_2)
             .build()
     }
@@ -101,8 +102,8 @@ class ApplicationModule {
      * @return преференсы для зменеия/получения текущей темы типа [SharedPreferences]
      */
     @Provides
-    fun provideSettingsSharedPreferences(context: Context): SharedPreferences {
-        return PreferenceManager.getDefaultSharedPreferences(context)
+    fun provideSettingsSharedPreferences(application: Application): SharedPreferences {
+        return PreferenceManager.getDefaultSharedPreferences(application)
     }
 
     /**
@@ -115,10 +116,10 @@ class ApplicationModule {
      */
     @Provides
     fun provideThemeChanger(
-        context: Context,
+        application: Application,
         settingsSharedPreferences: SharedPreferences
     ): ThemeChanger {
-        return ThemeChanger(context, settingsSharedPreferences)
+        return ThemeChanger(application, settingsSharedPreferences)
     }
 
     companion object {

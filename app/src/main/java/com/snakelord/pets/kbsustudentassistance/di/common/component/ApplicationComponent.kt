@@ -107,16 +107,6 @@ interface ApplicationComponent {
     @Component.Builder
     interface Builder {
         /**
-         * Функция, для предоставления [Context] в граф зависимостей
-         *
-         * @param context экземпляр [Context]
-         *
-         * @return билдер для сборки компонента
-         */
-        @BindsInstance
-        fun context(context: Context): Builder
-
-        /**
          * Функция, для предоставления [Application] в граф зависимостей
          *
          * @param application экземпляр [Application]

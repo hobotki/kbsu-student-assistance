@@ -18,7 +18,6 @@ class KbsuStudentAssistanceApp : Application() {
         super.onCreate()
 
         applicationComponent = DaggerApplicationComponent.builder()
-            .context(applicationContext)
             .application(this)
             .build()
 
