@@ -66,12 +66,13 @@ class ScheduleFragment : BaseFragment() {
     override fun onLoading() {
         binding.progressBar.visible()
         binding.schedule.gone()
+        binding.appBarLayout.gone()
     }
 
     override fun onSuccess() {
         binding.progressBar.gone()
         binding.schedule.visible()
-        binding.week.visible()
+        binding.appBarLayout.visible()
     }
 
     override fun showError(errorMessageResId: Int) {
@@ -79,7 +80,7 @@ class ScheduleFragment : BaseFragment() {
 
         binding.progressBar.gone()
         binding.schedule.visible()
-        binding.week.gone()
+        binding.appBarLayout.gone()
         showSchedule(emptyList())
     }
 

@@ -1,6 +1,5 @@
 package com.snakelord.pets.kbsustudentassistance.presentation.pass
 
-import android.content.res.Configuration
 import android.graphics.Bitmap
 import android.os.Bundle
 import android.view.LayoutInflater
