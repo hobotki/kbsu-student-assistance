@@ -1,13 +1,10 @@
 package com.snakelord.pets.kbsustudentassistance.presentation.common.extensions
 
 import android.animation.ValueAnimator
-import android.view.Gravity
 import android.view.View
-import android.widget.FrameLayout
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.bottomsheet.BottomSheetBehavior.STATE_COLLAPSED
 import com.google.android.material.bottomsheet.BottomSheetBehavior.STATE_EXPANDED
-import com.google.android.material.snackbar.Snackbar
 import com.google.android.material.textfield.TextInputEditText
 import com.google.android.material.textfield.TextInputLayout
 

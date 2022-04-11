@@ -2,9 +2,7 @@ package com.snakelord.pets.kbsustudentassistance.presentation.navigation.adapter
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import androidx.annotation.IdRes
 import androidx.recyclerview.widget.RecyclerView
-import com.snakelord.pets.kbsustudentassistance.R
 import com.snakelord.pets.kbsustudentassistance.domain.model.location.LocationModel
 import com.snakelord.pets.kbsustudentassistance.databinding.ItemInstituteBinding
 import com.snakelord.pets.kbsustudentassistance.presentation.navigation.adapter.locations.viewholder.LocationViewHolder
@@ -31,12 +29,11 @@ class LocationsAdapter(
         return LocationViewHolder(itemBinding, ::performButtonClick)
     }
 
-    private fun performButtonClick(@IdRes buttonId: Int, position: Int) {
-        if (buttonId == R.id.openOnMap) {
+    private fun performButtonClick(action: Action, position: Int) {
+        if (action == Action.OPEN_ON_MAP)
             showLocation.invoke(locations[position])
-        } else {
+        else
             makeAPath.invoke(locations[position])
-        }
     }
 
     override fun onBindViewHolder(holder: LocationViewHolder, position: Int) {
@@ -45,5 +42,10 @@ class LocationsAdapter(
 
     override fun getItemCount(): Int {
         return locations.size
+    }
+
+    enum class Action {
+        OPEN_ON_MAP,
+        MAKE_A_PATH
     }
 }

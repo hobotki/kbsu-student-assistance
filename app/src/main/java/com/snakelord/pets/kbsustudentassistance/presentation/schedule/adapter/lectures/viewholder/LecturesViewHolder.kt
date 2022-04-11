@@ -24,14 +24,14 @@ class LecturesViewHolder(
      * @param lecture модель лекции [Lecture]
      */
     fun bind(lecture: Lecture) {
-        itemLectureBinding.lectureName.text = lecture.lectureName
-        itemLectureBinding.teacherName.text = lecture.teacher
-        itemLectureBinding.startTime.text = lecture.startTime
-        itemLectureBinding.endTime.text = lecture.endTime
+        itemLectureBinding.lectureTextView.text = lecture.lectureName
+        itemLectureBinding.teacherNameTextView.text = lecture.teacher
+        itemLectureBinding.startTimeTextView.text = lecture.startTime
+        itemLectureBinding.finishTimeTextView.text = lecture.endTime
 
-        itemLectureBinding.classroom.text =
+        itemLectureBinding.classroomTextView.text =
             itemView.context.getString(R.string.classroom_placeholder, lecture.classroom)
-        itemLectureBinding.classroom.setOnClickListener {
+        itemLectureBinding.classroomTextView.setOnClickListener {
             clickListener.invoke(adapterPosition)
         }
     }

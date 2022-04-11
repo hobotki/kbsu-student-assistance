@@ -3,10 +3,9 @@ package com.snakelord.pets.kbsustudentassistance.navigation.domain.interactor
 import com.google.common.truth.Truth
 import com.snakelord.pets.kbsustudentassistance.R
 import com.snakelord.pets.kbsustudentassistance.data.datasource.database.entity.schedule.DayEntity
+import com.snakelord.pets.kbsustudentassistance.domain.interactor.navigation.LocationInteractorImpl
 import com.snakelord.pets.kbsustudentassistance.domain.model.location.LocationModel
 import com.snakelord.pets.kbsustudentassistance.domain.model.location.LocationPoint
-import com.snakelord.pets.kbsustudentassistance.domain.interactor.navigation.LocationInteractor
-import com.snakelord.pets.kbsustudentassistance.domain.interactor.navigation.LocationInteractorImpl
 import com.snakelord.pets.kbsustudentassistance.domain.model.schedule.Lecture
 import com.snakelord.pets.kbsustudentassistance.domain.repository.navigation.LocationRepository
 import io.mockk.every

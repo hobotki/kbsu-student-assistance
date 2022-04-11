@@ -1,16 +1,17 @@
 package com.snakelord.pets.kbsustudentassistance.presentation.common.fragment
 
-import android.annotation.SuppressLint
-import android.content.pm.ActivityInfo
 import android.os.Bundle
 import androidx.annotation.IdRes
+import androidx.annotation.LayoutRes
 import androidx.annotation.StringRes
 import androidx.fragment.app.Fragment
+import androidx.viewbinding.ViewBinding
 import com.snakelord.pets.kbsustudentassistance.R
 import com.snakelord.pets.kbsustudentassistance.presentation.application.KbsuStudentAssistanceApp
 import com.snakelord.pets.kbsustudentassistance.presentation.common.dialog.ErrorDialog
 import com.snakelord.pets.kbsustudentassistance.presentation.common.extensions.setUnspecifiedOrientation
 import com.snakelord.pets.kbsustudentassistance.presentation.common.state.UIStates
+import java.lang.IllegalStateException
 
 /**
  * Базовый фрагмент для всех фрагментов в приложении
@@ -21,14 +22,13 @@ import com.snakelord.pets.kbsustudentassistance.presentation.common.state.UIStat
  *
  * @author Murad Luguev on 27-08-2021
  */
-abstract class BaseFragment : Fragment() {
+abstract class BaseFragment(@LayoutRes layoutResId: Int) : Fragment(layoutResId) {
 
     protected val factory = KbsuStudentAssistanceApp
         .applicationComponent
         .viewModelFactory()
 
-    @IdRes
-    protected val navGraphId = R.id.nav_graph
+    @IdRes protected val navGraphId = R.id.nav_graph
 
     /**
      * Функция для обновления экрана в зависимости от состояния [UIStates]
@@ -91,6 +91,10 @@ abstract class BaseFragment : Fragment() {
      */
     open fun getOnTryAction(): (() -> Unit)? {
         return null
+    }
+
+    protected fun <T: ViewBinding> requireBinding(binding: T?): T {
+        return binding ?: throw IllegalStateException()
     }
 
     companion object {

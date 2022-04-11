@@ -4,15 +4,11 @@ import androidx.annotation.WorkerThread
 import com.snakelord.pets.kbsustudentassistance.data.datasource.api.schedule.model.DayDto
 import com.snakelord.pets.kbsustudentassistance.data.datasource.database.entity.schedule.DayEntity
 import com.snakelord.pets.kbsustudentassistance.domain.mapper.Mapper
-import com.snakelord.pets.kbsustudentassistance.domain.mapper.schedule.DaysDtoMapper
 import com.snakelord.pets.kbsustudentassistance.domain.model.schedule.Day
 import com.snakelord.pets.kbsustudentassistance.domain.model.schedule.Lecture
 import com.snakelord.pets.kbsustudentassistance.domain.repository.schedule.ScheduleRepository
 import io.reactivex.rxjava3.core.Completable
-import io.reactivex.rxjava3.core.Maybe
 import io.reactivex.rxjava3.core.Single
-import org.w3c.dom.Entity
-import java.util.*
 import javax.inject.Inject
 
 /**

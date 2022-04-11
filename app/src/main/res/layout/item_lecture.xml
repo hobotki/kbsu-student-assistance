@@ -23,14 +23,14 @@
             android:layout_height="match_parent">
 
             <TextView
-                android:id="@+id/lectureName"
+                android:id="@+id/lecture_text_view"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 tools:text="Теория планирования эксперемента"
                 style="@style/PrimaryTextStyle" />
 
             <TextView
-                android:id="@+id/teacherName"
+                android:id="@+id/teacher_name_text_view"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/text_margin_top"
@@ -38,7 +38,7 @@
                 style="@style/SecondaryTextStyle" />
 
             <TextView
-                android:id="@+id/classroom"
+                android:id="@+id/classroom_text_view"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/text_margin_top"
@@ -64,7 +64,7 @@
             android:layout_height="match_parent">
 
             <TextView
-                android:id="@+id/startTime"
+                android:id="@+id/start_time_text_view"
                 android:background="?colorAccent"
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
@@ -73,7 +73,7 @@
                 style="@style/TextOnDarkBackground"/>
 
             <TextView
-                android:id="@+id/endTime"
+                android:id="@+id/finish_time_text_view"
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
                 android:layout_weight="1"

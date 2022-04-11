@@ -12,14 +12,14 @@
     android:layout_height="wrap_content">
 
     <TextView
-        android:id="@+id/lectureName"
+        android:id="@+id/lecture_text_view"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         tools:text="Теория планирования эксперемента"
         style="@style/PrimaryTextStyle"/>
 
     <TextView
-        android:id="@+id/teacherName"
+        android:id="@+id/teacher_name_text_view"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/text_margin_top"

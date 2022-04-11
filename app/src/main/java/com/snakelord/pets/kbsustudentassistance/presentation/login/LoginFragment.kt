@@ -3,10 +3,9 @@ package com.snakelord.pets.kbsustudentassistance.presentation.login
 import android.content.Context
 import android.os.Bundle
 import android.text.TextWatcher
-import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
 import android.view.inputmethod.InputMethodManager
+import androidx.core.view.isVisible
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.navGraphViewModels
 import com.google.android.material.textfield.TextInputLayout
@@ -22,40 +21,32 @@ import com.snakelord.pets.kbsustudentassistance.presentation.common.simple_inter
  *
  * @author Murad Luguev on 27-08-2021
  */
-class LoginFragment : BaseFragment() {
+class LoginFragment : BaseFragment(R.layout.fragment_login) {
 
     private var loginFragmentBinding: FragmentLoginBinding? = null
     private val binding
-        get() = loginFragmentBinding!!
+        get() = requireBinding(loginFragmentBinding)
 
     private val loginViewModel: LoginViewModel by navGraphViewModels(navGraphId) { factory }
 
     private var secondNameTextWatcher: TextWatcher? = null
     private var recordBookNumberTextWatcher: TextWatcher? = null
 
-    override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?,
-    ): View {
-        loginFragmentBinding = FragmentLoginBinding.inflate(inflater, container, false)
-        return binding.root
-    }
-
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        loginFragmentBinding = FragmentLoginBinding.bind(view)
         initUI()
     }
 
     private fun initUI() {
-        showAll()
+        updateElementsVisibility(isVisible = true)
 
         initTextWatchers()
 
-        binding.secondName
+        binding.secondNameTextInputEditText
             .addTextChangedListener(secondNameTextWatcher)
 
-        binding.recordBookNumber
+        binding.recordBookNumberTextInputEditText
             .addTextChangedListener(recordBookNumberTextWatcher)
 
         binding.loginButton.setOnClickListener { login() }
@@ -86,8 +77,8 @@ class LoginFragment : BaseFragment() {
     private fun login() {
         hideKeyboard()
         loginViewModel.loginStudent(
-            binding.secondName.textToString(),
-            binding.recordBookNumber.textToString()
+            binding.secondNameTextInputEditText.textToString(),
+            binding.recordBookNumberTextInputEditText.textToString()
         )
     }
 
@@ -132,45 +123,32 @@ class LoginFragment : BaseFragment() {
     }
 
     private fun moveToMainFragment() {
-        hideAll()
+        updateElementsVisibility(isVisible = false)
         findNavController().apply {
             navigate(R.id.go_to_schedule)
             navigationCallback.showNavigationView()
         }
     }
 
-    private fun hideAll() {
-        binding.appName.gone()
-        binding.secondNameTextInputLayout.gone()
-        binding.recordBookNumberTextInputLayout.gone()
-        binding.loginButton.gone()
+    private fun updateElementsVisibility(isVisible: Boolean) {
+        binding.appNameTextView.isVisible = isVisible
+        binding.secondNameTextInputLayout.isVisible = isVisible
+        binding.recordBookNumberTextInputLayout.isVisible = isVisible
+        binding.loginButton.isVisible = isVisible
     }
 
-    private fun showAll() {
-        binding.appName.visible()
-        binding.secondNameTextInputLayout.visible()
-        binding.recordBookNumberTextInputLayout.visible()
-        binding.loginButton.visible()
-    }
-
-    private fun disableAll() {
-        binding.secondNameTextInputLayout.disable()
-        binding.recordBookNumberTextInputLayout.disable()
-        binding.loginButton.disable()
-    }
-
-    private fun enableAll() {
-        binding.secondNameTextInputLayout.enable()
-        binding.recordBookNumberTextInputLayout.enable()
-        binding.loginButton.enable()
+    private fun updateElementsEnabledState(isEnabled: Boolean) {
+        binding.secondNameTextInputLayout.isEnabled = isEnabled
+        binding.recordBookNumberTextInputLayout.isEnabled = isEnabled
+        binding.loginButton.isEnabled = isEnabled
     }
 
     override fun onLoading() {
-        disableAll()
+        updateElementsEnabledState(isEnabled = false)
     }
 
     override fun onSuccess() {
-        enableAll()
+        updateElementsEnabledState(isEnabled = true)
         moveToMainFragment()
     }
 
@@ -182,7 +160,7 @@ class LoginFragment : BaseFragment() {
             binding.recordBookNumberTextInputLayout.showError()
         }
 
-        enableAll()
+        updateElementsEnabledState(isEnabled = true)
     }
 
     override fun getOnTryAction(): (() -> Unit) {
@@ -192,8 +170,10 @@ class LoginFragment : BaseFragment() {
     override fun onStop() {
         super.onStop()
 
-        binding.secondName.removeTextChangedListener(secondNameTextWatcher)
-        binding.recordBookNumber.removeTextChangedListener(recordBookNumberTextWatcher)
+        binding.secondNameTextInputEditText.removeTextChangedListener(secondNameTextWatcher)
+        binding.recordBookNumberTextInputEditText.removeTextChangedListener(
+            recordBookNumberTextWatcher
+        )
     }
 
     override fun onDestroyView() {

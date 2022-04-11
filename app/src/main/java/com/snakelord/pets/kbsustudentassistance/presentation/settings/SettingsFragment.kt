@@ -12,7 +12,6 @@ import androidx.preference.PreferenceFragmentCompat
 import com.snakelord.pets.kbsustudentassistance.R
 import com.snakelord.pets.kbsustudentassistance.presentation.application.KbsuStudentAssistanceApp
 import com.snakelord.pets.kbsustudentassistance.presentation.common.extensions.navigationCallback
-import com.snakelord.pets.kbsustudentassistance.presentation.common.extensions.setPortraitOrientation
 import com.snakelord.pets.kbsustudentassistance.presentation.common.extensions.setUnspecifiedOrientation
 import com.snakelord.pets.kbsustudentassistance.presentation.common.state.UIStates
 import com.snakelord.pets.kbsustudentassistance.presentation.settings.extensions.sharedPreferences
@@ -70,9 +69,7 @@ class SettingsFragment : PreferenceFragmentCompat(),
     }
 
     override fun onPreferenceTreeClick(preference: Preference): Boolean {
-        if (preference.key == getString(R.string.logout_key)) {
-                showLogoutDialog()
-        }
+        if (preference.key == getString(R.string.logout_key)) showLogoutDialog()
         return super.onPreferenceTreeClick(preference)
     }
 

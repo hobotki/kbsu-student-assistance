@@ -10,7 +10,7 @@
     android:orientation="vertical">
 
     <TextView
-        android:id="@+id/instituteName"
+        android:id="@+id/institute_text_view"
         android:gravity="center"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -20,7 +20,7 @@
         style="@style/PrimaryTextStyle"/>
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/lectures"
+        android:id="@+id/lectures_recycler_view"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_margin="@dimen/default_margin"
@@ -29,14 +29,14 @@
         tools:listitem="@layout/item_lecture_minimal" />
 
     <Button
-        android:id="@+id/openOnMap"
+        android:id="@+id/open_on_map_button"
         android:text="@string/open_on_map"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="@dimen/default_margin"/>
 
     <Button
-        android:id="@+id/makeAPath"
+        android:id="@+id/make_a_path_button"
         android:text="@string/make_a_path"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

@@ -1,9 +1,7 @@
 package com.snakelord.pets.kbsustudentassistance.presentation.schedule
 
 import android.os.Bundle
-import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.navGraphViewModels
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -23,30 +21,20 @@ import java.util.*
  *
  * @author Murad Luguev on 01-09-2021
  */
-class ScheduleFragment : BaseFragment() {
+class ScheduleFragment : BaseFragment(R.layout.fragment_schedule) {
 
     private val scheduleViewModel: ScheduleViewModel by navGraphViewModels(navGraphId) { factory }
 
     private var fragmentScheduleBinding: FragmentScheduleBinding? = null
     private val binding
-        get() = fragmentScheduleBinding!!
-
-    override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?,
-    ): View {
-        fragmentScheduleBinding = FragmentScheduleBinding.inflate(
-            inflater,
-            container,
-            false)
-        return binding.root
-    }
+        get() = requireBinding(fragmentScheduleBinding)
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        fragmentScheduleBinding = FragmentScheduleBinding.bind(view)
         initWeekRecyclerView()
-        binding.schedule.layoutManager = LinearLayoutManager(requireContext())
+        binding.scheduleRecyclerView.layoutManager = LinearLayoutManager(requireContext())
         scheduleViewModel.selectedSchedule.observe(viewLifecycleOwner, ::showSchedule)
         scheduleViewModel.uiStates.observe(viewLifecycleOwner, ::updateUIState)
     }
@@ -60,33 +48,33 @@ class ScheduleFragment : BaseFragment() {
             scheduleViewModel::showScheduleByDay,
             today
         )
-        binding.week.adapter = weekAdapter
+        binding.weekRecyclerView.adapter = weekAdapter
     }
 
     override fun onLoading() {
-        binding.progressBar.visible()
-        binding.schedule.gone()
+        binding.progressBarCircular.visible()
+        binding.scheduleRecyclerView.gone()
         binding.appBarLayout.gone()
     }
 
     override fun onSuccess() {
-        binding.progressBar.gone()
-        binding.schedule.visible()
+        binding.progressBarCircular.gone()
+        binding.scheduleRecyclerView.visible()
         binding.appBarLayout.visible()
     }
 
     override fun showError(errorMessageResId: Int) {
         super.showError(errorMessageResId)
 
-        binding.progressBar.gone()
-        binding.schedule.visible()
+        binding.progressBarCircular.gone()
+        binding.scheduleRecyclerView.visible()
         binding.appBarLayout.gone()
         showSchedule(emptyList())
     }
 
     private fun showSchedule(schedule: List<Lecture>) {
         val lecturesAdapter = LecturesAdapter(schedule, ::showLocationById, getOnTryAction())
-        binding.schedule.adapter = lecturesAdapter
+        binding.scheduleRecyclerView.adapter = lecturesAdapter
     }
 
     private fun showLocationById(instituteId: Int) {

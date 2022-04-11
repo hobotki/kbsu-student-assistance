@@ -44,13 +44,13 @@ class MapsBottomSheetDialog : BottomSheetDialogFragment() {
         if (isYandexMapsInstalled) {
             hideErrorMessage()
             val yandexMapsUri = args.getString(YANDEX_MAPS_URI_KEY)
-            setButtonAction(binding.yandexMaps, yandexMapsUri)
+            setButtonAction(binding.yandexMapsButton, yandexMapsUri)
         }
 
         if (isGoogleMapsInstalled) {
             hideErrorMessage()
             val googleMapsUri = args.getString(GOOGLE_MAPS_URI_KEY)
-            setButtonAction(binding.googleMaps, googleMapsUri)
+            setButtonAction(binding.googleMapsButton, googleMapsUri)
         }
 
         if (!isYandexMapsInstalled && !isGoogleMapsInstalled) {
@@ -61,8 +61,8 @@ class MapsBottomSheetDialog : BottomSheetDialogFragment() {
     }
 
     private fun hideErrorMessage() {
-        binding.makeAPathErrorMessage.gone()
-        binding.installYandexMaps.gone()
+        binding.makeAPathErrorTextView.gone()
+        binding.installYandexMapsButton.gone()
     }
 
     private fun setButtonAction(button: Button, uri: String?) {
@@ -90,15 +90,15 @@ class MapsBottomSheetDialog : BottomSheetDialogFragment() {
                 directToAppStore()
             }
             else -> {
-                binding.installYandexMaps.gone()
-                binding.dismissDialog.visible()
-                binding.dismissDialog.setOnClickListener { dismiss() }
+                binding.installYandexMapsButton.gone()
+                binding.dismissButton.visible()
+                binding.dismissButton.setOnClickListener { dismiss() }
             }
         }
     }
 
     private fun directToAppStore() {
-        binding.installYandexMaps.setOnClickListener {
+        binding.installYandexMapsButton.setOnClickListener {
             openIntent(YANDEX_MAPS_PLAY_STORE_URI)
         }
     }

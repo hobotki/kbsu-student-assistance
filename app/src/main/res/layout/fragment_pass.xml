@@ -23,7 +23,7 @@
             android:layout_height="match_parent">
 
             <TextView
-                android:id="@+id/studentFullName"
+                android:id="@+id/student_full_name_text_view"
                 android:visibility="gone"
                 android:layout_marginTop="@dimen/default_margin"
                 android:layout_width="wrap_content"
@@ -31,7 +31,7 @@
                 style="@style/TextOnDarkBackground" />
 
             <TextView
-                android:id="@+id/year"
+                android:id="@+id/student_year_text_view"
                 android:visibility="gone"
                 android:layout_marginTop="@dimen/default_margin"
                 android:layout_width="match_parent"
@@ -44,7 +44,7 @@
                 android:layout_height="wrap_content">
 
                 <ImageView
-                    android:id="@+id/studentQrCode"
+                    android:id="@+id/qr_code_image_view"
                     android:visibility="invisible"
                     android:layout_gravity="center"
                     android:layout_width="@dimen/qr_code_image_view_size"
@@ -52,7 +52,7 @@
                     android:contentDescription="@string/qr_code_image_view_desc" />
 
                 <ProgressBar
-                    android:id="@+id/progressBar"
+                    android:id="@+id/progress_bar_circular"
                     android:indeterminateTint="@color/white"
                     android:layout_gravity="center"
                     android:layout_width="wrap_content"
@@ -65,7 +65,7 @@
     </androidx.cardview.widget.CardView>
 
     <TextView
-        android:id="@+id/guide_message"
+        android:id="@+id/guide_text_view"
         android:gravity="center"
         android:visibility="gone"
         android:padding="@dimen/default_padding"

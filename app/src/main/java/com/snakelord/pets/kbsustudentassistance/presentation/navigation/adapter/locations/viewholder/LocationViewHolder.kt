@@ -6,6 +6,7 @@ import com.snakelord.pets.kbsustudentassistance.presentation.common.extensions.v
 import com.snakelord.pets.kbsustudentassistance.domain.model.location.LocationModel
 import com.snakelord.pets.kbsustudentassistance.databinding.ItemInstituteBinding
 import com.snakelord.pets.kbsustudentassistance.presentation.navigation.adapter.lectures_minimal.LecturesMinimalAdapter
+import com.snakelord.pets.kbsustudentassistance.presentation.navigation.adapter.locations.LocationsAdapter
 
 /**
  * ViewHolder для отображения информации о локации
@@ -18,7 +19,7 @@ import com.snakelord.pets.kbsustudentassistance.presentation.navigation.adapter.
  */
 class LocationViewHolder(
     private val locationBinding: ItemInstituteBinding,
-    private val clickListener: (Int, Int) -> Unit
+    private val clickListener: (LocationsAdapter.Action, Int) -> Unit
 ) : RecyclerView.ViewHolder(locationBinding.root) {
 
     /**
@@ -27,21 +28,21 @@ class LocationViewHolder(
      * @param locationModel экземпляр [LocationModel]
      */
     fun bind(locationModel: LocationModel) {
-        locationBinding.instituteName.text = viewContext.getString(locationModel.enterRes)
+        locationBinding.instituteTextView.text = viewContext.getString(locationModel.enterRes)
 
         val linearLayoutManager = LinearLayoutManager(viewContext)
         linearLayoutManager.orientation = LinearLayoutManager.VERTICAL
         val lecturesMinimalAdapter = LecturesMinimalAdapter(locationModel.lectures)
 
-        locationBinding.lectures.layoutManager = linearLayoutManager
-        locationBinding.lectures.adapter = lecturesMinimalAdapter
+        locationBinding.lecturesRecyclerView.layoutManager = linearLayoutManager
+        locationBinding.lecturesRecyclerView.adapter = lecturesMinimalAdapter
 
-        locationBinding.openOnMap.setOnClickListener {
-            clickListener.invoke(locationBinding.openOnMap.id, adapterPosition)
+        locationBinding.openOnMapButton.setOnClickListener {
+            clickListener.invoke(LocationsAdapter.Action.OPEN_ON_MAP, adapterPosition)
         }
 
-        locationBinding.makeAPath.setOnClickListener {
-            clickListener.invoke(locationBinding.makeAPath.id, adapterPosition)
+        locationBinding.makeAPathButton.setOnClickListener {
+            clickListener.invoke(LocationsAdapter.Action.MAKE_A_PATH, adapterPosition)
         }
     }
 }

@@ -27,11 +27,9 @@ class DayViewHolder(
      * @param dayOfWeek модель дня недели [DayOfWeek]
      */
     fun bind(dayOfWeek: DayOfWeek) {
-        itemDayBinding.dayOfMonth.text = dayOfWeek.dayOfMonth.toString()
-        itemDayBinding.dayOfWeek.text = itemView.context.getString(dayOfWeek.dayOfWeek)
-        itemView.setOnClickListener {
-            itemClickListener.invoke(adapterPosition)
-        }
+        itemDayBinding.dayTextView.text = dayOfWeek.dayOfMonth.toString()
+        itemDayBinding.dayNameTextView.text = itemView.context.getString(dayOfWeek.dayOfWeek)
+        itemView.setOnClickListener { itemClickListener.invoke(adapterPosition) }
     }
 
     /**
@@ -41,15 +39,14 @@ class DayViewHolder(
      */
     fun updateSelectState(selectedItem: Int) {
         val isSelected = (selectedItem == adapterPosition)
-        if (isSelected) {
-            updateViewHolder(isSelected)
-        } else {
+        if (isSelected)
+            updateViewHolder(isSelected = isSelected)
+        else
             updateViewHolder(
-                isSelected,
-                R.color.primaryTextColor,
-                android.R.color.darker_gray
+                isSelected =isSelected,
+                dayInMonthColor = R.color.primaryTextColor,
+                dayInMonth = android.R.color.darker_gray
             )
-        }
     }
 
     private fun updateViewHolder(
@@ -59,14 +56,14 @@ class DayViewHolder(
     ) {
         itemView.isSelected = isSelected
 
-        itemDayBinding.dayOfMonth.setTextColor(
+        itemDayBinding.dayTextView.setTextColor(
             ContextCompat.getColor(
                 viewContext,
                 dayInMonthColor
             )
         )
 
-        itemDayBinding.dayOfWeek.setTextColor(
+        itemDayBinding.dayNameTextView.setTextColor(
             ContextCompat.getColor(
                 viewContext,
                 dayInMonth

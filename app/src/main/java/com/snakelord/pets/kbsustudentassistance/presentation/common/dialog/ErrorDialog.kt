@@ -41,7 +41,7 @@ class ErrorDialog : BottomSheetDialogFragment() {
         val args = requireArguments()
         val errorMessageId = args.getInt(ERROR_MESSAGE_KEY)
 
-        binding.errorMessage.text = getString(errorMessageId)
+        binding.errorMessageTextView.text = getString(errorMessageId)
 
         if (errorMessageId == R.string.requested_info_not_found || onTryAction == null) {
             binding.onTryButton.gone()

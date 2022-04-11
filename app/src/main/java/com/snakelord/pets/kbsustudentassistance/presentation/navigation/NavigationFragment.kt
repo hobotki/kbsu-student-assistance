@@ -1,9 +1,7 @@
 package com.snakelord.pets.kbsustudentassistance.presentation.navigation
 
 import android.os.Bundle
-import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
 import android.widget.LinearLayout
 import androidx.navigation.navGraphViewModels
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -29,11 +27,11 @@ import com.yandex.runtime.image.ImageProvider
  *
  * @author Murad Luguev on 26-08-2021
  */
-class NavigationFragment : BaseFragment() {
+class NavigationFragment : BaseFragment(R.layout.fragment_navigation) {
 
     private var fragmentNavigationBinding: FragmentNavigationBinding? = null
     private val binding
-        get() = fragmentNavigationBinding!!
+        get() = requireBinding(fragmentNavigationBinding)
 
     private val navigationViewModel: NavigationViewModel
             by navGraphViewModels(navGraphId) { factory }
@@ -42,35 +40,26 @@ class NavigationFragment : BaseFragment() {
 
     private var institutesBottomSheet: BottomSheetBehavior<LinearLayout>? = null
 
-    override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?,
-    ): View {
-        fragmentNavigationBinding = FragmentNavigationBinding.inflate(inflater, container, false)
-
-        initInstituteBottomSheet()
-
-        return binding.root
-    }
-
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        fragmentNavigationBinding = FragmentNavigationBinding.bind(view)
+
+        initInstituteBottomSheet()
 
         navigationViewModel.currentLocation.observe(viewLifecycleOwner, ::showSelectedPoint)
         navigationViewModel.locations.observe(viewLifecycleOwner, ::showLocationList)
 
-        binding.bottomSheetContent.institutes.layoutManager = LinearLayoutManager(requireContext())
+        binding.institutesBottomSheet.institutesRecyclerView.layoutManager =
+            LinearLayoutManager(requireContext())
 
-        binding.bottomSheetContent.dragView.setOnClickListener {
-            updateBottomSheetState()
-        }
+        binding.institutesBottomSheet.dragView.setOnClickListener { updateBottomSheetState() }
 
         checkArguments()
     }
 
     private fun initInstituteBottomSheet() {
-        institutesBottomSheet = BottomSheetBehavior.from(binding.bottomSheetContent.root)
+        institutesBottomSheet = BottomSheetBehavior.from(binding.institutesBottomSheet.root)
         bottomSheetCallback = getBottomSheetCallback()
         institutesBottomSheet?.addBottomSheetCallback(bottomSheetCallback)
     }
@@ -99,7 +88,7 @@ class NavigationFragment : BaseFragment() {
     }
 
     private fun setMapTheme() {
-        binding.mapView.setNightTheme(
+        binding.entranceMapView.setNightTheme(
             navigationViewModel.isAppInDarkTheme()
         )
     }
@@ -109,7 +98,7 @@ class NavigationFragment : BaseFragment() {
 
         MapKitFactory.getInstance()
             .onStart()
-        binding.mapView.onStart()
+        binding.entranceMapView.onStart()
 
         setMapTheme()
     }
@@ -130,7 +119,7 @@ class NavigationFragment : BaseFragment() {
 
     private fun showSelectedPoint(locationModel: LocationModel) {
         institutesBottomSheet?.collapse()
-        binding.mapView.map.move(
+        binding.entranceMapView.map.move(
             CameraPosition(locationModel.locationPoint, MAP_ZOOM, MAP_AZIMUTH, MAP_TILT),
             Animation(Animation.Type.SMOOTH, ZOOM_ANIMATION_DURATION),
             null
@@ -143,7 +132,7 @@ class NavigationFragment : BaseFragment() {
             navigationViewModel::showSelectedEntrance,
             ::makeAPath
         )
-        binding.bottomSheetContent.institutes.adapter = locationsAdapter
+        binding.institutesBottomSheet.institutesRecyclerView.adapter = locationsAdapter
 
         addPlaceMarks(locations)
     }
@@ -159,9 +148,7 @@ class NavigationFragment : BaseFragment() {
 
     private fun addPlaceMarks(locations: List<LocationModel>) {
         for (location in locations) {
-            binding.mapView
-                .map
-                .mapObjects
+            binding.entranceMapView.map.mapObjects
                 .addPlacemark(location.locationPoint,
                     ImageProvider.fromResource(
                         requireContext(),
@@ -180,7 +167,7 @@ class NavigationFragment : BaseFragment() {
     override fun onStop() {
         super.onStop()
 
-        binding.mapView.onStop()
+        binding.entranceMapView.onStop()
         MapKitFactory.getInstance()
             .onStop()
 

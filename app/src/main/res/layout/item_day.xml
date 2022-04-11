@@ -11,7 +11,7 @@
     android:layout_height="wrap_content">
 
     <TextView
-        android:id="@+id/day_of_month"
+        android:id="@+id/day_text_view"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center"
@@ -19,7 +19,7 @@
         style="@style/PrimaryTextStyle"/>
 
     <TextView
-        android:id="@+id/day_of_week"
+        android:id="@+id/day_name_text_view"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center"

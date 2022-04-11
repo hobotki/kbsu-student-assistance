@@ -21,7 +21,7 @@ class LecturesMinimalViewHolder(
      * @param lecture модель лекции
      */
     fun bind(lecture: Lecture) {
-        itemLectureMinimalBinding.lectureName.text = lecture.lectureName
-        itemLectureMinimalBinding.teacherName.text = lecture.teacher
+        itemLectureMinimalBinding.lectureTextView.text = lecture.lectureName
+        itemLectureMinimalBinding.teacherNameTextView.text = lecture.teacher
     }
 }

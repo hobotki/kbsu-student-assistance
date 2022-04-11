@@ -3,7 +3,6 @@ package com.snakelord.pets.kbsustudentassistance.domain.interactor.pass
 import androidx.annotation.WorkerThread
 import com.snakelord.pets.kbsustudentassistance.data.datasource.database.entity.student.StudentEntity
 import com.snakelord.pets.kbsustudentassistance.domain.mapper.Mapper
-import com.snakelord.pets.kbsustudentassistance.domain.mapper.pass.StudentDataMapper
 import com.snakelord.pets.kbsustudentassistance.domain.model.pass.Student
 import com.snakelord.pets.kbsustudentassistance.domain.repository.pass.PassRepository
 import io.reactivex.rxjava3.core.Single

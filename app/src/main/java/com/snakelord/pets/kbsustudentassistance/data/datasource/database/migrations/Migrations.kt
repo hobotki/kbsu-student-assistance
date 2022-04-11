@@ -1,6 +1,5 @@
 package com.snakelord.pets.kbsustudentassistance.data.datasource.database.migrations
 
-import androidx.room.RenameColumn
 import androidx.room.migration.Migration
 import androidx.sqlite.db.SupportSQLiteDatabase
 import com.snakelord.pets.kbsustudentassistance.data.datasource.database.DatabaseConst.StudentTable

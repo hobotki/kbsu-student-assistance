@@ -1,7 +1,6 @@
 package com.snakelord.pets.kbsustudentassistance.di.common.component
 
 import android.app.Application
-import android.content.Context
 import androidx.lifecycle.ViewModelProvider
 import com.snakelord.pets.kbsustudentassistance.data.datasource.database.Database
 import com.snakelord.pets.kbsustudentassistance.data.datasource.database.dao.schedule.ScheduleDao

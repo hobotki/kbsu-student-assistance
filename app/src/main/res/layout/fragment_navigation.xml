@@ -5,12 +5,12 @@
     android:layout_height="match_parent">
 
     <com.yandex.mapkit.mapview.MapView
-        android:id="@+id/mapView"
+        android:id="@+id/entrance_map_view"
         android:layout_width="match_parent"
         android:layout_height="match_parent"/>
 
     <include
-        android:id="@+id/bottomSheetContent"
+        android:id="@+id/institutes_bottom_sheet"
         layout="@layout/bottom_sheet_institutes"/>
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

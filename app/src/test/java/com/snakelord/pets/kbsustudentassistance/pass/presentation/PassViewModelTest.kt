@@ -12,10 +12,6 @@ import io.mockk.*
 import io.reactivex.rxjava3.core.Single
 import org.junit.Rule
 import org.junit.Test
-import org.junit.runner.RunWith
-import org.powermock.api.mockito.PowerMockito
-import org.powermock.core.classloader.annotations.PrepareForTest
-import org.powermock.modules.junit4.PowerMockRunner
 
 class PassViewModelTest {
 
