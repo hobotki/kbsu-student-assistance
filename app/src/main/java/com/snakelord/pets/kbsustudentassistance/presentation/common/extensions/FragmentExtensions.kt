@@ -13,16 +13,16 @@ import com.snakelord.pets.kbsustudentassistance.presentation.main.NavigationCall
  * @author Murad Luguev on 27-08-2021
  */
 val Fragment.navigationCallback: NavigationCallback
-    get() = activity as NavigationCallback
+    get() = requireActivity() as NavigationCallback
 
 /**
- * Функция-расширение для фрагметов
+ * Функция-расширение для фрагментов
  *
  * Устанавливает портретную ориентацию для фрагмента
  */
 @SuppressLint("SourceLockedOrientationActivity")
 fun Fragment.setPortraitOrientation() {
-    activity?.requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_PORTRAIT
+    requireActivity().requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_PORTRAIT
 }
 
 /**
@@ -31,5 +31,5 @@ fun Fragment.setPortraitOrientation() {
  * Устанавливает "свободную" ориентацию для фрагмента
  */
 fun Fragment.setUnspecifiedOrientation() {
-    activity?.requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_UNSPECIFIED
+    requireActivity().requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_UNSPECIFIED
 }

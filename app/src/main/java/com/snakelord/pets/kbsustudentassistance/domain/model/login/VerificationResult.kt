@@ -24,5 +24,9 @@ enum class VerificationResult {
     /**
      * Поле содержит недопустимые символы
      */
-    FIELD_CONTAINS_INVALID_SYMBOLS
+    FIELD_CONTAINS_INVALID_SYMBOLS;
+
+    fun isSuccessful(): Boolean {
+        return this == SUCCESSFUL
+    }
 }

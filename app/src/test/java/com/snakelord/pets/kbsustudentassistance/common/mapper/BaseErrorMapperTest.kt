@@ -147,7 +147,7 @@ class BaseErrorMapperTest {
             OperationError(R.string.server_unavailable)
 
         private val NOT_FOUND_EXPECTED_RESULT =
-            OperationError(R.string.requested_info_not_found)
+            OperationError(R.string.unable_to_recognize_user)
 
         private val REQUEST_TIMEOUT_EXPECTED_RESULT =
             OperationError(R.string.request_timeout_error)

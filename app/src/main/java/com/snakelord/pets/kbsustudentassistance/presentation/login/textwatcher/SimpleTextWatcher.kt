@@ -1,4 +1,4 @@
-package com.snakelord.pets.kbsustudentassistance.presentation.common.simple_interfaces
+package com.snakelord.pets.kbsustudentassistance.presentation.login.textwatcher
 
 import android.text.Editable
 import android.text.TextWatcher

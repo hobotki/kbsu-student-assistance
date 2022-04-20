@@ -44,7 +44,7 @@ class BaseErrorMapper @Inject constructor(): Mapper<Throwable, OperationError> {
                 OperationError(R.string.server_unavailable)
             }
             NOT_FOUND -> {
-                OperationError(R.string.requested_info_not_found)
+                OperationError(R.string.unable_to_recognize_user)
             }
             REQUEST_TIMEOUT -> {
                 OperationError(R.string.request_timeout_error)

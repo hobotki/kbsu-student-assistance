@@ -2,7 +2,6 @@ package com.snakelord.pets.kbsustudentassistance.presentation.common.viewmodel.f
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
-import com.snakelord.pets.kbsustudentassistance.di.login.component.DaggerLoginComponent
 import com.snakelord.pets.kbsustudentassistance.di.navigation.component.DaggerNavigationComponent
 import com.snakelord.pets.kbsustudentassistance.di.pass.component.DaggerPassComponent
 import com.snakelord.pets.kbsustudentassistance.di.pass.component.PassComponent
@@ -26,30 +25,24 @@ class ViewModelFactory @Inject constructor() : ViewModelProvider.Factory {
     private val applicationComponent = KbsuStudentAssistanceApp.applicationComponent
 
     override fun <T : ViewModel> create(modelClass: Class<T>): T {
-        return when {
-            modelClass.isAssignableFrom(LoginViewModel::class.java) -> {
-                createLoginViewModel() as T
-            }
-            modelClass.isAssignableFrom(NavigationViewModel::class.java) -> {
-                createNavigationViewModel() as T
-            }
-            modelClass.isAssignableFrom(ScheduleViewModel::class.java) -> {
-                createScheduleViewModel() as T
-            }
-            modelClass.isAssignableFrom(PassViewModel::class.java) -> {
-                createPassViewModel() as T
-            }
-            modelClass.isAssignableFrom(SettingsViewModel::class.java) -> {
-                createSettingsViewModel() as T
-            }
+        val viewModel = when(modelClass) {
+            LoginViewModel::class.java -> createLoginViewModel()
+
+            NavigationViewModel::class.java -> createNavigationViewModel()
+
+            ScheduleViewModel::class.java -> createScheduleViewModel()
+
+            PassViewModel::class.java -> createPassViewModel()
+
+            SettingsViewModel::class.java -> createSettingsViewModel()
+
             else -> throw IllegalStateException()
         }
+        return viewModel as T
     }
 
     private fun createLoginViewModel(): LoginViewModel {
-        val loginComponent = DaggerLoginComponent.builder()
-            .applicationComponent(applicationComponent)
-            .build()
+        val loginComponent = applicationComponent.loginComponent()
         return LoginViewModel(
             loginComponent.loginInteractor(),
             applicationComponent.schedulersProvider(),

@@ -9,6 +9,7 @@ import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.snakelord.pets.kbsustudentassistance.R
 import com.snakelord.pets.kbsustudentassistance.presentation.common.extensions.gone
 import com.snakelord.pets.kbsustudentassistance.presentation.common.extensions.visible
+import kotlin.properties.Delegates.notNull
 
 /**
  * Главное и единственное Activity в приложении. Выступает хостом для всех фрагментов
@@ -17,7 +18,7 @@ import com.snakelord.pets.kbsustudentassistance.presentation.common.extensions.v
  */
 class MainActivity : AppCompatActivity(), NavigationCallback {
 
-    private lateinit var bottomNavigationView: BottomNavigationView
+    private var bottomNavigationView: BottomNavigationView by notNull()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         setTheme(R.style.Theme_KBSUStudentAssistance)
@@ -41,9 +42,7 @@ class MainActivity : AppCompatActivity(), NavigationCallback {
     override fun onRestoreInstanceState(savedInstanceState: Bundle) {
         super.onRestoreInstanceState(savedInstanceState)
 
-        if (savedInstanceState.getBoolean(NAVIGATION_VISIBILITY_KEY)) {
-            showNavigationView()
-        }
+        showNavigationBar(savedInstanceState.getBoolean(NAVIGATION_VISIBILITY_KEY))
     }
 
     override fun hideBottomNavigationView() {
@@ -52,6 +51,10 @@ class MainActivity : AppCompatActivity(), NavigationCallback {
 
     override fun showNavigationView() {
         bottomNavigationView.visible()
+    }
+
+    override fun showNavigationBar(show: Boolean) {
+        bottomNavigationView.isVisible = show
     }
 
     companion object {
