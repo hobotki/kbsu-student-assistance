@@ -1,12 +1,10 @@
 <resources>
-    <string name="app_name">KBSU Student Assistance</string>
+    <string name="app_name">My University</string>
     <string name="second_name_hint">Second name</string>
     <string name="record_book_hint">Record book number</string>
     <string name="authorisation">Log in</string>
-    <string name="second_name_is_empty">Second name is empty</string>
-    <string name="second_name_too_short">Second name length is too short</string>
-    <string name="record_book_is_empty">Record book number is empty</string>
-    <string name="record_book_too_short">Record book number length is too short</string>
+    <string name="field_is_empty">Field is empty</string>
+    <string name="text_is_too_short">Text length less than minimum</string>
     <string name="field_contains_invalid_character">Filed contains invalid characters</string>
     <string name="something_went_wrong">Something went wrong. Try again later</string>
     <string name="connection_timeout">Request timed out</string>
@@ -14,7 +12,7 @@
     <string name="request_illegal_state">Unable to make request</string>
     <string name="internal_server_error">Internal server error</string>
     <string name="server_unavailable">Server is unavailable</string>
-    <string name="requested_info_not_found">The requested information was not found</string>
+    <string name="unable_to_recognize_user">Unable to recognize user</string>
     <string name="request_timeout_error">Response timed out</string>
     <string name="unknown_error_code">Unknown error code</string>
     <string name="schedule">Schedule</string>

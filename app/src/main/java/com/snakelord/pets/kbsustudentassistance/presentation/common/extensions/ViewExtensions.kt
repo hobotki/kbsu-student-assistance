@@ -5,8 +5,6 @@ import android.view.View
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.bottomsheet.BottomSheetBehavior.STATE_COLLAPSED
 import com.google.android.material.bottomsheet.BottomSheetBehavior.STATE_EXPANDED
-import com.google.android.material.textfield.TextInputEditText
-import com.google.android.material.textfield.TextInputLayout
 
 /**
  * Функция-расширение для [View]
@@ -15,6 +13,7 @@ import com.google.android.material.textfield.TextInputLayout
  *
  * @author Murad Luguev on 27-08-2021
  */
+@Deprecated("Использовать свойство View.isVisible")
 fun View.visible() {
     visibility = View.VISIBLE
 }
@@ -26,6 +25,7 @@ fun View.visible() {
  *
  * @author Murad Luguev on 11-09-2021
  */
+@Deprecated("Использовать свойство View.isVisible")
 fun View.invisible() {
     visibility = View.INVISIBLE
 }
@@ -37,6 +37,7 @@ fun View.invisible() {
  *
  * @author Murad Luguev on 27-08-2021
  */
+@Deprecated("Использовать свойство View.isVisible")
 fun View.gone() {
     visibility = View.GONE
 }
@@ -56,87 +57,6 @@ fun View.shake() {
             this@shake.translationX = it.animatedValue as Float
         }
     }.start()
-}
-
-/**
- * Функция-расширение для [View]
- *
- * Переводит [View] в состояние DISABLED, когда с ней не возможно взаимодейстовать
- *
- * @author Murad Luguev on 27-08-2021
- */
-fun View.disable() {
-    isEnabled = false
-}
-
-/**
- * Функция-расширение для [View]
- *
- * Переводит [View] в состояние ENABLED, когда с ней возможно взаимодействовать
- *
- * @author Murad Luguev on 27-08-2021
- */
-fun View.enable() {
-    isEnabled = true
-}
-
-/**
- * Функция-расширение для [TextInputLayout]
- *
- * Отображает текст ошибки, переданный в качестве параметра
- *
- * @param message текст ошибки, по умолчанию [null]
- *
- * @author Murad Luguev on 27-08-2021
- */
-fun TextInputLayout.showError(message: String? = null) {
-    isErrorEnabled = true
-    if (message == null) {
-        showErrorWithEmptyMessage()
-    }
-    else {
-        getErrorTextView().visible()
-        error = message
-    }
-    shake()
-}
-
-/**
- * Функция-расширение для [TextInputLayout]
- *
- * Переводит [TextInputLayout] в состояние отображения ошибки
- *
- * @author Murad Luguev on 27-08-2021
- */
-fun TextInputLayout.showErrorWithEmptyMessage() {
-    getErrorTextView()
-        .gone()
-    error = " "
-}
-
-/**
- * Функция-расширение для [TextInputLayout]
- *
- * Возвращает [View] для отображения текста ошибки
- * @return [View] для отображения текста ошибки
- *
- * @author Murad Luguev on 27-08-2021
- */
-fun TextInputLayout.getErrorTextView(): View {
-    return getChildAt(1)
-}
-
-/**
- * Функция-расширение для [TextInputEditText]
- *
- * Преобразует [Editable] в [String]
- *
- * @return содержимое [TextInputEditText] в виде строки
- *
- * @author Murad Luguev on 27-08-2021
- */
-fun TextInputEditText.textToString(): String {
-    return text.toString()
 }
 
 /**

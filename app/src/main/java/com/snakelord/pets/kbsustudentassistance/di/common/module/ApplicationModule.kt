@@ -29,7 +29,7 @@ class ApplicationModule {
     /**
      * Функция для создания экземпляра [Database]
      *
-     * @param context экземпляр класса [Context] для создания/получения файла базы данных
+     * @param [application] экземпляр класса [Application] для создания/получения файла базы данных
      * @return экземпляр [Database]
      */
     @Provides
@@ -109,7 +109,7 @@ class ApplicationModule {
     /**
      * Предоставляет [ThemeChanger] для изменения/получения текущей темы
      *
-     * @param context контекст для получения информации о используемой системой теме
+     * @param application контекст для получения информации о используемой системой теме
      * @param settingsSharedPreferences преференсы для зменеия/получения текущей темы
      *
      * @return экземпляр [ThemeChanger]
@@ -123,6 +123,6 @@ class ApplicationModule {
     }
 
     companion object {
-        private const val CONNECTION_TIMEOUT = 3L
+        private const val CONNECTION_TIMEOUT = 10L
     }
 }

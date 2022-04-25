@@ -9,13 +9,16 @@ import com.snakelord.pets.kbsustudentassistance.di.common.module.ApplicationModu
 import com.snakelord.pets.kbsustudentassistance.di.common.module.BaseErrorMapperModule
 import com.snakelord.pets.kbsustudentassistance.di.common.module.SchedulersProviderModule
 import com.snakelord.pets.kbsustudentassistance.di.common.module.ViewModelFactoryModule
+import com.snakelord.pets.kbsustudentassistance.di.login.component.LoginComponent
 import com.snakelord.pets.kbsustudentassistance.domain.mapper.Mapper
 import com.snakelord.pets.kbsustudentassistance.domain.model.error.OperationError
+import com.snakelord.pets.kbsustudentassistance.presentation.common.fragment.BaseFragment
 import com.snakelord.pets.kbsustudentassistance.presentation.common.schedulers.SchedulersProvider
 import com.snakelord.pets.kbsustudentassistance.presentation.common.theme.ThemeChanger
 import dagger.BindsInstance
 import dagger.Component
 import okhttp3.OkHttpClient
+import java.lang.Exception
 import javax.inject.Singleton
 
 /**
@@ -96,6 +99,20 @@ interface ApplicationComponent {
      * @return экземпляр [ThemeChanger]
      */
     fun themeChanger(): ThemeChanger
+
+    /**
+     * Метод для предоставления [LoginComponent]
+     *
+     * @return экземпляр [LoginComponent]
+     */
+    fun loginComponent(): LoginComponent
+
+    /**
+     * Метод для иньъекции зависимостей в класс-наследник от [BaseFragment]
+     *
+     * @param fragment цель для инъекции
+     */
+    fun inject(fragment: BaseFragment)
 
     /**
      * Builder для создания экземпляра [ApplicationComponent] с дополнительными параметрами

@@ -32,12 +32,12 @@ class LoginViewModel(
     }
 
     private val secondNameVerificationResult = MutableLiveData<VerificationResult>()
-    val secondNameVerification: LiveData<VerificationResult>
-        get() = secondNameVerificationResult
+    val secondNameVerification
+        get(): LiveData<VerificationResult> = secondNameVerificationResult
 
     private val recordBookVerificationResult = MutableLiveData<VerificationResult>()
-    val recordBookVerification: LiveData<VerificationResult>
-        get() = recordBookVerificationResult
+    val recordBookVerification
+        get(): LiveData<VerificationResult> = recordBookVerificationResult
 
     /**
      * Функция для авторизации студента
@@ -46,16 +46,13 @@ class LoginViewModel(
      * @param recordBookNumber номер зачетной книжки студента
      */
     fun loginStudent(secondName: String, recordBookNumber: String) {
-        secondNameVerificationResult.value =
-            loginInteractor.verifySecondName(secondName)
-
-        recordBookVerificationResult.value =
-            loginInteractor.verifyRecordBookNumber(recordBookNumber)
-
-        if (secondNameVerificationResult.value == VerificationResult.SUCCESSFUL &&
-            recordBookVerificationResult.value == VerificationResult.SUCCESSFUL
-        ) {
+        val secondNameResult = loginInteractor.verifySecondName(secondName)
+        val recordBookNumberResult = loginInteractor.verifyRecordBookNumber(recordBookNumber)
+        if (secondNameResult.isSuccessful() && recordBookNumberResult.isSuccessful()) {
             login(secondName, recordBookNumber)
+        } else {
+            secondNameVerificationResult.value = secondNameResult
+            recordBookVerificationResult.value = recordBookNumberResult
         }
     }
 
@@ -66,7 +63,7 @@ class LoginViewModel(
             .subscribeOn(schedulersProvider.io())
             .subscribe(
                 { studentDto -> saveStudent(studentDto) },
-                { throwable -> performError(throwable) }
+                { throwable -> handleException(throwable) }
             )
         compositeDisposable.add(loginDisposable)
     }
@@ -77,7 +74,7 @@ class LoginViewModel(
             .subscribeOn(schedulersProvider.io())
             .subscribe(
                 { updateUIState(UIStates.Successful) },
-                { throwable -> performError(throwable) }
+                { throwable -> handleException(throwable) }
             )
         compositeDisposable.add(saveStudentDisposable)
     }

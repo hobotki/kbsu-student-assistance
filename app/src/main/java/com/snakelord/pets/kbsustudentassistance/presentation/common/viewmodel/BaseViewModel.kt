@@ -40,7 +40,7 @@ abstract class BaseViewModel(
      *
      * @param throwable исключение
      */
-    protected fun performError(throwable: Throwable) {
+    protected fun handleException(throwable: Throwable) {
         errorMapper?.let { mapper ->
             val error = mapper.map(throwable)
             updateUIState(UIStates.Error(error))

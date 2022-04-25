@@ -150,10 +150,10 @@ class LoginViewModelTest {
 
         //Assert
         verifySequence {
-            secondNameVerificationResultObserver.onChanged(VERIFICATION_SUCCESSFUL)
-            recordBookNumberVerificationResultObserver.onChanged(VERIFICATION_SUCCESSFUL)
             uiStatesObserver.onChanged(STATE_LOADING)
             uiStatesObserver.onChanged(expectedUIState)
+            secondNameVerificationResultObserver wasNot Called
+            recordBookNumberVerificationResultObserver wasNot Called
         }
     }
 
@@ -258,7 +258,7 @@ class LoginViewModelTest {
 
         private val CONNECTION_ERROR = OperationError(R.string.failed_to_connect_to_server)
         private val CONNECTION_TIMEOUT = OperationError(R.string.connection_timeout)
-        private val BAD_RESPONSE_ERROR = OperationError(R.string.requested_info_not_found)
+        private val BAD_RESPONSE_ERROR = OperationError(R.string.unable_to_recognize_user)
         private val ILLEGAL_STATE_ERROR = OperationError(R.string.request_illegal_state)
     }
 }

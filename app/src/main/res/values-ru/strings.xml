@@ -1,12 +1,10 @@
 <resources>
-    <string name="app_name">Помощник студента КБГУ</string>
+    <string name="app_name">Мой университет</string>
     <string name="second_name_hint">Фамилия</string>
     <string name="record_book_hint">Номер зачетной книжки</string>
     <string name="authorisation">Вход</string>
-    <string name="second_name_is_empty">Фамилия не заполнена</string>
-    <string name="second_name_too_short">Длина фамилии не соответствует минимальной</string>
-    <string name="record_book_is_empty">Номер зачетной книжки не заполнен</string>
-    <string name="record_book_too_short">Длина номера зачетной книжки не соответствует минимальной</string>
+    <string name="field_is_empty">Поле не заполнено</string>
+    <string name="text_is_too_short">Длина текста меньше минимальной</string>
     <string name="field_contains_invalid_character">Поле содержит недопустимые символы</string>
     <string name="something_went_wrong">Что-то пошло не так. Попробуйте позже</string>
     <string name="connection_timeout">Превышено время ожидания запроса</string>
@@ -14,7 +12,7 @@
     <string name="request_illegal_state">Не удалось выполнить запрос</string>
     <string name="internal_server_error">Произошла ошибка со стороны сервера</string>
     <string name="server_unavailable">Не удалось связаться с сервером</string>
-    <string name="requested_info_not_found">Запрашиваемая информация не найдена</string>
+    <string name="unable_to_recognize_user">Не удалось определить пользователя</string>
     <string name="request_timeout_error">Превышено время ожидания ответа</string>
     <string name="unknown_error_code">Неизвестный код ошибки</string>
     <string name="schedule">Расписание</string>

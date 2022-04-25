@@ -63,7 +63,7 @@ class ScheduleViewModel(
                 .subscribeOn(schedulersProvider.io())
                 .subscribe(
                     { scheduleFromApi -> saveSchedule(scheduleFromApi) },
-                    { throwable -> performError(throwable) }
+                    { throwable -> handleException(throwable) }
                 )
         compositeDisposable.add(getSchedulerFromApiDisposable)
     }

@@ -2,7 +2,6 @@ package com.snakelord.pets.kbsustudentassistance.presentation.login
 
 import android.content.Context
 import android.os.Bundle
-import android.text.TextWatcher
 import android.view.View
 import android.view.inputmethod.InputMethodManager
 import androidx.core.view.isVisible
@@ -12,9 +11,12 @@ import com.google.android.material.textfield.TextInputLayout
 import com.snakelord.pets.kbsustudentassistance.R
 import com.snakelord.pets.kbsustudentassistance.databinding.FragmentLoginBinding
 import com.snakelord.pets.kbsustudentassistance.domain.model.login.VerificationResult
-import com.snakelord.pets.kbsustudentassistance.presentation.common.extensions.*
+import com.snakelord.pets.kbsustudentassistance.presentation.common.extensions.navigationCallback
+import com.snakelord.pets.kbsustudentassistance.presentation.common.extensions.requireViewBinding
 import com.snakelord.pets.kbsustudentassistance.presentation.common.fragment.BaseFragment
-import com.snakelord.pets.kbsustudentassistance.presentation.common.simple_interfaces.SimpleTextWatcher
+import com.snakelord.pets.kbsustudentassistance.presentation.login.extensions.showError
+import com.snakelord.pets.kbsustudentassistance.presentation.login.extensions.fieldAsString
+import com.snakelord.pets.kbsustudentassistance.presentation.login.textwatcher.ErrorDisablingTextWatcher
 
 /**
  * Фрагмен авторизации
@@ -25,12 +27,9 @@ class LoginFragment : BaseFragment(R.layout.fragment_login) {
 
     private var loginFragmentBinding: FragmentLoginBinding? = null
     private val binding
-        get() = requireBinding(loginFragmentBinding)
+        get() = requireViewBinding(loginFragmentBinding)
 
     private val loginViewModel: LoginViewModel by navGraphViewModels(navGraphId) { factory }
-
-    private var secondNameTextWatcher: TextWatcher? = null
-    private var recordBookNumberTextWatcher: TextWatcher? = null
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -39,46 +38,25 @@ class LoginFragment : BaseFragment(R.layout.fragment_login) {
     }
 
     private fun initUI() {
-        updateElementsVisibility(isVisible = true)
-
-        initTextWatchers()
-
-        binding.secondNameTextInputEditText
-            .addTextChangedListener(secondNameTextWatcher)
-
-        binding.recordBookNumberTextInputEditText
-            .addTextChangedListener(recordBookNumberTextWatcher)
-
+        updateElementsVisibility(visible = true)
         binding.loginButton.setOnClickListener { login() }
 
-        loginViewModel.secondNameVerification
-            .observe(viewLifecycleOwner, ::showSecondNameFieldError)
+        loginViewModel.secondNameVerification.observe(viewLifecycleOwner) { result ->
+            showFieldError(result, binding.secondNameTextInputLayout)
+        }
 
-        loginViewModel.recordBookVerification
-            .observe(viewLifecycleOwner, ::showRecordBookNumberFieldError)
+        loginViewModel.recordBookVerification.observe(viewLifecycleOwner) { result ->
+            showFieldError(result, binding.recordBookNumberTextInputLayout)
+        }
 
         loginViewModel.uiStates.observe(viewLifecycleOwner, ::updateUIState)
-    }
-
-    private fun initTextWatchers() {
-        secondNameTextWatcher = createTextWatcher(binding.secondNameTextInputLayout)
-
-        recordBookNumberTextWatcher = createTextWatcher(binding.recordBookNumberTextInputLayout)
-    }
-
-    private fun createTextWatcher(textInputLayout: TextInputLayout): TextWatcher {
-        return object : SimpleTextWatcher() {
-            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
-                textInputLayout.isErrorEnabled = false
-            }
-        }
     }
 
     private fun login() {
         hideKeyboard()
         loginViewModel.loginStudent(
-            binding.secondNameTextInputEditText.textToString(),
-            binding.recordBookNumberTextInputEditText.textToString()
+            secondName = binding.secondNameTextInputEditText.fieldAsString(),
+            recordBookNumber = binding.recordBookNumberTextInputEditText.fieldAsString()
         )
     }
 
@@ -87,94 +65,57 @@ class LoginFragment : BaseFragment(R.layout.fragment_login) {
             .getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
 
         inputMethodManager.hideSoftInputFromWindow(
-            requireView().windowToken, InputMethodManager.RESULT_UNCHANGED_SHOWN)
+            requireView().windowToken, InputMethodManager.RESULT_UNCHANGED_SHOWN
+        )
     }
 
-    private fun showSecondNameFieldError(result: VerificationResult) {
-        if (result == VerificationResult.FIELD_IS_TOO_SHORT) {
-            binding.secondNameTextInputLayout.showError(getString(R.string.second_name_too_short))
-        }
-        if (result == VerificationResult.FIELD_IS_EMPTY) {
-            binding.secondNameTextInputLayout.showError(getString(R.string.second_name_is_empty))
-        }
-        if (result == VerificationResult.FIELD_CONTAINS_INVALID_SYMBOLS) {
-            binding.secondNameTextInputLayout.showError(getString(
-                R.string.field_contains_invalid_character)
-            )
-        }
-    }
+    private fun showFieldError(result: VerificationResult, textInputLayout: TextInputLayout) {
+        val messageResId = when (result) {
+            VerificationResult.FIELD_IS_TOO_SHORT -> R.string.text_is_too_short
 
-    private fun showRecordBookNumberFieldError(result: VerificationResult) {
-        if (result == VerificationResult.FIELD_IS_TOO_SHORT) {
-            binding.recordBookNumberTextInputLayout.showError(getString(
-                R.string.record_book_too_short)
-            )
+            VerificationResult.FIELD_IS_EMPTY -> R.string.field_is_empty
+
+            VerificationResult.FIELD_CONTAINS_INVALID_SYMBOLS ->
+                R.string.field_contains_invalid_character
+
+            VerificationResult.SUCCESSFUL -> return
         }
-        if (result == VerificationResult.FIELD_IS_EMPTY) {
-            binding.recordBookNumberTextInputLayout.showError(getString(
-                R.string.record_book_is_empty)
-            )
-        }
-        if (result == VerificationResult.FIELD_CONTAINS_INVALID_SYMBOLS) {
-            binding.recordBookNumberTextInputLayout.showError(getString(
-                R.string.field_contains_invalid_character)
-            )
-        }
+        textInputLayout.showError(getString(messageResId))
+        textInputLayout.editText?.addTextChangedListener(ErrorDisablingTextWatcher(textInputLayout))
     }
 
     private fun moveToMainFragment() {
-        updateElementsVisibility(isVisible = false)
+        updateElementsVisibility(visible = false)
         findNavController().apply {
             navigate(R.id.go_to_schedule)
-            navigationCallback.showNavigationView()
+            navigationCallback.showNavigationBar(show = true)
         }
     }
 
-    private fun updateElementsVisibility(isVisible: Boolean) {
-        binding.appNameTextView.isVisible = isVisible
-        binding.secondNameTextInputLayout.isVisible = isVisible
-        binding.recordBookNumberTextInputLayout.isVisible = isVisible
-        binding.loginButton.isVisible = isVisible
+    private fun updateElementsVisibility(visible: Boolean) {
+        binding.appNameTextView.isVisible = visible
+        binding.secondNameTextInputLayout.isVisible = visible
+        binding.recordBookNumberTextInputLayout.isVisible = visible
+        binding.loginButton.isVisible = visible
     }
 
-    private fun updateElementsEnabledState(isEnabled: Boolean) {
-        binding.secondNameTextInputLayout.isEnabled = isEnabled
-        binding.recordBookNumberTextInputLayout.isEnabled = isEnabled
-        binding.loginButton.isEnabled = isEnabled
+    private fun updateElementsEnabledState(enabled: Boolean) {
+        binding.secondNameTextInputLayout.isEnabled = enabled
+        binding.recordBookNumberTextInputLayout.isEnabled = enabled
+        binding.loginButton.isEnabled = enabled
     }
 
-    override fun onLoading() {
-        updateElementsEnabledState(isEnabled = false)
-    }
+    override fun onLoading() = updateElementsEnabledState(enabled = false)
 
-    override fun onSuccess() {
-        updateElementsEnabledState(isEnabled = true)
-        moveToMainFragment()
-    }
+    override fun onSuccess() = moveToMainFragment()
 
     override fun showError(errorMessageResId: Int) {
         super.showError(errorMessageResId)
 
-        if (errorMessageResId == R.string.requested_info_not_found) {
-            binding.secondNameTextInputLayout.showError()
-            binding.recordBookNumberTextInputLayout.showError()
-        }
-
-        updateElementsEnabledState(isEnabled = true)
+        updateElementsEnabledState(enabled = true)
     }
 
-    override fun getOnTryAction(): (() -> Unit) {
-        return ::login
-    }
-
-    override fun onStop() {
-        super.onStop()
-
-        binding.secondNameTextInputEditText.removeTextChangedListener(secondNameTextWatcher)
-        binding.recordBookNumberTextInputEditText.removeTextChangedListener(
-            recordBookNumberTextWatcher
-        )
-    }
+    override fun getOnTryAction(): (() -> Unit) = ::login
 
     override fun onDestroyView() {
         super.onDestroyView()

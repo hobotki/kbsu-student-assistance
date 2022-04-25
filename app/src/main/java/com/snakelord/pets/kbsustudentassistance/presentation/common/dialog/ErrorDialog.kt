@@ -10,6 +10,7 @@ import com.snakelord.pets.kbsustudentassistance.R
 import com.snakelord.pets.kbsustudentassistance.databinding.DialogErrorBinding
 import com.snakelord.pets.kbsustudentassistance.presentation.common.extensions.expand
 import com.snakelord.pets.kbsustudentassistance.presentation.common.extensions.gone
+import com.snakelord.pets.kbsustudentassistance.presentation.common.extensions.requireViewBinding
 
 /**
  * Диалог для отображения информации об ошибке
@@ -20,7 +21,7 @@ class ErrorDialog : BottomSheetDialogFragment() {
 
     private var errorDialogBinding: DialogErrorBinding? = null
     private val binding
-        get() = errorDialogBinding!!
+        get() = requireViewBinding(errorDialogBinding)
 
     private var onTryAction: (() -> Unit)? = null
 
@@ -43,7 +44,7 @@ class ErrorDialog : BottomSheetDialogFragment() {
 
         binding.errorMessageTextView.text = getString(errorMessageId)
 
-        if (errorMessageId == R.string.requested_info_not_found || onTryAction == null) {
+        if (errorMessageId == R.string.unable_to_recognize_user || onTryAction == null) {
             binding.onTryButton.gone()
         }
 
